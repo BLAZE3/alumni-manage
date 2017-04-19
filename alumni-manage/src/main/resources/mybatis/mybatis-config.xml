@@ -20,14 +20,14 @@
 	    <setting name="callSettersOnNulls" value="true"/>
 	</settings>
 	
-	<!-- 注册实体类 -->
-	<typeAliases>
+	<!-- 实体类别名代替全路径名配置,applicationContext.xml做了扫描,所以不用单独注册 -->
+	<!-- <typeAliases>
 		<package name="cn.blaze.domain"/>
 		<package name="cn.blaze.Vo"/>
-	</typeAliases>
+	</typeAliases> -->
 	
-	<!-- 注册xml文件 -->
-	<mappers>
-		<!-- <mapper resource="com/gtja/quality/service/impl/PdmQualityManagementServiceImpl.xml"/> -->
-	</mappers>
+	<!-- 注册xml文件,applicationContext.xml做了扫描,所以不用单独注册 -->
+	<!-- <mappers>
+		<mapper resource="cn/blaze/mapper/StudentServiceImpl.xml"/>
+	</mappers> -->
 </configuration>
