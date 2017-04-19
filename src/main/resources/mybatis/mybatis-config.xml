@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="true"/>  
+	    <setting name="lazyLoadingEnabled" value="true"/>  
+	    <setting name="multipleResultSetsEnabled" value="true"/>  
+	    <setting name="useColumnLabel" value="true"/>  
+	    <setting name="useGeneratedKeys" value="false"/>  
+	    <setting name="defaultExecutorType" value="SIMPLE"/>  
+	    <setting name="defaultStatementTimeout" value="100"/>  
+	    <setting name="safeRowBoundsEnabled" value="false"/>  
+	    <setting name="mapUnderscoreToCamelCase" value="false"/>  
+	    <setting name="localCacheScope" value="SESSION"/>  
+	    <setting name="jdbcTypeForNull" value="OTHER"/>  
+	    <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/> 
+	    <setting name="callSettersOnNulls" value="true"/>
+	</settings>
+	
+	<!-- 实体类别名代替全路径名配置,applicationContext.xml做了扫描,所以不用单独注册 -->
+	<!-- <typeAliases>
+		<package name="cn.blaze.domain"/>
+		<package name="cn.blaze.Vo"/>
+	</typeAliases> -->
+	
+	<!-- 注册xml文件,applicationContext.xml做了扫描,所以不用单独注册 -->
+	<!-- <mappers>
+		<mapper resource="cn/blaze/mapper/StudentServiceImpl.xml"/>
+	</mappers> -->
+</configuration>
