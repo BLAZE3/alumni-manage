@@ -166,6 +166,13 @@
 		    <artifactId>mail</artifactId>
 		    <version>1.4</version>
 		</dependency>
+		<!-- excel导出 -->
+		<dependency>
+		    <groupId>net.sourceforge.jexcelapi</groupId>
+		    <artifactId>jxl</artifactId>
+		    <version>2.6.12</version>
+		</dependency>
+		
 	</dependencies>
 	
 	<build>
@@ -195,6 +202,9 @@
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.4</version>
+				<configuration>
+					<version>3.0</version>
+				</configuration>
 			</plugin>
 		</plugins>
 		<pluginManagement>

