@@ -1,5 +1,9 @@
 package cn.blaze.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +17,21 @@ public class UserInfoServiceImpl implements UserInfoService {
 	private UserInfoDao userInfoDao;
 
 	@Override
-	public UserInfo queryStudentInfoByStudentId(String studentId) {
-		return null;
+	public UserInfo queryUserInfoById(String id) {
+		return userInfoDao.selectById(id);
+	}
+
+	@Override
+	public void updateUserInfoById(UserInfo db_userInfo) {
+		userInfoDao.updateById(db_userInfo);
+	}
+
+	@Override
+	public UserInfo queryUserInfoByStudentId(String studentId) {
+		Map<String, Object> map = new HashMap<String, Object>(1);
+		map.put("studentId", studentId);
+		List<UserInfo> list = userInfoDao.selectByParameter(map);
+		return list!=null?list.get(0):null;
 	}
 	
 }

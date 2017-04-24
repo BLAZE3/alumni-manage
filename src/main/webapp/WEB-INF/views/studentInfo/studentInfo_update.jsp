@@ -14,7 +14,7 @@
 		// 提交表单
 		$("#submit_btn").click(function(){
 			if(confirm("确认提交?")){
-				$("#student_register_form").submit();
+				$("#student_update_form").submit();
 			}
 		});
 	});
@@ -22,49 +22,41 @@
 </script>
 <body>
 	<form id="student_update_form" action="studentInfo/updateStudentInfo" method="post">
-		<input type="hidden" name="id" value="${student.id}">
+		<input type="hidden" name="id" value="${studentInfo.id}">
 		<table>
 			<thead></thead>
 			<tbody>
 				<tr>
 					<td>用户账号</td>
-					<td><input type="text" name="userName" placeholder="16位以内数字、英文字母和下划线组成" value="${student.id}"></td>
-				</tr>
-				<tr>
-					<td>密码</td>
-					<td><input type="password" name="password" value="${student.password}"></td>
-				</tr>
-				<tr>
-					<td>确认密码</td>
-					<td><input type="password" name="repassword"></td>
+					<td><input type="text" name="userName" value="${userInfo.userName}" disabled="disabled"></td>
 				</tr>
 				<tr>
 					<td>姓名</td>
-					<td><input type="text" name="studentName" value="${student.studentName}"></td>
+					<td><input type="text" name="studentName" value="${studentInfo.studentName}"></td>
 				</tr>
 				<tr>
 					<td>年龄</td>
-					<td><input type="text" name="age" value="${student.age}"></td>
+					<td><input type="text" name="age" value="${studentInfo.age}"></td>
 				</tr>
 				<tr>
 					<td>手机号</td>
-					<td><input type="text" name="telephone" value="${student.telephone}"></td>
+					<td><input type="text" name="telephone" value="${studentInfo.telephone}"></td>
 				</tr>
 				<tr>
 					<td>联系地址</td>
-					<td><input type="text" name="address" value="${student.address}"></td>
+					<td><input type="text" name="address" value="${studentInfo.address}"></td>
 				</tr>
 				<tr>
 					<td>邮箱</td>
-					<td><input type="text" name="email" value="${student.email}"></td>
+					<td><input type="text" name="email" value="${studentInfo.email}"></td>
 				</tr>
 				<tr>
 					<td>QQ</td>
-					<td><input type="text" name="wechat" value="${student.wechat}"></td>
+					<td><input type="text" name="wechat" value="${studentInfo.wechat}"></td>
 				</tr>
 				<tr>
 					<td>微信</td>
-					<td><input type="text" name="qq" value="${student.qq}"></td>
+					<td><input type="text" name="qq" value="${studentInfo.qq}"></td>
 				</tr>
 			</tbody>
 			<tfoot>

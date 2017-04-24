@@ -58,9 +58,27 @@ public class StudentInfoController extends BaseController{
 	@RequestMapping("forwardStudentInfoUpdate")
 	public String forwardStudentInfoUpdate(HttpServletRequest request){
 		String studentId = request.getParameter("studentId");// 获取登录的学生信息
-		StudentInfo studentInfo = studentInfoService.queryStudentInfoById(studentId);
-		UserInfo userInfo = userInfoService.queryStudentInfoByStudentId(studentId);
+		studentId="d8b706386fc446289e0b93c18bd94a72";
+		StudentInfo studentInfo = studentInfoService.queryStudentInfoById(studentId);// 学生信息
+		UserInfo userInfo = userInfoService.queryUserInfoByStudentId(studentId);// 用户信息
+		request.setAttribute("studentInfo", studentInfo);
+		request.setAttribute("userInfo", userInfo);
 		return "studentInfo/studentInfo_update";
+	}
+	
+	/**
+	 * @Title updateStudentInfo
+	 * @Description：更新学生信息
+	 * @param request
+	 * @return
+	 * @user LiuLei 2017年4月24日
+	 * @updater：
+	 * @updateTime：
+	 */
+	@RequestMapping("updateStudentInfo")
+	public String updateStudentInfo(StudentInfo studentInfo, HttpServletRequest request){
+		studentInfoService.updateStudentInfoById(studentInfo);
+		return "redirect:/studentInfo/forwardStudentInfoUpdate";
 	}
 	
 	@RequestMapping("studentRegister")

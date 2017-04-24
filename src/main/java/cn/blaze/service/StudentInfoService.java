@@ -50,4 +50,14 @@ public interface StudentInfoService {
 	 * @updateTime：
 	 */
 	StudentInfo queryStudentInfoById(String studentId);
+
+	/**
+	 * @Title updateStudentInfoById
+	 * @Description：根据Id更新学生信息
+	 * @param studentInfo
+	 * @user LiuLei 2017年4月24日
+	 * @updater：
+	 * @updateTime：
+	 */
+	void updateStudentInfoById(StudentInfo studentInfo);
 }

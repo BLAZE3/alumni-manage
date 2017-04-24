@@ -2,6 +2,8 @@ package cn.blaze.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +14,50 @@ import jxl.write.Label;import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
 public class BaseController {
+	
+	/**
+	 * @Title printValidFormString
+	 * @Description：将数据以json格式输出,可用于异步请求.编码为utf-8
+	 * @param response
+	 * @param info 对应key为info
+	 * @param data 对应的key为data
+	 * @throws IOException
+	 * @user LiuLei 2017年4月24日
+	 * @updater：
+	 * @updateTime：
+	 */
+	protected void printJsonData(HttpServletResponse response, String info, String data) throws IOException {
+        response.setContentType("html/txt");
+        response.setCharacterEncoding("utf-8");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Cache-Control", "no-cache, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        PrintWriter printWriter = response.getWriter();
+        StringBuffer msg = new StringBuffer();
+        msg.append("{\"info\":\"" + info + "\"");
+        if (data != null && !"".equals(data)) {
+            msg.append(",\"data\":\"" + data + "\"");
+        } else
+            msg.append(",\"data\":\"\"");
+        msg.append("}");
+        printWriter.write(msg.toString());
+        printWriter.flush();
+        printWriter.close();
+    }
+	
+	/**
+	 * @Title buildJsonMap
+	 * @Description：封装为待转为json数据的Map。参数info对应key为info,参数data对应的key为data
+	 * @user LiuLei 2017年3月7日
+	 * @updater：
+	 * @updateTime：
+	 */
+	protected Map<String, Object> buildJsonMap(String info, Object data){
+		Map<String, Object> resultmap = new HashMap<String, Object>(2);
+		resultmap.put("info", info);
+		resultmap.put("data", data);
+		return resultmap;
+	}
 	
 	/**
 	 * 导出为Excel文件的方法

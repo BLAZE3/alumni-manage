@@ -1,5 +1,10 @@
 package cn.blaze.dao;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
 import cn.blaze.domain.UserInfo;
 
 public interface UserInfoDao {
@@ -13,5 +18,37 @@ public interface UserInfoDao {
 	 * @updateTime：
 	 */
 	void insertUserInfoWithIdAuto(UserInfo userInfo);
+
+	/**
+	 * @Title selectByParameter
+	 * @Description：条件查询用户信息
+	 * @param map
+	 * @return
+	 * @user LiuLei 2017年4月24日
+	 * @updater：
+	 * @updateTime：
+	 */
+	List<UserInfo> selectByParameter(Map<String, Object> map);
+
+	/**
+	 * @Title selectById
+	 * @Description：根据id查询
+	 * @param id
+	 * @return
+	 * @user LiuLei 2017年4月24日
+	 * @updater：
+	 * @updateTime：
+	 */
+	UserInfo selectById(@Param("id")String id);
+
+	/**
+	 * @Title updateById
+	 * @Description：根据Id更新
+	 * @param db_userInfo
+	 * @user LiuLei 2017年4月24日
+	 * @updater：
+	 * @updateTime：
+	 */
+	void updateById(UserInfo db_userInfo);
 
 }

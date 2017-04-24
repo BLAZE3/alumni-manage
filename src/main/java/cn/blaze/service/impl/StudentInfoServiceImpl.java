@@ -62,4 +62,9 @@ public class StudentInfoServiceImpl implements StudentInfoService {
 		return studentInfoDao.selectById(studentId);
 	}
 
+	@Override
+	public void updateStudentInfoById(StudentInfo studentInfo) {
+		studentInfoDao.updateById(studentInfo);
+	}
+
 }
