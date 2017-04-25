@@ -28,4 +28,15 @@ public interface EducationInfoDao {
 	 */
 	List<EducationInfo> selectByParameters(Map<String, Object> map);
 
+	/**
+	 * @Title deleteById
+	 * @Description：根据id删除
+	 * @param id
+	 * @return 受影响条数
+	 * @user LiuLei 2017年4月25日
+	 * @updater：
+	 * @updateTime：
+	 */
+	int deleteById(String id);
+
 }

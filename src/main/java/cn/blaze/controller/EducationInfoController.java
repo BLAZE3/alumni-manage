@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.blaze.domain.EducationInfo;
 import cn.blaze.service.EducationInfoService;
@@ -19,7 +21,7 @@ import cn.blaze.vo.EducationInfoVo;
 
 @Controller
 @RequestMapping("/educationInfo")
-public class EducationInfoController {
+public class EducationInfoController extends BaseController{
 	@Autowired
 	private EducationInfoService educationInfoService;
 	
@@ -72,6 +74,27 @@ public class EducationInfoController {
 		}
 		
 		educationInfoService.addEductionInfo(educationInfoVo);
+	}
+	
+	/**
+	 * @Title delEducationById
+	 * @Description：根据id删除学历信息
+	 * @param request
+	 * @user LiuLei 2017年4月25日
+	 * @updater：
+	 * @updateTime：
+	 */
+	@ResponseBody
+	@RequestMapping("delEducationById")
+	public Map<String, Object> delEducationById(HttpServletRequest request){
+		String id = request.getParameter("id")!=null?request.getParameter("id"):"";
+		if(!"".equals(id)){
+			boolean res = educationInfoService.delEducationById(id);
+			if(res){
+				return buildJsonMap("success", null);
+			}
+		}
+		return buildJsonMap("删除失败,或该条已被删除!", null);
 	}
 	
 }

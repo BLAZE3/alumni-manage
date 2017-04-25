@@ -32,4 +32,14 @@ public class EducationInfoServiceImpl implements EducationInfoService {
 		return educationInfoDao.selectByParameters(map);
 	}
 
+	@Override
+	public boolean delEducationById(String id) {
+		int res = educationInfoDao.deleteById(id);
+		if(res>0){
+			return true;
+		}else {
+			return false;
+		}
+	}
+
 }

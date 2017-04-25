@@ -28,4 +28,15 @@ public interface EducationInfoService {
 	 */
 	List<EducationInfo> findEducationInfoByStudentId(String studentId);
 
+	/**
+	 * @Title delEducationById
+	 * @Description：根据id删除学历信息
+	 * @param id
+	 * @return  成功返回true
+	 * @user LiuLei 2017年4月25日
+	 * @updater：
+	 * @updateTime：
+	 */
+	boolean delEducationById(String id);
+
 }
