@@ -33,5 +33,20 @@ public class UserInfoServiceImpl implements UserInfoService {
 		List<UserInfo> list = userInfoDao.selectByParameter(map);
 		return list!=null?list.get(0):null;
 	}
+
+	@Override
+	public List<UserInfo> queryUserInfoByParameter(Map<String, Object> map) {
+		return userInfoDao.selectByParameter(map);
+	}
+
+	@Override
+	public UserInfo queryUserInfoByUserNameAndPassword(Map<String, Object> map) {
+		List<UserInfo> list = this.queryUserInfoByParameter(map);
+		if(list!=null && list.size()>0){
+			return list.get(0);
+		}else {
+			return null;
+		}
+	}
 	
 }

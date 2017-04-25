@@ -1,5 +1,8 @@
 package cn.blaze.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +36,21 @@ public class UserController extends BaseController{
 	 * @updateTime：
 	 */
 	@RequestMapping("login")
-	public String login(HttpServletRequest request){
-		return "login";
+	public String login(UserInfo userInfo, HttpServletRequest request){
+		String userName = userInfo.getUserName()!=null?userInfo.getUserName():"";
+		String password = userInfo.getPassword()!=null?userInfo.getPassword():"";
+		if(!"".equals(userName) && !"".equals(password)){
+			
+			Map<String, Object> map = new HashMap<String, Object>(2);
+			map.put("userName", userName);
+			map.put("password", password);
+			UserInfo user = userInfoService.queryUserInfoByUserNameAndPassword(map);
+			if(user != null){// 登陆成功
+				return "index/userIndex";
+			}
+		}
+		request.setAttribute("msg", "用户名或密码错误!");
+		return "index/login";
 	}
 	
 	/**

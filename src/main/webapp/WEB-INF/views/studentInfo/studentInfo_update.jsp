@@ -58,6 +58,11 @@
 					<td>微信</td>
 					<td><input type="text" name="qq" value="${studentInfo.qq}"></td>
 				</tr>
+				<tr>
+					<td colspan="2">
+						<a href="educationInfo/forwardEducationInfoPage" target="_blank">学历信息</a>
+					</td>
+				</tr>
 			</tbody>
 			<tfoot>
 				<tr>

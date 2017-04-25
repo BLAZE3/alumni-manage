@@ -79,6 +79,10 @@
 	    </if>
   </select>
   
+  <delete id="deleteById" parameterType="java.lang.String">
+    delete from education_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
   <!-- 
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -86,11 +90,6 @@
     from education_info
     where id = #{id,jdbcType=VARCHAR}
   </select>
-  
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from education_info
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
   
   <insert id="insertSelective" parameterType="cn.blaze.domain.EducationInfo">
     insert into education_info

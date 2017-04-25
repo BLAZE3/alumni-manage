@@ -1,5 +1,8 @@
 package cn.blaze.service;
 
+import java.util.List;
+import java.util.Map;
+
 import cn.blaze.domain.UserInfo;
 
 
@@ -36,5 +39,27 @@ public interface UserInfoService {
 	 * @updateTime：
 	 */
 	UserInfo queryUserInfoByStudentId(String studentId);
+
+	/**
+	 * @Title queryUserInfoByParameter
+	 * @Description：条件查询用户信息
+	 * @param map
+	 * @return
+	 * @user LiuLei 2017年4月25日
+	 * @updater：
+	 * @updateTime：
+	 */
+	List<UserInfo> queryUserInfoByParameter(Map<String, Object> map);
+
+	/**
+	 * @Title queryUserInfoByUserNameAndPassword
+	 * @Description：根据用户名密码查询用户信息
+	 * @param map
+	 * @return  查询不到返回null
+	 * @user LiuLei 2017年4月25日
+	 * @updater：
+	 * @updateTime：
+	 */
+	UserInfo queryUserInfoByUserNameAndPassword(Map<String, Object> map);
 
 }

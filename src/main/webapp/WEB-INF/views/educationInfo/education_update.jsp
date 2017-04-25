@@ -17,6 +17,23 @@
 			//location.reload();
 		});
 	});
+	
+	function delEducationById(id){
+		var url = "educationInfo/delEducationById";
+		$.post(
+				url,
+				{"id":id},
+				function(data){// 回调函数
+					if(data.info=="success"){
+						location.reload();// 刷新
+					}else {
+						alert(data.info);
+					}
+				},
+				"json"
+			);
+	}
+	
 </script>
 <body>
 	<form id="add_education_form" action="educationInfo/addEducationInfo" method="post">
@@ -102,9 +119,9 @@
 						<!-- <input type="text" name="userName" placeholder="请输入毕业年份"> -->
 					</td>
 					<td>
-						<button id="update_btn" type="button">修改</button>
+						<button id="update_btn" type="button" onclick="updateEducation()">修改</button>
 						&nbsp;&nbsp;
-						<button id="del_btn" type="button">删除</button>
+						<button id="del_btn" type="button" onclick="delEducationById('${education.id}')">删除</button>
 					</td>
 				</tr>
 			</c:forEach>
