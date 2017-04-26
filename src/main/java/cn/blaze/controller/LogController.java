@@ -8,26 +8,21 @@ package cn.blaze.controller;
 
 
 import cn.blaze.consts.RetCode;
-import cn.blaze.controller.BaseController;
 import cn.blaze.domain.po.Log;
-import cn.blaze.domain.vo.AjaxResult;
 import cn.blaze.service.LogService;
 import cn.blaze.utils.TimeUtils;
 import org.apache.commons.collections.map.HashedMap;
-import org.apache.http.Consts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +45,7 @@ public class LogController extends BaseController {
     @RequestMapping("ajax/logList")
     public void logList(HttpServletRequest request,
                         HttpServletResponse response,
-                        @RequestParam(value = "", required = false) String actorid,
+                        @RequestParam(defaultValue = "", required = false) String actorid,
                         @RequestParam String starttime,
                         @RequestParam String endtime
     ) throws IOException {

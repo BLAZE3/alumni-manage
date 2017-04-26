@@ -15,6 +15,18 @@
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.blaze.domain.po.News">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
+  <resultMap id="BaseResultMapAll" type="cn.blaze.domain.po.News">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="publisher" jdbcType="VARCHAR" property="publisher" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="starttime" jdbcType="TIMESTAMP" property="starttime" />
+    <result column="endtime" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="inserttime" jdbcType="TIMESTAMP" property="inserttime" />
+    <result column="isvalid" jdbcType="CHAR" property="isvalid" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
 
   <sql id="Base_Column_List">
     id, title, author, publisher, position, starttime, endtime, inserttime, isvalid
@@ -23,8 +35,21 @@
     content
   </sql>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+  <select id="selectByTimeSize" parameterType="Map" resultMap="BaseResultMapAll">
     select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from TB_NEWS
+    where
+    <![CDATA[
+    isvalid = "Y" AND starttime < #{date} AND endtime > #{date}
+    limit #{size}
+    ]]>
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -37,14 +62,17 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
 
-  <insert id="insert" parameterType="cn.blaze.domain.po.News">
-    insert into TB_NEWS (id, title, author, 
-      publisher, position, starttime, 
+  <insert id="insert" parameterType="cn.blaze.domain.po.News" keyProperty="id">
+    <selectKey keyProperty="id" resultType="String" order="BEFORE">
+      select replace(uuid(),'-','') from dual
+    </selectKey>
+    insert into TB_NEWS (id, title, author,
+      publisher, `position`, starttime,
       endtime, inserttime, isvalid, 
       content)
-    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR},
       #{publisher,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{starttime,jdbcType=TIMESTAMP}, 
-      #{endtime,jdbcType=TIMESTAMP}, #{inserttime,jdbcType=TIMESTAMP}, #{isvalid,jdbcType=CHAR}, 
+      #{endtime,jdbcType=TIMESTAMP}, #{inserttime,jdbcType=TIMESTAMP}, #{isvalid},
       #{content,jdbcType=LONGVARCHAR})
   </insert>
 
@@ -60,4 +88,12 @@
       isvalid = #{isvalid,jdbcType=CHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <update id="updateValid" parameterType="String">
+    update TB_NEWS
+    set
+    isvalid = 'N'
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
 </mapper>

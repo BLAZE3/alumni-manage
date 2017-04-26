@@ -1,7 +1,11 @@
 package cn.blaze.dao;
 
 import cn.blaze.domain.po.News;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.Date;
+import java.util.List;
 
 public interface NewsDao {
     int deleteByPrimaryKey(String id);
@@ -17,4 +21,8 @@ public interface NewsDao {
     int updateByPrimaryKeyWithBLOBs(News record);
 
     int updateByPrimaryKey(News record);
+
+    List<News> selectByTimeSize(@Param("size") int size, @Param("date") Date date);
+
+    int updateValid(String id);
 }
