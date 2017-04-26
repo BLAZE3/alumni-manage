@@ -7,14 +7,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 
+import cn.blaze.domain.vo.AjaxResult;
+import cn.blaze.utils.HttpParamUtil;
+import com.alibaba.fastjson.JSONObject;
 import jxl.Workbook;
 import jxl.write.Label;import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BaseController {
-	
+	private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
 	/**
 	 * @Title printValidFormString
 	 * @Description：将数据以json格式输出,可用于异步请求.编码为utf-8
@@ -116,6 +124,45 @@ public class BaseController {
 				}
 			}
 		}
+	}
+
+	public AjaxResult initAjaxResult(int code) {
+		AjaxResult result = new AjaxResult(code);
+		return result;
+	}
+
+	public AjaxResult initAjaxResult(int code, Object data) {
+		AjaxResult result = new AjaxResult(code, data);
+		return result;
+	}
+
+	/**
+	 * 适配json/jsonp返回
+	 * @param request
+	 * @param response
+	 * @param ajaxResult
+	 * @throws IOException
+	 */
+	public void writeJsonP(HttpServletRequest request,
+						   HttpServletResponse response, AjaxResult ajaxResult) throws IOException {
+		String callback = HttpParamUtil.getRequestStringParam(request,
+				"callback", "");
+
+		StringBuilder sb = new StringBuilder();
+		if (StringUtils.isNotBlank(callback)) {
+			sb.append(callback).append("(");
+		}
+		sb.append(JSONObject.toJSONString(ajaxResult));
+		if (StringUtils.isNotBlank(callback)) {
+			sb.append(");");
+		}
+		String jsonContent = sb.toString();
+		HttpServletResponseWrapper wrapper = new HttpServletResponseWrapper(
+				response);
+		wrapper.setContentType("application/json;charset=utf-8");
+		//wrapper.setHeader("Content-length", "" + jsonContent.getBytes().length);
+		response.getWriter().print(jsonContent);
+		response.getWriter().flush();
 	}
 	
 }

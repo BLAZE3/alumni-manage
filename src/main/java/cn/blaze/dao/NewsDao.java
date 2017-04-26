@@ -3,8 +3,7 @@ package cn.blaze.dao;
 import cn.blaze.domain.po.News;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface NewsMapper {
+public interface NewsDao {
     int deleteByPrimaryKey(String id);
 
     int insert(News record);
