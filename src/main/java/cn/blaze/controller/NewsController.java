@@ -10,6 +10,7 @@ package cn.blaze.controller;
 import cn.blaze.consts.Consts;
 import cn.blaze.consts.RetCode;
 import cn.blaze.domain.po.News;
+import cn.blaze.domain.vo.NewsVO;
 import cn.blaze.service.NewsService;
 import cn.blaze.utils.TimeUtils;
 import org.apache.commons.collections.map.HashedMap;
@@ -38,14 +39,41 @@ public class NewsController extends BaseController {
     @Autowired
     private NewsService newsService;
 
+    /**
+     * 获取新闻列表
+     * @param request
+     * @param response
+     * @param size
+     * @throws IOException
+     */
     @RequestMapping("ajax/newsList")
     public void newsList(HttpServletRequest request,
                          HttpServletResponse response,
                          @RequestParam(defaultValue = "10",required = false) int size
     ) throws IOException {
         Map<String, Object> result = new HashedMap();
-        List<News> newsList = newsService.queryNewList(size);
+        List<NewsVO> newsList = newsService.queryNewList(size);
         result.put("newsList",newsList);
+        writeJsonP(request, response,
+                initAjaxResult(RetCode.SUCCESS.code, result));
+        return;
+    }
+
+    /**
+     * 获取新闻详情
+     * @param request
+     * @param response
+     * @param id
+     * @throws IOException
+     */
+    @RequestMapping("ajax/newsInfo")
+    public void newsInfo(HttpServletRequest request,
+                         HttpServletResponse response,
+                         @RequestParam String id
+    ) throws IOException {
+        Map<String, Object> result = new HashedMap();
+        News news = newsService.queryNew(id);
+        result.put("news",news);
         writeJsonP(request, response,
                 initAjaxResult(RetCode.SUCCESS.code, result));
         return;

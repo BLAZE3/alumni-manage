@@ -1,4 +1,58 @@
 <pre>
+
+http://www.chengshuo678.cn/alumni-manage/news/ajax/newsInfo?id=67d7cdfe2a8011e7a39952540092c7fd
+
 ====接口文档====
+
+获取新闻列表
+/alumni-manage/news/ajax/newsList
+传入参数
+    size|获取列表数目|int|选填|默认10
+返回结果
+    {
+        code: 200,
+        content: {
+            newsList: [
+                {
+                    id: "cc01d8c82a8011e7a39952540092c7fd",
+                    time: "01月09日",
+                    title: "1"
+                },
+                {
+                    id: "cd01d8c82a8011e7a39952540092c7fd",
+                    time: "01月09日",
+                    title: "1"
+                }
+            ]
+        },
+        msg: "SUCCESS"
+    }
+
+============================================
+查询新闻详情
+/news/ajax/newsInfo
+传入参数：
+   id|新闻id|String|必填
+传出参数：
+{
+    code: 200,
+    content: {
+        news: {
+            author: "1",
+            content: "2",
+            endtime: 1493211670000,
+            id: "67d7cdfe2a8011e7a39952540092c7fd",
+            inserttime: 1493211670000,
+            isvalid: "N",
+            position: "3",
+            publisher: "4",
+            starttime: 1493211670000,
+            title: "5"
+        }
+    },
+    msg: "SUCCESS"
+}
+
+
 
 </pre>
