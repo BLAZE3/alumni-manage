@@ -4,7 +4,7 @@ http://www.chengshuo678.cn/alumni-manage/news/ajax/newsInfo?id=67d7cdfe2a8011e7a
 
 ====接口文档====
 
-获取新闻列表
+获取新闻列表(get)
 /alumni-manage/news/ajax/newsList
 传入参数
     size|获取列表数目|int|选填|默认10
@@ -29,7 +29,7 @@ http://www.chengshuo678.cn/alumni-manage/news/ajax/newsInfo?id=67d7cdfe2a8011e7a
     }
 
 ============================================
-查询新闻详情
+查询新闻详情(get)
 /news/ajax/newsInfo
 传入参数：
    id|新闻id|String|必填
@@ -52,6 +52,82 @@ http://www.chengshuo678.cn/alumni-manage/news/ajax/newsInfo?id=67d7cdfe2a8011e7a
     },
     msg: "SUCCESS"
 }
+
+=======================================
+发布新闻（POST）
+alumni-manage/news/ajax/addNews
+传入参数：
+    starttime|生效时间|String|必填|eg：2017-01-09 22:33:00
+    endtime|结束时间|String|必填|eg：2017-01-09 22:33:00
+    title|标题|String|必填|
+    content|标题|String|必填|
+    publisher|标题|String|必填|
+    author|标题|String|必填|
+    position|标题|String|必填|
+返回结果：
+成功：
+         {
+            code: 200,
+            msg: "SUCCESS"
+         }
+服务器错误：
+         {
+            code: 500
+         }
+eg:
+http://www.chengshuo678.cn/alumni-manage/news/ajax/addNews?starttime=2017-01-09%2022:33:00&endtime=2018-09-09%2022:33:00&title=1&content=2&author=4&publisher=5&position=test
+
+================================
+删除新闻（get）
+ajax/delete
+传入参数：
+    id|新闻id|String|必填
+返回结果：
+成功：
+         {
+            code: 200,
+            msg: "SUCCESS"
+         }
+服务器错误：
+         {
+            code: 500
+         }
+================================
+更新新闻（POST）
+alumni-manage/news/ajax/update
+传入参数：
+    starttime|生效时间|String|必填|eg：2017-01-09 22:33:00
+    endtime|结束时间|String|必填|eg：2017-01-09 22:33:00
+    title|标题|String|必填|
+    content|标题|String|必填|
+    publisher|标题|String|必填|
+    author|标题|String|必填|
+    position|标题|String|必填|
+    id|新闻id|String|必填
+返回结果：
+成功：
+         {
+            code: 200,
+            msg: "SUCCESS"
+         }
+服务器错误：
+         {
+            code: 500
+         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
