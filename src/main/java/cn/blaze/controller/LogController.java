@@ -8,7 +8,7 @@ package cn.blaze.controller;
 
 
 import cn.blaze.consts.RetCode;
-import cn.blaze.domain.po.Log;
+import cn.blaze.domain.Log;
 import cn.blaze.service.LogService;
 import cn.blaze.utils.TimeUtils;
 import org.apache.commons.collections.map.HashedMap;

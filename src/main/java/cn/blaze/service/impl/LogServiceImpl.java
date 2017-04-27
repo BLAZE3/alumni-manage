@@ -1,7 +1,7 @@
 package cn.blaze.service.impl;
 
 import cn.blaze.dao.LogDao;
-import cn.blaze.domain.po.Log;
+import cn.blaze.domain.Log;
 import cn.blaze.service.LogService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

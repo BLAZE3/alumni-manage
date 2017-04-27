@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
-import cn.blaze.domain.vo.AjaxResult;
+import cn.blaze.vo.AjaxResult;
 import cn.blaze.utils.HttpParamUtil;
 import com.alibaba.fastjson.JSONObject;
 import jxl.Workbook;

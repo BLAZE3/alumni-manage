@@ -1,7 +1,7 @@
 package cn.blaze.service;
 
-import cn.blaze.domain.po.News;
-import cn.blaze.domain.vo.NewsVO;
+import cn.blaze.domain.News;
+import cn.blaze.vo.NewsVO;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package cn.blaze.service;
 
-import cn.blaze.domain.po.Log;
+import cn.blaze.domain.Log;
 
 import java.util.Date;
 import java.util.List;

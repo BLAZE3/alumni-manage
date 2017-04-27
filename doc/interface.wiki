@@ -38,16 +38,13 @@ http://www.chengshuo678.cn/alumni-manage/news/ajax/newsInfo?id=67d7cdfe2a8011e7a
     code: 200,
     content: {
         news: {
-            author: "1",
-            content: "2",
-            endtime: 1493211670000,
-            id: "67d7cdfe2a8011e7a39952540092c7fd",
-            inserttime: 1493211670000,
-            isvalid: "N",
-            position: "3",
-            publisher: "4",
-            starttime: 1493211670000,
-            title: "5"
+                author: "5",
+                content: "2",
+                id: "67d7cdfe2a8011e7a39952540092c7fd",
+                position: "3",
+                publisher: "4",
+                starttime: "04月26日",
+                title: "5"
         }
     },
     msg: "SUCCESS"
@@ -114,21 +111,5 @@ alumni-manage/news/ajax/update
          {
             code: 500
          }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </pre>

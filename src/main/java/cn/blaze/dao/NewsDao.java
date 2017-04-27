@@ -1,8 +1,7 @@
 package cn.blaze.dao;
 
-import cn.blaze.domain.po.News;
+import cn.blaze.domain.News;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;

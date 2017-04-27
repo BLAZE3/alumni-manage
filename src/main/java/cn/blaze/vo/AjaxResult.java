@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cn.blaze.domain.vo;
+package cn.blaze.vo;
 
 import cn.blaze.consts.RetCode;
 

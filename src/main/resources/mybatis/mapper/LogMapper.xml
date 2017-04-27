@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.blaze.dao.LogDao">
-  <resultMap id="BaseResultMap" type="cn.blaze.domain.po.Log">
+  <resultMap id="BaseResultMap" type="cn.blaze.domain.Log">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="actorid" jdbcType="VARCHAR" property="actorid" />
     <result column="actinfo" jdbcType="VARCHAR" property="actinfo" />
@@ -44,7 +44,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
 
-  <insert id="insert" parameterType="cn.blaze.domain.po.Log" keyProperty="id">
+  <insert id="insert" parameterType="cn.blaze.domain.Log" keyProperty="id">
     <selectKey keyProperty="id" resultType="String" order="BEFORE">
       select replace(uuid(),'-','') from dual
     </selectKey>
@@ -54,7 +54,7 @@
       #{inserttime,jdbcType=TIMESTAMP})
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="cn.blaze.domain.po.Log">
+  <update id="updateByPrimaryKeySelective" parameterType="cn.blaze.domain.Log">
     update TB_LOG
     <set>
       <if test="actorid != null">
@@ -70,7 +70,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
 
-  <update id="updateByPrimaryKey" parameterType="cn.blaze.domain.po.Log">
+  <update id="updateByPrimaryKey" parameterType="cn.blaze.domain.Log">
     update TB_LOG
     set actorid = #{actorid,jdbcType=VARCHAR},
       actinfo = #{actinfo,jdbcType=VARCHAR},

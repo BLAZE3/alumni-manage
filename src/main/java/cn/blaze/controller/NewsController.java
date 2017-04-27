@@ -9,8 +9,9 @@ package cn.blaze.controller;
 
 import cn.blaze.consts.Consts;
 import cn.blaze.consts.RetCode;
-import cn.blaze.domain.po.News;
-import cn.blaze.domain.vo.NewsVO;
+import cn.blaze.domain.News;
+import cn.blaze.vo.NewsInfoVO;
+import cn.blaze.vo.NewsVO;
 import cn.blaze.service.NewsService;
 import cn.blaze.utils.TimeUtils;
 import org.apache.commons.collections.map.HashedMap;
@@ -73,7 +74,7 @@ public class NewsController extends BaseController {
     ) throws IOException {
         Map<String, Object> result = new HashedMap();
         News news = newsService.queryNew(id);
-        result.put("news",news);
+        result.put("news",new NewsInfoVO(news));
         writeJsonP(request, response,
                 initAjaxResult(RetCode.SUCCESS.code, result));
         return;

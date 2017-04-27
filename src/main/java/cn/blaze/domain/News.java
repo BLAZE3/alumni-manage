@@ -1,4 +1,4 @@
-package cn.blaze.domain.po;
+package cn.blaze.domain;
 
 import java.util.Date;
 

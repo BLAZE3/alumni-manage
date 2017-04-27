@@ -1,6 +1,6 @@
-package cn.blaze.domain.vo;
+package cn.blaze.vo;
 
-import cn.blaze.domain.po.News;
+import cn.blaze.domain.News;
 import cn.blaze.utils.TimeUtils;
 
 /**
