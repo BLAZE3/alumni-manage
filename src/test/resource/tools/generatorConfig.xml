@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<!-- 配置文件 -->
+	<properties resource="tools/init.properties" />
+
+
+	<!-- 一个数据库一个context -->
+	<context id="infoGuardian">
+		<!-- 注释 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" /><!-- 是否取消注释 -->
+			<property name="suppressDate" value="false" /> <!-- 是否生成注释代时间戳 -->
+		</commentGenerator>
+
+		<!-- jdbc连接 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="${jdbc.url}"
+			userId="${jdbc.user}" 
+			password="${jdbc.passwd}" />
+
+		<!-- 类型转换 -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- 生成po类 -->
+		<javaModelGenerator targetPackage="cn.blaze.domain.po"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="false" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- 生成sql脚本文件，放在mybaits下，不要轻易更改 -->
+		<sqlMapGenerator targetPackage="mybatis/mapper"
+			targetProject="src/main/resources/">
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+
+		<!-- 生成mapxml对应client，也就是接口dao -->
+		<javaClientGenerator targetPackage="cn.blaze.dao"
+			targetProject="src/main/java" type="XMLMAPPER">
+			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+		<!-- 配置表信息，一个表一个配置-->
+		<table schema="db_alumni" tableName="TB_LOG"
+			   domainObjectName="Log"
+			   enableCountByExample="false"
+			   enableDeleteByExample="false"
+			   enableSelectByExample="false"
+			   enableUpdateByExample="false"
+			   selectByExampleQueryId="false"
+
+			   enableInsert="true"
+			   enableDeleteByPrimaryKey="true"
+			   enableUpdateByPrimaryKey="true"
+			   enableSelectByPrimaryKey="true">
+			<!-- 忽略列，不生成bean 字段
+			<ignoreColumn column="age" /> -->
+			<!-- 指定列的java数据类型
+            <columnOverride column="xx" jdbcType="VARCHAR" />-->
+		</table>
+		<!-- 配置表信息，一个表一个配置-->
+		<table schema="db_alumni" tableName="TB_NEWS"
+			   domainObjectName="News"
+			   enableCountByExample="false"
+			   enableDeleteByExample="false"
+			   enableSelectByExample="false"
+			   enableUpdateByExample="false"
+			   selectByExampleQueryId="false"
+
+			   enableInsert="true"
+			   enableDeleteByPrimaryKey="true"
+			   enableUpdateByPrimaryKey="true"
+			   enableSelectByPrimaryKey="true">
+			<!-- 忽略列，不生成bean 字段
+			<ignoreColumn column="age" /> -->
+			<!-- 指定列的java数据类型
+            <columnOverride column="xx" jdbcType="VARCHAR" />-->
+		</table>
+	</context>
+</generatorConfiguration>  

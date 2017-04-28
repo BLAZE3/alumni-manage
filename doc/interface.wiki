@@ -57,10 +57,10 @@ alumni-manage/news/ajax/addNews
     starttime|生效时间|String|必填|eg：2017-01-09 22:33:00
     endtime|结束时间|String|必填|eg：2017-01-09 22:33:00
     title|标题|String|必填|
-    content|标题|String|必填|
-    publisher|标题|String|必填|
-    author|标题|String|必填|
-    position|标题|String|必填|
+    content|正文|String|必填|
+    publisher|发布者|String|必填|
+    author|作者|String|必填|
+    position|位置|String|必填|
 返回结果：
 成功：
          {

@@ -21,6 +21,5 @@ node_modules/
 .DS_Store
 /bin/
 classes/**
-src/test/**
 blazeLog/**
 
