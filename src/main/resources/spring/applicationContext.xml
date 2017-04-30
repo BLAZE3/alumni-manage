@@ -68,7 +68,7 @@
 		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property>
 		<property name="dataSource" ref="dataSource" />
 		<!-- 配置类型别名，如下配置后xml中不需要写类的全路径  -->
-		<property name="typeAliasesPackage" value="cn.blaze.domain,cn.blaze.Vo"></property>
+		<property name="typeAliasesPackage" value="cn.blaze.domain,cn.blaze.vo"></property>
 		<!-- 配置mapper的扫描，找到所有的mapper.xml映射文件。 -->
 		<property name="mapperLocations" value="classpath:cn/blaze/mapper/*.xml"/>
 	</bean>

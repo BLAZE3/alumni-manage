@@ -11,6 +11,7 @@ import cn.blaze.dao.UserInfoDao;
 import cn.blaze.domain.StudentInfo;
 import cn.blaze.domain.UserInfo;
 import cn.blaze.service.StudentInfoService;
+import cn.blaze.utils.CommonUtil;
 import cn.blaze.utils.SystemUtils;
 import cn.blaze.vo.StudentRegisterVo;
 
@@ -67,4 +68,25 @@ public class StudentInfoServiceImpl implements StudentInfoService {
 		studentInfoDao.updateById(studentInfo);
 	}
 
+	@Override
+	public List<StudentRegisterVo> queryUserStudentInfoByParameter(Map<String, Object> map) {
+		return studentInfoDao.selectUserStudentInfoMapByPara(map);
+	}
+
+	@Override
+	public String queryUserStudentInfoByParameterForLigerUI(Map<String, Object> map, String sortName, 
+			String sortOrder, int page, int pageSize) {
+		int total = this.queryUserStudentInfoCountByParameter(map);
+		
+		map.put("sortName", sortName);
+		map.put("sortOrder", sortOrder);
+		map.put("start", String.valueOf((page-1)*pageSize));
+		map.put("pageSize", String.valueOf(pageSize));
+		List<StudentRegisterVo> list = this.queryUserStudentInfoByParameter(map);
+		return CommonUtil.list2FlexigridJson(page+"", list, String.valueOf(total));
+	}
+
+	public int queryUserStudentInfoCountByParameter(Map<String, Object> map){
+		return 5;
+	}
 }

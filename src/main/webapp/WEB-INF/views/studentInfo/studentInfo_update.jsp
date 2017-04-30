@@ -15,6 +15,7 @@
 		$("#submit_btn").click(function(){
 			if(confirm("确认提交?")){
 				$("#student_update_form").submit();
+				window.parent.location.reload();
 			}
 		});
 	});

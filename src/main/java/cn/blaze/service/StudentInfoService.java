@@ -5,6 +5,7 @@ import java.util.Map;
 
 import cn.blaze.domain.StudentInfo;
 import cn.blaze.vo.StudentRegisterVo;
+import cn.blaze.vo.UserInfoVo;
 
 public interface StudentInfoService {
 
@@ -60,4 +61,41 @@ public interface StudentInfoService {
 	 * @updateTime：
 	 */
 	void updateStudentInfoById(StudentInfo studentInfo);
+
+	/**
+	 * @Title queryUserStudentInfoByParameter
+	 * @Description：条件查询用户学生信息
+	 * @param map
+	 * @return
+	 * @user LiuLei 2017年4月26日
+	 * @updater：
+	 * @updateTime：
+	 */
+	List<StudentRegisterVo> queryUserStudentInfoByParameter(Map<String, Object> map);
+	
+	/**
+	 * @Title queryUserStudentInfoByParameterForLigerUI
+	 * @Description：分页条件查询学生用户信息或管理员用户信息 供ligui显示
+	 * @param map 条件
+	 * @param sortName 排序的列
+	 * @param sortOrder 排序方式
+	 * @param page 当前页
+	 * @param size 页面显示数据条数
+	 * @return
+	 * @user LiuLei 2017年4月30日
+	 * @updater：
+	 * @updateTime：
+	 */
+	String queryUserStudentInfoByParameterForLigerUI(Map<String, Object> map, String sortName,String sortOrder, int page, int size);
+	
+	/**
+	 * @Title queryUserStudentInfoCountByParameter
+	 * @Description：统计用户学生信息的条数
+	 * @param map 条件
+	 * @return
+	 * @user LiuLei 2017年4月26日
+	 * @updater：
+	 * @updateTime：
+	 */
+	int queryUserStudentInfoCountByParameter(Map<String, Object> map);
 }

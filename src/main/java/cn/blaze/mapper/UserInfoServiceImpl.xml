@@ -10,10 +10,12 @@
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="isvalid" jdbcType="CHAR" property="isvalid" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   
   <sql id="Base_Column_List">
-    id, student_id, user_name, password, status, type, isvalid
+    id, student_id, user_name, password, status, type, isvalid, create_time, update_time 
   </sql>
   
   <insert id="insertUserInfoWithIdAuto" parameterType="cn.blaze.domain.UserInfo">
@@ -27,7 +29,9 @@
       	password, 
       	status, 
       	type, 
-      	isvalid
+      	isvalid, 
+      	create_time, 
+      	update_time
     ) values (
     	#{id,jdbcType=VARCHAR}, 
     	#{studentId,jdbcType=VARCHAR}, 
@@ -35,7 +39,10 @@
       	#{password,jdbcType=VARCHAR}, 
       	#{status,jdbcType=VARCHAR}, 
       	#{type,jdbcType=VARCHAR}, 
-      	#{isvalid,jdbcType=CHAR})
+      	#{isvalid,jdbcType=CHAR},
+      	#{createTime,jdbcType=TIMESTAMP}, 
+      	#{updateTime,jdbcType=TIMESTAMP}
+     )
   </insert>
   
 	<select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -94,8 +101,36 @@
 		  <if test="isvalid != null">
 		    isvalid = #{isvalid,jdbcType=CHAR},
 		  </if>
+		  <if test="createTime != null">
+		    create_time = #{createTime,jdbcType=TIMESTAMP},
+		  </if>
+		  <if test="updateTime != null">
+		    update_time = #{updateTime,jdbcType=TIMESTAMP},
+		  </if>
 		</set>
 		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByStudentId" parameterType="cn.blaze.domain.UserInfo">
+		update user_info
+		<set>
+		  <if test="userName != null">
+		    user_name = #{userName,jdbcType=VARCHAR},
+		  </if>
+		  <if test="password != null">
+		    password = #{password,jdbcType=VARCHAR},
+		  </if>
+		  <if test="status != null">
+		    status = #{status,jdbcType=VARCHAR},
+		  </if>
+		  <if test="type != null">
+		    type = #{type,jdbcType=VARCHAR},
+		  </if>
+		  <if test="isvalid != null">
+		    isvalid = #{isvalid,jdbcType=CHAR},
+		  </if>
+		</set>
+		where student_id = #{studentId,jdbcType=VARCHAR}
 	</update>
   <!-- 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">

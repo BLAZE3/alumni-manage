@@ -9,7 +9,8 @@
 </head>
 <body>
 管理员主页面<br>
-<a href="studentInfo/forwardStudentInfoUpdate" target="_blank">查看学生信息(学历信息)</a>
+<a href="user/forwardQueryUserInfo?type=student" target="_blank">查看学生信息(学历信息)</a>
+<a href="user/forwardQueryUserInfo?type=admin" target="_blank">查看管理员信息</a>
 <a href="user/forwardUpdatePassword" target="_blank">查看组信息</a>
 <a href="user/forwardUpdatePassword" target="_blank">查看日志</a>
 </body>

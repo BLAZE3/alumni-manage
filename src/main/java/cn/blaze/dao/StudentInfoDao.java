@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import cn.blaze.domain.StudentInfo;
+import cn.blaze.vo.StudentRegisterVo;
+import cn.blaze.vo.UserInfoVo;
 
 @Repository
 public interface StudentInfoDao {
@@ -75,5 +77,16 @@ public interface StudentInfoDao {
 	 * @updateTime：
 	 */
 	void updateById(StudentInfo studentInfo);
+
+	/**
+	 * @Title selectUserStudentInfoMapByPara
+	 * @Description：条件查询用户学生信息
+	 * @param map 条件
+	 * @return
+	 * @user LiuLei 2017年4月26日
+	 * @updater：
+	 * @updateTime：
+	 */
+	List<StudentRegisterVo> selectUserStudentInfoMapByPara(Map<String, Object> map);
 
 }

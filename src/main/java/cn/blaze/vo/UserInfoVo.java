@@ -1,5 +1,8 @@
 package cn.blaze.vo;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class UserInfoVo {
 	
 	private String id;
@@ -10,6 +13,12 @@ public class UserInfoVo {
     private String status;//用户状态.待审核,正常
     private String type;// 用户类型,管理员,普通用户
     private String isvalid;// 是否有效.Y 有效,N 无效(禁用)
+    private Date createTime;// 创建时间
+    private String createTimeStr;
+    private Date updateTime;// 更新时间
+    private String updateTimeStr;
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    
 	public String getId() {
 		return id;
 	}
@@ -57,5 +66,29 @@ public class UserInfoVo {
 	}
 	public void setIsvalid(String isvalid) {
 		this.isvalid = isvalid;
+	}
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+	public String getCreateTimeStr() {
+		return createTimeStr==null?sf.format(createTime):createTimeStr;
+	}
+	public void setCreateTimeStr(String createTimeStr) {
+		this.createTimeStr = createTimeStr;
+	}
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+	public String getUpdateTimeStr() {
+		return updateTimeStr==null?sf.format(updateTime):updateTimeStr;
+	}
+	public void setUpdateTimeStr(String updateTimeStr) {
+		this.updateTimeStr = updateTimeStr;
 	}
 }
