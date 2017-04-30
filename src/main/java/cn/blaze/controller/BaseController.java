@@ -15,14 +15,68 @@ import cn.blaze.vo.AjaxResult;
 import cn.blaze.utils.HttpParamUtil;
 import com.alibaba.fastjson.JSONObject;
 import jxl.Workbook;
-import jxl.write.Label;import jxl.write.WritableSheet;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import cn.blaze.domain.UserInfo;
 
 public class BaseController {
 	private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
+	/**
+	 * @Title saveLoginUser
+	 * @Description：保存用户登录信息到session
+	 * @param request
+	 * @param user 登录用户实例
+	 * @user LiuLei 2017年4月28日
+	 * @updater：
+	 * @updateTime：
+	 */
+	protected void saveLoginUser(HttpServletRequest request, UserInfo user){
+		request.getSession().setAttribute("loginUser", user);
+	}
+	
+	/**
+	 * @Title getLoginUser
+	 * @Description：session中获取登录用户的信息
+	 * @param request
+	 * @return 登录用户实例
+	 * @user LiuLei 2017年4月28日
+	 * @updater：
+	 * @updateTime：
+	 */
+	protected UserInfo getLoginUser(HttpServletRequest request){
+		return (UserInfo) request.getSession().getAttribute("loginUser");
+	}
+	
+	/**
+	 * @Title getNotNullValue
+	 * @Description：返回输入对象的字符串
+	 * @param obj 
+	 * @return 如果是null返回空字符串,否则返回对应的字符串
+	 * @user LiuLei 2017年4月28日
+	 * @updater：
+	 * @updateTime：
+	 */
+	protected String getNotNullValue(Object obj){
+		return obj!=null?obj.toString():"";
+	}
+	
+	/**
+	 * @Title getNotNullValueToInt
+	 * @Description：返回输入对象的整数值
+	 * @param obj
+	 * @return 如果是null返回0,否则返回对应的整数
+	 * @user LiuLei 2017年4月30日
+	 * @updater：
+	 * @updateTime：
+	 */
+	protected int getNotNullValueToInt(String obj) {
+		return obj!=null?Integer.parseInt(obj):0;
+	}
+	
 	/**
 	 * @Title printValidFormString
 	 * @Description：将数据以json格式输出,可用于异步请求.编码为utf-8

@@ -46,6 +46,14 @@
 					<td><input type="text" name="age" placeholder=""></td>
 				</tr>
 				<tr>
+					<td>性别</td>
+					<td>
+						<input id="sex_male" type="radio" name="sex" value="男"><label for="sex_male">男</label>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<input id="sex_female" type="radio" name="sex" value="女"><label for="sex_female">女</label>
+					</td>
+				</tr>
+				<tr>
 					<td>手机号</td>
 					<td><input type="text" name="telephone" placeholder=""></td>
 				</tr>

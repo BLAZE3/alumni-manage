@@ -51,4 +51,14 @@ public interface UserInfoDao {
 	 */
 	void updateById(UserInfo db_userInfo);
 
+	/**
+	 * @Title updateByStudentId
+	 * @Description：根据studentId更新
+	 * @param db_userInfo 待更新的字段
+	 * @user LiuLei 2017年4月28日
+	 * @updater：
+	 * @updateTime：
+	 */
+	void updateByStudentId(UserInfo db_userInfo);
+
 }

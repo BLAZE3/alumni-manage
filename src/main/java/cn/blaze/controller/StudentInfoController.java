@@ -56,9 +56,8 @@ public class StudentInfoController extends BaseController{
 	 * @updateTime：
 	 */
 	@RequestMapping("forwardStudentInfoUpdate")
-	public String forwardStudentInfoUpdate(HttpServletRequest request){
-		String studentId = request.getParameter("studentId");// 获取登录的学生信息
-		studentId="d8b706386fc446289e0b93c18bd94a72";
+	public String forwardStudentInfoUpdate(String studentId, HttpServletRequest request){
+//		String studentId = request.getParameter("studentId");// 获取登录的学生信息
 		StudentInfo studentInfo = studentInfoService.queryStudentInfoById(studentId);// 学生信息
 		UserInfo userInfo = userInfoService.queryUserInfoByStudentId(studentId);// 用户信息
 		request.setAttribute("studentInfo", studentInfo);
@@ -81,6 +80,16 @@ public class StudentInfoController extends BaseController{
 		return "redirect:/studentInfo/forwardStudentInfoUpdate";
 	}
 	
+	/**
+	 * @Title studentRegister
+	 * @Description：学生注册
+	 * @param registerVo
+	 * @param request
+	 * @return
+	 * @user LiuLei 2017年4月26日
+	 * @updater：
+	 * @updateTime：
+	 */
 	@RequestMapping("studentRegister")
 	public String studentRegister(StudentRegisterVo registerVo, HttpServletRequest request){
 		// TODO 对传入的参数校验?
@@ -88,6 +97,16 @@ public class StudentInfoController extends BaseController{
 		return "login";
 	}
 	
+	/**
+	 * @Title queryStudentInfo
+	 * @Description：查询学生信息
+	 * @param request
+	 * @param response
+	 * @return
+	 * @user LiuLei 2017年4月30日
+	 * @updater：
+	 * @updateTime：
+	 */
 	@ResponseBody
 	@RequestMapping("queryStudentInfo")
 	public List<Map<String, Object>> queryStudentInfo(HttpServletRequest request, HttpServletResponse response){
@@ -97,6 +116,15 @@ public class StudentInfoController extends BaseController{
 		return mapList;
 	}
 	
+	/**
+	 * @Title exportStudentInfo
+	 * @Description：导出学生信息
+	 * @param request
+	 * @param response
+	 * @user LiuLei 2017年4月30日
+	 * @updater：
+	 * @updateTime：
+	 */
 	@RequestMapping("exportStudentInfo")
 	public void exportStudentInfo(HttpServletRequest request, HttpServletResponse response){
 		Map<String, Object> map = new HashMap<String, Object>();

@@ -28,5 +28,6 @@
     <mvc:resources mapping="/js/**" location="/js/"/>
     <mvc:resources mapping="/images/**" location="/images/"/>
     <mvc:resources mapping="/assets/**" location="/assets/"/>
+    <mvc:resources mapping="/ligerUI1.3.3/**" location="/ligerUI1.3.3/"/>
 
 </beans>

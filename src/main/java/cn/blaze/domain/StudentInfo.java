@@ -14,7 +14,8 @@ public class StudentInfo {
 	private String emailShow;// 是否显示邮箱
 	private String qqShow;// 是否显示QQ
 	private String wechatShow;// 是否显示微信
-
+	private String sex;//性别
+	
     public String getId() {
         return id;
     }
@@ -109,6 +110,14 @@ public class StudentInfo {
 
 	public void setWechatShow(String wechatShow) {
 		this.wechatShow = wechatShow;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 
 }

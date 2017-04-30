@@ -72,6 +72,7 @@
 											<div class="space-6"></div>
 
 											<form action="user/login" method="post" onsubmit="checkForm();">
+												<input type="hidden" name="type" value="1">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">

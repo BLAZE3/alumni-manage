@@ -22,12 +22,22 @@ public interface UserInfoService {
 	/**
 	 * @Title updateUserInfoById
 	 * @Description：根据id更新用户信息
-	 * @param db_userInfo
+	 * @param db_userInfo 存放待更新的字段
 	 * @user LiuLei 2017年4月24日
 	 * @updater：
 	 * @updateTime：
 	 */
 	void updateUserInfoById(UserInfo db_userInfo);
+	
+	/**
+	 * @Title updateUserInfoByStudentId
+	 * @Description：根据studentId更新用户信息
+	 * @param db_userInfo 存放待更新的字段
+	 * @user LiuLei 2017年4月24日
+	 * @updater：
+	 * @updateTime：
+	 */
+	void updateUserInfoByStudentId(UserInfo db_userInfo);
 
 	/**
 	 * @Title queryUserInfoByStudentId
@@ -54,12 +64,62 @@ public interface UserInfoService {
 	/**
 	 * @Title queryUserInfoByUserNameAndPassword
 	 * @Description：根据用户名密码查询用户信息
-	 * @param map
+	 * @param map 存储用户名userName、密码password和用户类型type
 	 * @return  查询不到返回null
 	 * @user LiuLei 2017年4月25日
 	 * @updater：
 	 * @updateTime：
 	 */
 	UserInfo queryUserInfoByUserNameAndPassword(Map<String, Object> map);
+
+	/**
+	 * @Title cancelUserByStudentId
+	 * @Description：注销用户
+	 * @param studentId
+	 * @user LiuLei 2017年4月28日
+	 * @updater：
+	 * @updateTime：
+	 */
+	void cancelUserByStudentId(String studentId);
+
+	/**
+	 * @Title enableUserByStudentId
+	 * @Description：启用被注销的账号
+	 * @param studentId
+	 * @user LiuLei 2017年4月28日
+	 * @updater：
+	 * @updateTime：
+	 */
+	void enableUserByStudentId(String studentId);
+
+	/**
+	 * @Title resetuserPasswordById
+	 * @Description：根据用户id重置用户密码为000000
+	 * @param id 用户id
+	 * @user LiuLei 2017年4月28日
+	 * @updater：
+	 * @updateTime：
+	 */
+	void resetuserPasswordById(String id);
+
+	/**
+	 * @Title cancelUserById
+	 * @Description：根据用户id注销用户
+	 * @param id
+	 * @user LiuLei 2017年4月28日
+	 * @updater：
+	 * @updateTime：
+	 */
+	void cancelUserById(String id);
+
+	/**
+	 * @Title enableUserById
+	 * @Description：根据用户id启用
+	 * @param id
+	 * @user LiuLei 2017年4月28日
+	 * @updater：
+	 * @updateTime：
+	 */
+	void enableUserById(String id);
 
 }

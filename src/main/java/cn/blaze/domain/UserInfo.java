@@ -1,5 +1,7 @@
 package cn.blaze.domain;
 
+import java.util.Date;
+
 public class UserInfo {
 
     private String id;
@@ -9,7 +11,9 @@ public class UserInfo {
     private String status;//用户状态.待审核,正常
     private String type;// 用户类型,管理员,普通用户
     private String isvalid;// 是否有效.Y 有效,N 无效(禁用)
-
+    private Date createTime;// 创建时间
+    private Date updateTime;// 更新时间
+    
     public String getId() {
         return id;
     }
@@ -65,4 +69,21 @@ public class UserInfo {
     public void setIsvalid(String isvalid) {
         this.isvalid = isvalid == null ? null : isvalid.trim();
     }
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+    
 }
