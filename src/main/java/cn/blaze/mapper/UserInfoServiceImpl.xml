@@ -52,7 +52,7 @@
 		where id = #{id,jdbcType=VARCHAR}
 	</select>
 	
-	<select id="selectByParameter" parameterType="java.util.Map" resultMap="BaseResultMap">
+	<select id="selectUserInfoByPara" parameterType="java.util.Map" resultMap="BaseResultMap">
 		select 
 		<include refid="Base_Column_List" />
 		from user_info

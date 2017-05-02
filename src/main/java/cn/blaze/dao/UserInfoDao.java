@@ -20,7 +20,7 @@ public interface UserInfoDao {
 	void insertUserInfoWithIdAuto(UserInfo userInfo);
 
 	/**
-	 * @Title selectByParameter
+	 * @Title selectUserInfoByPara
 	 * @Description：条件查询用户信息
 	 * @param map
 	 * @return
@@ -28,7 +28,7 @@ public interface UserInfoDao {
 	 * @updater：
 	 * @updateTime：
 	 */
-	List<UserInfo> selectByParameter(Map<String, Object> map);
+	List<UserInfo> selectUserInfoByPara(Map<String, Object> map);
 
 	/**
 	 * @Title selectById

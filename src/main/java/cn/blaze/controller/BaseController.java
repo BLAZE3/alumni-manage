@@ -11,17 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
-import cn.blaze.vo.AjaxResult;
-import cn.blaze.utils.HttpParamUtil;
-import com.alibaba.fastjson.JSONObject;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import cn.blaze.domain.UserInfo;
+import cn.blaze.utils.HttpParamUtil;
+import cn.blaze.vo.AjaxResult;
+
+import com.alibaba.fastjson.JSONObject;
 
 public class BaseController {
 	private static final Logger logger = LoggerFactory.getLogger(BaseController.class);

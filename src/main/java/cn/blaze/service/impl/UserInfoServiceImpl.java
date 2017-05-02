@@ -39,14 +39,14 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public UserInfo queryUserInfoByStudentId(String studentId) {
 		Map<String, Object> map = new HashMap<String, Object>(1);
 		map.put("studentId", studentId);
-		List<UserInfo> list = userInfoDao.selectByParameter(map);
+		List<UserInfo> list = userInfoDao.selectUserInfoByPara(map);
 		return list!=null?list.get(0):null;
 	}
 
 	@Override
 	public List<UserInfo> queryUserInfoByParameter(Map<String, Object> map) {
 		map.put("isvaild", BlazeConstants.ISVALID_YES);
-		return userInfoDao.selectByParameter(map);
+		return userInfoDao.selectUserInfoByPara(map);
 	}
 
 	@Override
