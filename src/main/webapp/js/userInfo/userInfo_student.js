@@ -142,7 +142,32 @@ function f_initGrid()
         {
             $("#txtrowindex").val(rowindex);
         }
-    }); 
+    });
+    
+    /***提交***/
+	$("#submit_btn").click(function(){
+		gridManager = $("#maingrid").ligerGetGridManager(); 
+		var userName = $("#userName").val().trim();
+		var studentName = $("#studentName").val().trim();
+		var status = $("#status").val().trim();
+		var isvalid = $("#isvalid").val().trim();
+		gridManager.setOptions( 
+				{ 
+					parms: [
+							{ name: 'userName', value: userName},
+							{ name: 'studentName', value: studentName},
+							{ name: 'status', value: status},
+							{ name: 'isvalid', value: isvalid}
+							]
+				} 
+			); 
+			gridManager.loadData(); 
+	});
+	
+	/***重置***/
+	$("#reset_btn").click(function(){
+		$(".select").val("");
+	});
     
 }
 

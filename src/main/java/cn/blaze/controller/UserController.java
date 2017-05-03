@@ -70,6 +70,15 @@ public class UserController extends BaseController{
 		}else {
 			map.put("type",BlazeConstants.USER_TYPE_STUDENT);
 		}
+		String userName = this.getNotNullValue(request.getParameter("userName"));
+		String studentName = this.getNotNullValue(request.getParameter("studentName"));
+		String status = this.getNotNullValue(request.getParameter("status"));
+		String isvalid = this.getNotNullValue(request.getParameter("isvalid"));
+		map.put("userName", userName);
+		map.put("studentName", studentName);
+		map.put("status", status);
+		map.put("isvalid", isvalid);
+		
 		String sortName = this.getNotNullValue(request.getParameter("sortname"));
 		String sortOrder = this.getNotNullValue(request.getParameter("sortorder"));
 		int page = this.getNotNullValueToInt(request.getParameter("page"));

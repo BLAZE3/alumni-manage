@@ -35,12 +35,50 @@
 	    var sexData = [{ Sex: '男', text: '男' }, { Sex: '女', text: '女'}];
 	    var manager, g;
 	    $(f_initGrid);
+	    
 	</script>
 </head>
 
-<body style="padding:10px">  
- <div class="l-clear"></div>
-    <div id="maingrid" style="margin-top:20px"></div><br/>
+<body style="padding:10px">
+<table>
+	<tr>
+		<td>账号</td>
+		<td>
+			<input type="text" id="userName" name="userName" class="select"/>
+		</td>
+		<td>姓名</td>
+		<td>
+			<input type="text" id="studentName" name="studentName" class="select"/>
+		</td>
+		<td>
+			状态
+		</td>
+		<td>
+			<select id="status" name="status" class="select">
+				<option value="">--请选择--</option>
+				<option value="0">正常</option>
+				<option value="1">其他</option>
+			</select>
+		</td>
+		<td>
+			有效性
+		</td>
+		<td>
+			<select id="isvalid" name="isvalid" class="select">
+				<option value="">--请选择--</option>
+				<option value="Y">可用</option>
+				<option value="N">已删除</option>
+			</select>
+		</td>
+		<td colspan="2">
+			<button id="submit_btn">查询</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<button id="reset_btn">重置</button>
+		</td>
+	</tr>
+</table> 
+<div class="l-clear"></div>
+   <div id="maingrid" style="margin-top:20px"></div><br/>
 </div>
 </body>
 </html>
