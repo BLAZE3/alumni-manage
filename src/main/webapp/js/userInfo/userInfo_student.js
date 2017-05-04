@@ -158,7 +158,7 @@ function f_initGrid()
 							{ name: 'studentName', value: studentName},
 							{ name: 'status', value: status},
 							{ name: 'isvalid', value: isvalid}
-							]
+						]
 				} 
 			); 
 			gridManager.loadData(); 
@@ -169,6 +169,28 @@ function f_initGrid()
 		$(".select").val("");
 	});
     
+	/***导出***/
+	$("#export_btn").click(function(){
+		var conditions = "";
+		var userName = $("#userName").val().trim();
+		var studentName = $("#studentName").val().trim();
+		var status = $("#status").val().trim();
+		var isvalid = $("#isvalid").val().trim();
+		if(userName!=null && userName!=""){
+			conditions+="&userName="+userName;
+		}
+		if(studentName!=null && studentName!=""){
+			conditions+="&studentName="+studentName;
+		}
+		if(status!=null && status!=""){
+			conditions+="&status="+status;
+		}
+		if(isvalid!=null && isvalid!=""){
+			conditions+="&isvalid="+isvalid;
+		}
+		window.open("studentInfo/exportStudentInfo?abc=abc"+conditions);
+		$("#submit_btn").click();
+	});
 }
 
 /**

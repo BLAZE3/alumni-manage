@@ -1,5 +1,6 @@
 package cn.blaze.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import cn.blaze.domain.StudentInfo;
 import cn.blaze.domain.UserInfo;
 import cn.blaze.service.StudentInfoService;
 import cn.blaze.service.UserInfoService;
+import cn.blaze.utils.BlazeConstants;
 import cn.blaze.vo.StudentRegisterVo;
 
 /**
@@ -93,6 +95,7 @@ public class StudentInfoController extends BaseController{
 	@RequestMapping("studentRegister")
 	public String studentRegister(StudentRegisterVo registerVo, HttpServletRequest request){
 		// TODO 对传入的参数校验?
+		registerVo.setCreateTime(new Date());
 		studentInfoService.studentRegister(registerVo);
 		return "login";
 	}
@@ -127,11 +130,24 @@ public class StudentInfoController extends BaseController{
 	 */
 	@RequestMapping("exportStudentInfo")
 	public void exportStudentInfo(HttpServletRequest request, HttpServletResponse response){
+		String userName = this.getNotNullValue(request.getParameter("userName"));
+		String studentName = this.getNotNullValue(request.getParameter("studentName"));
+		String status = this.getNotNullValue(request.getParameter("status"));
+		String isvalid = this.getNotNullValue(request.getParameter("isvalid"));
+		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("studentName", "唐三藏");
-		List<Map<String, Object>> mapList = studentInfoService.queryStudentInfoMapByParameterMap(map);
-		String[] title = new String[]{"姓名","年龄","地址"};
-		String[] column = new String[]{"studentName","age","address"};
+		map.put("userName", userName);
+		map.put("studentName", studentName);
+		map.put("status", status);
+		map.put("isvalid", isvalid);
+		map.put("type", BlazeConstants.USER_TYPE_STUDENT);
+		
+		List<Map<String, Object>> mapList = studentInfoService.queryUserStudentInfoMapByParameter(map);
+		String[] title = new String[] { "账号", "性别", "创建时间", "更新时间", "状态",
+				"是否删除", "姓名", "年龄", "手机", "地址", "邮箱", "微信号", "QQ" };
+		String[] column = new String[] { "userName", "sex", "createTime",
+				"updateTime", "status", "isvalid","studentName","age","telephone","address","email","wechat","qq"};
 		exportExcel("",mapList, column, title, response);
 	}
+	
 }

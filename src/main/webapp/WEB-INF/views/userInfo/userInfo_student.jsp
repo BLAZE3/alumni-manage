@@ -72,8 +72,10 @@
 		</td>
 		<td colspan="2">
 			<button id="submit_btn">查询</button>
-			&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;
 			<button id="reset_btn">重置</button>
+			&nbsp;&nbsp;
+			<button id="export_btn">导出</button>
 		</td>
 	</tr>
 </table> 

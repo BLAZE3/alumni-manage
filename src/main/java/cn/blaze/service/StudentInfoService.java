@@ -74,6 +74,17 @@ public interface StudentInfoService {
 	List<StudentRegisterVo> queryUserStudentInfoByParameter(Map<String, Object> map);
 	
 	/**
+	 * @Title queryUserStudentInfoMapByParameter
+	 * @Description：条件查询用户学生信息
+	 * @param map 条件
+	 * @return 返回map封装的用户学生信息
+	 * @user LiuLei 2017年5月4日
+	 * @updater：
+	 * @updateTime：
+	 */
+	List<Map<String, Object>> queryUserStudentInfoMapByParameter(Map<String, Object> map);
+	
+	/**
 	 * @Title queryUserStudentInfoByParameterForLigerUI
 	 * @Description：分页条件查询学生用户信息或管理员用户信息 供ligui显示
 	 * @param map 条件

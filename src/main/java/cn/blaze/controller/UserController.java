@@ -1,5 +1,6 @@
 package cn.blaze.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -126,7 +127,7 @@ public class UserController extends BaseController{
 		if(!BlazeConstants.USER_TYPE_ADMIN.equals(this.getLoginUser(request).getType())){// 不是管理员无权注销
 			return buildJsonMap("fail", "不是管理员无权操作");
 		}
-			
+		
 		if(BlazeConstants.ISVALID_NO.equals(isvalid)){
 			userInfoService.cancelUserById(id);
 		}else if(BlazeConstants.ISVALID_YES.equals(isvalid)){
@@ -230,6 +231,7 @@ public class UserController extends BaseController{
 		String pwd = db_userInfo.getPassword();
 		if(pwd!=null && pwd.equals(userInfoVo.getPassword())){
 			db_userInfo.setPassword(userInfoVo.getNewPassword());
+			db_userInfo.setUpdateTime(new Date());
 			userInfoService.updateUserInfoById(db_userInfo);
 			return buildJsonMap("success", null);
 		}

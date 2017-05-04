@@ -86,6 +86,8 @@ public interface StudentInfoDao {
 	 * @updater：
 	 * @updateTime：
 	 */
-	List<StudentRegisterVo> selectUserStudentInfoMapByPara(Map<String, Object> map);
+	List<StudentRegisterVo> selectUserStudentInfoByPara(Map<String, Object> map);
+
+	List<Map<String, Object>> selectUserStudentInfoMapByPara(Map<String, Object> map);
 
 }

@@ -5,20 +5,20 @@
     	id, student_name, age, telephone, address, email, wechat, qq, image_path, email_show, qq_show, wechat_show, sex
   	</sql>
   	
- <!--  	<sql id="Column_Equals_Bean">
+  	<sql id="Column_Equals_Bean">
     	id as id, student_name as studentName, age as age, telephone as telephone, address as address, email as email, 
     	wechat as wechat, qq as qq, image_path as imagePath,email_show as emailShow, qq_show as qqShow, wechat_show as wechatShow,sex 
-  	</sql> -->
+  	</sql>
 
   	<sql id="Base_Where_List">
     	where 1=1 
-	    <if test="id != null">
+	    <if test="id != null and id != ''">
 	    	<![CDATA[ AND id = #{id}]]>
 	    </if>
-	    <if test="studentName != null">
+	    <if test="studentName != null and studentName != ''">
 	    	<![CDATA[ AND student_name = #{studentName}]]>
 	    </if>
-	    <if test="age != null">
+	    <if test="age != null and age != ''">
 	    	<![CDATA[ AND age = #{age}]]>
 	    </if>
 	    <if test="telephone != null">
@@ -48,7 +48,7 @@
 	    <if test="imagePath != null">
 	    	<![CDATA[ AND imagePath = #{imagePath}]]>
 	    </if>
-	    <if test="sex != null">
+	    <if test="sex != null and sex != ''">
 	    	<![CDATA[ AND sex = #{sex}]]>
 	    </if>
   	</sql>
@@ -56,6 +56,11 @@
   	<sql id="Column_User_Student_Info">
     	user.id as id, student.id as student_id, user.user_name, user.password, user.status, user.type, user.isvalid, student.student_name, student.age, student.telephone, student.address, student.email, 
     	student.wechat, student.qq, student.image_path, student.email_show, student.qq_show, student.wechat_show, student.sex, user.create_time as createTime, user.update_time as updateTime
+  	</sql>
+  	
+  	<sql id="Column_User_Student_Equals_Bean">
+    	user.id as id, student.id as studentId, user.user_name as userName, user.password, user.status, user.type, user.isvalid, student.student_name as studentName, student.age, student.telephone, student.address, student.email, 
+    	student.wechat, student.qq, student.image_path as imagePath, student.email_show as emailShow, student.qq_show as qqShow, student.wechat_show as wechatShow, student.sex, user.create_time as createTime, user.update_time as updateTime
   	</sql>
  	
  	<sql id="User_StudentInfo_Where_List">
@@ -236,23 +241,36 @@
 	    <include refid="Base_Where_List" />
 	</select>
 	
-	<!-- <select id="selectMapByPara" parameterType="java.util.Map" resultType="java.util.HashMap">
+	<select id="selectMapByPara" parameterType="java.util.Map" resultType="java.util.HashMap">
 	    select 
 	    <include refid="Column_Equals_Bean" />
 	    from student_info
 	    <include refid="Base_Where_List" />
-	</select> -->
-	<select id="selectMapByPara" parameterType="java.util.Map" resultMap="UserStudentInfoResultMap">
-	    select 
-	    <include refid="Base_Column_List" />
-	    from student_info
-	    <include refid="Base_Where_List" />
 	</select>
 	
-	<select id="selectUserStudentInfoMapByPara" parameterType="java.util.Map" resultMap="UserStudentInfoResultMap">
+	<select id="selectUserStudentInfoByPara" parameterType="java.util.Map" resultMap="UserStudentInfoResultMap">
 	    select a.* from (
 		    select 
 		    <include refid="Column_User_Student_Info" />
+		    from student_info student right join user_info user on user.student_id=student.id 
+		    <include refid="User_StudentInfo_Where_List" />
+	    )a
+	    <if test="sortName!=null and sortName!='' and sortOrder!=null">
+	    	<![CDATA[
+		    order by ${sortName} ${sortOrder}
+	    	]]>
+	    </if>
+	    <if test="start!=null and start!='' and pageSize!=null and pageSize!=''">
+	    	<![CDATA[
+		    LIMIT ${start},${pageSize}
+	    	]]>
+	    </if>
+	</select>
+	
+	<select id="selectUserStudentInfoMapByPara" parameterType="java.util.Map" resultType="java.util.HashMap">
+	    select a.* from (
+		    select 
+		    <include refid="Column_User_Student_Equals_Bean" />
 		    from student_info student right join user_info user on user.student_id=student.id 
 		    <include refid="User_StudentInfo_Where_List" />
 	    )a

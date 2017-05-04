@@ -70,7 +70,7 @@ public class StudentInfoServiceImpl implements StudentInfoService {
 
 	@Override
 	public List<StudentRegisterVo> queryUserStudentInfoByParameter(Map<String, Object> map) {
-		return studentInfoDao.selectUserStudentInfoMapByPara(map);
+		return studentInfoDao.selectUserStudentInfoByPara(map);
 	}
 
 	@Override
@@ -87,6 +87,12 @@ public class StudentInfoServiceImpl implements StudentInfoService {
 	}
 
 	public int queryUserStudentInfoCountByParameter(Map<String, Object> map){
+		// TODO
 		return 5;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryUserStudentInfoMapByParameter(Map<String, Object> map) {
+		return studentInfoDao.selectUserStudentInfoMapByPara(map);
 	}
 }
