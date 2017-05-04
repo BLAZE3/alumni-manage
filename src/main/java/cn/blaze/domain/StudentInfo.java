@@ -5,7 +5,8 @@ public class StudentInfo {
 	private String id;
 	private String studentName; // 学生姓名
 	private Integer age;// 学生年龄
-	private String telephone;// 电话
+	private String sex;//性别
+	private String telephone;// 手机号
 	private String address;// 地址
 	private String email;// 邮箱
 	private String wechat;// 微信
@@ -14,7 +15,6 @@ public class StudentInfo {
 	private String emailShow;// 是否显示邮箱
 	private String qqShow;// 是否显示QQ
 	private String wechatShow;// 是否显示微信
-	private String sex;//性别
 	
     public String getId() {
         return id;

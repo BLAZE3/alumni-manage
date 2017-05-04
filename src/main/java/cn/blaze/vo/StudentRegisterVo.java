@@ -3,23 +3,29 @@ package cn.blaze.vo;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * @ClassName StudentRegisterVo
+ * @Description 学生认证vo
+ * @author LiuLei
+ * @date 2017年5月4日 下午10:18:29
+ */
 public class StudentRegisterVo {
 	
-	private String id;
-    private String studentId;
-    private String userName;
+	private String id;// userId用户信息表的主键
+    private String studentId;// 学生信息表的主键
+    private String userName;// 账户名
     private String password;
-    private String status;
-    private String type;
-    private String isvalid;
-	private String studentName;
+    private String status;// 状态
+    private String type;// 类型
+    private String isvalid;// 是否有效
+	private String studentName;// 学生姓名
 	private Integer age;
 	private String telephone;
 	private String address;
 	private String email;
 	private String wechat;
 	private String qq;
-	private String imagePath;
+	private String imagePath;// 头像地址
 	private String emailShow;// 是否显示邮箱
 	private String qqShow;// 是否显示QQ
 	private String wechatShow;// 是否显示微信

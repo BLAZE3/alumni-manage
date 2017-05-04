@@ -31,6 +31,7 @@
 				alert(loginMsg);// 登录错误提示
 			}
 		});
+		
 		function checkForm(){
 			var username = $("#username").val();
 			var password = $("#password").val();
@@ -41,6 +42,25 @@
 			}else {
 				return true;
 			}
+		}
+		
+		function checkRegisterForm(){
+			var username = $("#userName_input").val();
+			var password = $("#password_input").val();
+			var repassword = $("#repassword_input").val();
+			if(username==""){
+				alert("请输入用户名!");
+			}else if(password==""){
+				alert("请输入密码!");
+			}else if(password != repassword){
+				alert("两次密码不一致!");
+				/**清空密码**/
+				$("#password_input").val("");
+				$("#repassword_input").val("");
+			}else {
+				return true;
+			}
+			return false;
 		}
 	</script>
 	<body class="login-layout">
@@ -72,7 +92,6 @@
 											<div class="space-6"></div>
 
 											<form action="user/login" method="post" onsubmit="checkForm();">
-												<input type="hidden" name="type" value="1">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
@@ -193,33 +212,26 @@
 
 											<div class="space-6"></div>
 											<p> Enter your details to begin: </p>
-
-											<form>
+											<!-- **********************************注册页面******************************** -->
+											<form action="user/userRegister" method="post" onsubmit="checkRegisterForm()">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="Email" />
-															<i class="icon-envelope"></i>
-														</span>
-													</label>
-
-													<label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="Username" />
+															<input id="userName_input" type="text" class="form-control" name="userName" placeholder="请输入账户名" />
 															<i class="icon-user"></i>
 														</span>
 													</label>
-
+												
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Password" />
+															<input id="password_input" type="password" class="form-control" name="password" placeholder="请输入密码" />
 															<i class="icon-lock"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Repeat password" />
+															<input id="repassword_input" type="password" class="form-control" placeholder="确认密码" />
 															<i class="icon-retweet"></i>
 														</span>
 													</label>
@@ -240,7 +252,7 @@
 															Reset
 														</button>
 
-														<button type="button" class="width-65 pull-right btn btn-sm btn-success">
+														<button type="submit" class="width-65 pull-right btn btn-sm btn-success">
 															Register
 															<i class="icon-arrow-right icon-on-right"></i>
 														</button>

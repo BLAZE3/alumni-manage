@@ -10,12 +10,17 @@
 </head>
 <script type="text/javascript">
 	$(function(){
-		
+		// 性别默认选中
+		var sex = "${studentInfo.sex}";
+		$(".sex_radio[value='${studentInfo.sex}']").attr("checked", true);
 		// 提交表单
 		$("#submit_btn").click(function(){
 			if(confirm("确认提交?")){
-				$("#student_update_form").submit();
-				window.parent.location.reload();
+				var url = "studentInfo/updateStudentInfo";
+				$.post(url,$("#student_update_form").serialize(),function(){
+					window.parent.location.reload();
+				});
+				//$("#student_update_form").submit();
 			}
 		});
 	});
@@ -40,6 +45,14 @@
 					<td><input type="text" name="age" value="${studentInfo.age}"></td>
 				</tr>
 				<tr>
+					<td>性别</td>
+					<td>
+						<input id="sex_male" type="radio" name="sex" value="男" class="sex_radio"><label for="sex_male">男</label>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<input id="sex_female" type="radio" name="sex" value="女" class="sex_radio"><label for="sex_female">女</label>
+					</td>
+				</tr>
+				<tr>
 					<td>手机号</td>
 					<td><input type="text" name="telephone" value="${studentInfo.telephone}"></td>
 				</tr>
@@ -61,7 +74,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<a href="educationInfo/forwardEducationInfoPage" target="_blank">学历信息</a>
+						<a href="educationInfo/forwardEducationInfoPage?studentId=${studentInfo.id}" target="_blank">学历信息</a>
 					</td>
 				</tr>
 			</tbody>

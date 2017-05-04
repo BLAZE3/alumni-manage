@@ -200,7 +200,7 @@ function f_initGrid()
 function editRow(studentId){
 	$.ligerDialog.open({
 		height : 500,
-		url : 'studentInfo/forwardStudentInfoUpdate',
+		url : 'studentInfo/forwardStudentInfoUpdate?studentId='+studentId,
 		width : null,
 		showMax : true,
 		showToggle : false,

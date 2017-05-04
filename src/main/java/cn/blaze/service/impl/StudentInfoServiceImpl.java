@@ -11,7 +11,8 @@ import cn.blaze.dao.UserInfoDao;
 import cn.blaze.domain.StudentInfo;
 import cn.blaze.domain.UserInfo;
 import cn.blaze.service.StudentInfoService;
-import cn.blaze.utils.CommonUtil;
+import cn.blaze.utils.BlazeConstants;
+import cn.blaze.utils.CommonUtils;
 import cn.blaze.utils.SystemUtils;
 import cn.blaze.vo.StudentRegisterVo;
 
@@ -24,6 +25,7 @@ public class StudentInfoServiceImpl implements StudentInfoService {
 	
 	@Override
 	public void studentRegister(StudentRegisterVo registerVo) {
+		/***插入学生信息***/
 		StudentInfo studentInfo = new StudentInfo();
 		studentInfo.setId(SystemUtils.buildUniqueId());
 		studentInfo.setAddress(registerVo.getAddress());
@@ -36,14 +38,12 @@ public class StudentInfoServiceImpl implements StudentInfoService {
 		studentInfo.setWechat(registerVo.getWechat());
 		studentInfoDao.insertStudentInfo(studentInfo);
 		
+		/***更新用户信息,使用户信息与学生信息表关联***/
 		UserInfo userInfo = new UserInfo();
-		userInfo.setIsvalid("Y");// 有效性设置为Y 有效
-		userInfo.setUserName(registerVo.getUserName());//用户名
-		userInfo.setPassword(registerVo.getPassword());//密码
-		userInfo.setStatus("0");// 状态0 表示待审核
-		userInfo.setStudentId(studentInfo.getId());
-		userInfo.setType("1");// type设置为1 表示学生
-		userInfoDao.insertUserInfoWithIdAuto(userInfo);
+		userInfo.setId(registerVo.getId());
+		userInfo.setType(BlazeConstants.USER_TYPE_STUDENT);// type设置为1 表示学生
+		userInfo.setStudentId(studentInfo.getId());// 更新用户的学生信息
+		userInfoDao.updateById(userInfo);
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class StudentInfoServiceImpl implements StudentInfoService {
 		map.put("start", String.valueOf((page-1)*pageSize));
 		map.put("pageSize", String.valueOf(pageSize));
 		List<StudentRegisterVo> list = this.queryUserStudentInfoByParameter(map);
-		return CommonUtil.list2FlexigridJson(page+"", list, String.valueOf(total));
+		return CommonUtils.list2FlexigridJson(page+"", list, String.valueOf(total));
 	}
 
 	public int queryUserStudentInfoCountByParameter(Map<String, Object> map){

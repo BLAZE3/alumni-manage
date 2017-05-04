@@ -16,6 +16,7 @@ import cn.blaze.service.MailService;
 import cn.blaze.service.StudentInfoService;
 import cn.blaze.service.UserInfoService;
 import cn.blaze.utils.BlazeConstants;
+import cn.blaze.utils.CommonUtils;
 import cn.blaze.vo.UserInfoVo;
 
 /**
@@ -172,18 +173,17 @@ public class UserController extends BaseController{
 			map.put("userName", userName);
 			map.put("password", password);
 			map.put("type", type);
+			CommonUtils.removeNullValue(map);
 			UserInfo user = userInfoService.queryUserInfoByUserNameAndPassword(map);
 			
 			if(user != null){// 用户存在
 				if(BlazeConstants.USER_TYPE_ADMIN.equals(type)){// 管理员登录
 					this.saveLoginUser(request, user);// 保存用户信息到session
 					return "index/adminIndex";
-				}else if(BlazeConstants.USER_TYPE_STUDENT.equals(type)){// 学生登录
+				}else {// 学生或者普通用户登录
 					this.saveLoginUser(request, user);// 保存用户信息到session
+					request.setAttribute("user", user);
 					return "index/userIndex";
-				}else if("".equals(type)){// 用户类型未知
-					request.setAttribute("msg", "用户类型未知,请与管理员联系!");
-					return "index/login";
 				}
 			}
 		}
@@ -236,5 +236,25 @@ public class UserController extends BaseController{
 			return buildJsonMap("success", null);
 		}
 		return buildJsonMap("密码错误,请重新输入正确密码!", null);
+	}
+	
+	/**
+	 * @Title userRegister
+	 * @Description：用户注册
+	 * @param userInfo
+	 * @param request
+	 * @return
+	 * @user LiuLei 2017年5月4日
+	 * @updater：
+	 * @updateTime：
+	 */
+	@RequestMapping("userRegister")
+	public String userRegister(UserInfo userInfo, HttpServletRequest request){
+		userInfo.setCreateTime(new Date());
+		userInfo.setIsvalid(BlazeConstants.ISVALID_YES);
+		userInfo.setType(BlazeConstants.USER_TYPE_COMMON);
+		userInfo.setStatus("0");
+		userInfoService.userRegister(userInfo);
+		return "index/login";
 	}
 }

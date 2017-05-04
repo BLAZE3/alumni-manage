@@ -4,12 +4,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
-public class CommonUtil {
+public class CommonUtils {
 
 	/**
 	 * 判断字符串是否为空
@@ -245,5 +249,79 @@ public class CommonUtil {
             }
             return strAll;
         }
+    }
+    
+    /**
+     * @Title removeNullValue
+     * @Description：移除map中的value空值 
+     * @param map
+     * @user LiuLei 2017年5月4日
+     * @updater：
+     * @updateTime：
+     */
+    @SuppressWarnings("rawtypes")
+	public static void removeNullValue(Map map){   
+        Set set = map.keySet();   
+        for (Iterator iterator = set.iterator(); iterator.hasNext();) {   
+            Object obj = (Object) iterator.next();   
+            Object value =(Object)map.get(obj);   
+            remove(value, iterator);   
+        }
+    }
+    
+    /**
+     * @Title remove
+     * @Description：移除map中的空值 
+     * Iterator 是工作在一个独立的线程中，并且拥有一个 mutex 锁。  
+     * Iterator 被创建之后会建立一个指向原来对象的单链索引表，当原来的对象数量发生变化时，这个索引表的内容不会同步改变， 
+     * 所以当索引指针往后移动的时候就找不到要迭代的对象，所以按照 fail-fast 原则 Iterator 会马上抛出 java.util.ConcurrentModificationException 异常。 
+     * 所以 Iterator 在工作的时候是不允许被迭代的对象被改变的。 
+     * 但你可以使用 Iterator 本身的方法 remove() 来删除对象， Iterator.remove() 方法会在删除当前迭代对象的同时维护索引的一致性。
+     * @param obj
+     * @param iterator
+     * @user LiuLei 2017年5月4日
+     * @updater：
+     * @updateTime：
+     */
+    @SuppressWarnings("rawtypes")
+	private static void remove(Object obj,Iterator iterator){   
+        if(obj instanceof String){   
+            String str = (String)obj;  
+            if(isEmpty(str)){  //过滤掉为null和""的值 主函数输出结果map：{2=BB, 1=AA, 5=CC, 8=  }  
+                iterator.remove();   
+            }   
+        }else if(obj instanceof Collection){   
+            Collection col = (Collection)obj;   
+            if(col==null||col.isEmpty()){   
+                iterator.remove();   
+            }
+        }else if(obj instanceof Map){   
+            Map temp = (Map)obj;   
+            if(temp==null||temp.isEmpty()){   
+                iterator.remove();   
+            }
+        }else if(obj instanceof Object[]){   
+            Object[] array =(Object[])obj;   
+            if(array==null||array.length<=0){   
+            	iterator.remove();   
+            } 
+        }else{   
+            if(obj==null){   
+                iterator.remove();   
+            }   
+        }   
+    }   
+    
+    /**
+     * @Title isEmpty
+     * @Description：为null或者为空字符串返回true,否则返回false
+     * @param obj
+     * @return
+     * @user LiuLei 2017年5月4日
+     * @updater：
+     * @updateTime：
+     */
+    public static boolean isEmpty(Object obj){  
+        return obj == null || obj.toString().length() == 0;  
     }
 }

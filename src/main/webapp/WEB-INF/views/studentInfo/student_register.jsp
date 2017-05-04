@@ -22,20 +22,15 @@
 </script>
 <body>
 	<form id="student_register_form" action="studentInfo/studentRegister" method="post">
+		<input type="hidden" name="id" value="${loginUser.id}">
 		<table>
 			<thead></thead>
 			<tbody>
 				<tr>
 					<td>用户账号</td>
-					<td><input type="text" name="userName" placeholder="16位以内数字、英文字母和下划线组成"></td>
-				</tr>
-				<tr>
-					<td>密码</td>
-					<td><input type="text" name="password" placeholder=""></td>
-				</tr>
-				<tr>
-					<td>确认密码</td>
-					<td><input type="text" name="repassword" placeholder=""></td>
+					<td>
+						${loginUser.userName}
+					</td>
 				</tr>
 				<tr>
 					<td>姓名</td>

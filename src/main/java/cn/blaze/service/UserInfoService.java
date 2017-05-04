@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.blaze.domain.UserInfo;
+import cn.blaze.vo.UserInfoVo;
 
 
 public interface UserInfoService {
@@ -121,5 +122,15 @@ public interface UserInfoService {
 	 * @updateTime：
 	 */
 	void enableUserById(String id);
+
+	/**
+	 * @Title userRegister
+	 * @Description：用户注册
+	 * @param userInfo
+	 * @user LiuLei 2017年5月4日
+	 * @updater：
+	 * @updateTime：
+	 */
+	void userRegister(UserInfo userInfo);
 
 }

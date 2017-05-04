@@ -27,7 +27,7 @@ public class EducationInfoController extends BaseController{
 	
 	/**
 	 * @Title forwardEducationInfoPage
-	 * @Description：跳转到学历信息页面
+	 * @Description：根据学生信息表的主键studentId跳转到学历信息页面
 	 * @param request
 	 * @return
 	 * @user LiuLei 2017年4月23日
@@ -36,8 +36,8 @@ public class EducationInfoController extends BaseController{
 	 */
 	@RequestMapping("forwardEducationInfoPage")
 	public String forwardEducationInfoPage(HttpServletRequest request){
-//		String studentId = request.getParameter("studentId");
-		String studentId = "d8b706386fc446289e0b93c18bd94a72";
+		String studentId = this.getNotNullValue(request.getParameter("studentId"));
+		studentId = "d8b706386fc446289e0b93c18bd94a72";
 		List<EducationInfo> educationInfoList = educationInfoService.findEducationInfoByStudentId(studentId);
 		List<EducationInfoVo> educationInfoVoList = new LinkedList<EducationInfoVo>();
 		for (EducationInfo educationInfo : educationInfoList) {

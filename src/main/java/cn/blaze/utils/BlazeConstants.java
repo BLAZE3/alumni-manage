@@ -9,7 +9,10 @@ public class BlazeConstants {
 	 * 用户类型--学生
 	 */
 	public static final String USER_TYPE_STUDENT="1";
-	
+	/**
+	 * 用户类型--普通
+	 */
+	public static final String USER_TYPE_COMMON="2";
 	/**
 	 * 是否有效--有效
 	 */

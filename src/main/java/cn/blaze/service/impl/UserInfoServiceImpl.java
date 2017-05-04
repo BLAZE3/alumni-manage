@@ -40,7 +40,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		Map<String, Object> map = new HashMap<String, Object>(1);
 		map.put("studentId", studentId);
 		List<UserInfo> list = userInfoDao.selectUserInfoByPara(map);
-		return list!=null?list.get(0):null;
+		return list!=null&&list.size()>0?list.get(0):null;
 	}
 
 	@Override
@@ -109,6 +109,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 		user.setIsvalid(BlazeConstants.ISVALID_YES);
 		user.setId(id);
 		this.updateUserInfoById(user);
+	}
+
+	@Override
+	public void userRegister(UserInfo userInfo) {
+		userInfoDao.insertUserInfoWithIdAuto(userInfo);
 	}
 	
 }

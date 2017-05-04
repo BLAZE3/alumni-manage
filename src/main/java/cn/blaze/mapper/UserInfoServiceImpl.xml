@@ -60,7 +60,7 @@
 		<if test="id != null">
 		  AND id=#{id,jdbcType=VARCHAR}
 		</if>
-		<if test="studentId != null">
+		<if test="studentId != null and studentId != ''">
 		  AND student_id=#{studentId,jdbcType=VARCHAR}
 		</if>
 		<if test="userName != null">
@@ -72,7 +72,7 @@
 		<if test="status != null">
 		  AND status=#{status,jdbcType=VARCHAR}
 		</if>
-		<if test="type != null">
+		<if test="type != null and type != ''">
 		  AND type=#{type,jdbcType=VARCHAR}
 		</if>
 		<if test="isvalid != null">

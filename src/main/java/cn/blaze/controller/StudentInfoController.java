@@ -97,7 +97,11 @@ public class StudentInfoController extends BaseController{
 		// TODO 对传入的参数校验?
 		registerVo.setCreateTime(new Date());
 		studentInfoService.studentRegister(registerVo);
-		return "login";
+		
+		UserInfo user = userInfoService.queryUserInfoById(registerVo.getId());
+		this.saveLoginUser(request, user);//更新登录用户信息
+		request.setAttribute("user", user);
+		return "index/userIndex";
 	}
 	
 	/**
