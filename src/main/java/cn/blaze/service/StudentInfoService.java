@@ -71,7 +71,7 @@ public interface StudentInfoService {
 	 * @updater：
 	 * @updateTime：
 	 */
-	List<StudentRegisterVo> queryUserStudentInfoByParameter(Map<String, Object> map);
+	List<StudentRegisterVo> queryUserStudentInfoByPara(Map<String, Object> map);
 	
 	/**
 	 * @Title queryUserStudentInfoMapByParameter
@@ -82,7 +82,7 @@ public interface StudentInfoService {
 	 * @updater：
 	 * @updateTime：
 	 */
-	List<Map<String, Object>> queryUserStudentInfoMapByParameter(Map<String, Object> map);
+	List<Map<String, Object>> queryUserStudentInfoMapByPara(Map<String, Object> map);
 	
 	/**
 	 * @Title queryUserStudentInfoByParameterForLigerUI
@@ -100,7 +100,7 @@ public interface StudentInfoService {
 	String queryUserStudentInfoByParameterForLigerUI(Map<String, Object> map, String sortName,String sortOrder, int page, int size);
 	
 	/**
-	 * @Title queryUserStudentInfoCountByParameter
+	 * @Title queryUserStudentInfoCountByPara
 	 * @Description：统计用户学生信息的条数
 	 * @param map 条件
 	 * @return
@@ -108,5 +108,5 @@ public interface StudentInfoService {
 	 * @updater：
 	 * @updateTime：
 	 */
-	int queryUserStudentInfoCountByParameter(Map<String, Object> map);
+	int queryUserStudentInfoCountByPara(Map<String, Object> map);
 }

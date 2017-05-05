@@ -69,30 +69,31 @@ public class StudentInfoServiceImpl implements StudentInfoService {
 	}
 
 	@Override
-	public List<StudentRegisterVo> queryUserStudentInfoByParameter(Map<String, Object> map) {
+	public List<StudentRegisterVo> queryUserStudentInfoByPara(Map<String, Object> map) {
 		return studentInfoDao.selectUserStudentInfoByPara(map);
 	}
 
 	@Override
 	public String queryUserStudentInfoByParameterForLigerUI(Map<String, Object> map, String sortName, 
 			String sortOrder, int page, int pageSize) {
-		int total = this.queryUserStudentInfoCountByParameter(map);
+		int total = this.queryUserStudentInfoCountByPara(map);
 		
 		map.put("sortName", sortName);
 		map.put("sortOrder", sortOrder);
 		map.put("start", String.valueOf((page-1)*pageSize));
 		map.put("pageSize", String.valueOf(pageSize));
-		List<StudentRegisterVo> list = this.queryUserStudentInfoByParameter(map);
+		List<StudentRegisterVo> list = this.queryUserStudentInfoByPara(map);
 		return CommonUtils.list2FlexigridJson(page+"", list, String.valueOf(total));
 	}
 
-	public int queryUserStudentInfoCountByParameter(Map<String, Object> map){
-		// TODO
-		return 5;
+	@Override
+	public int queryUserStudentInfoCountByPara(Map<String, Object> map) {
+		return studentInfoDao.queryUserStudentInfoCountByPara(map);
 	}
 
 	@Override
-	public List<Map<String, Object>> queryUserStudentInfoMapByParameter(Map<String, Object> map) {
+	public List<Map<String, Object>> queryUserStudentInfoMapByPara(Map<String, Object> map) {
 		return studentInfoDao.selectUserStudentInfoMapByPara(map);
 	}
+
 }

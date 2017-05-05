@@ -146,7 +146,7 @@ public class StudentInfoController extends BaseController{
 		map.put("isvalid", isvalid);
 		map.put("type", BlazeConstants.USER_TYPE_STUDENT);
 		
-		List<Map<String, Object>> mapList = studentInfoService.queryUserStudentInfoMapByParameter(map);
+		List<Map<String, Object>> mapList = studentInfoService.queryUserStudentInfoMapByPara(map);
 		String[] title = new String[] { "账号", "性别", "创建时间", "更新时间", "状态",
 				"是否删除", "姓名", "年龄", "手机", "地址", "邮箱", "微信号", "QQ" };
 		String[] column = new String[] { "userName", "sex", "createTime",

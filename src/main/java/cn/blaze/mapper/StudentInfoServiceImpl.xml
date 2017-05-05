@@ -286,6 +286,12 @@
 	    </if>
 	</select>
 	
+	<select id="queryUserStudentInfoCountByPara" parameterType="java.util.Map" resultType="java.lang.Integer">
+		    select count(*) 
+		    from student_info student right join user_info user on user.student_id=student.id 
+		    <include refid="User_StudentInfo_Where_List" />
+	</select>
+	
 	<insert id="insertSelective" parameterType="StudentInfo">
 		insert into student_info
 		<trim prefix="(" suffix=")" suffixOverrides=",">

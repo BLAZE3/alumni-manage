@@ -88,6 +88,26 @@ public interface StudentInfoDao {
 	 */
 	List<StudentRegisterVo> selectUserStudentInfoByPara(Map<String, Object> map);
 
+	/**
+	 * @Title selectUserStudentInfoMapByPara
+	 * @Description：条件查询
+	 * @param map 条件
+	 * @return 实例对应的map数据
+	 * @user LiuLei 2017年5月5日
+	 * @updater：
+	 * @updateTime：
+	 */
 	List<Map<String, Object>> selectUserStudentInfoMapByPara(Map<String, Object> map);
+
+	/**
+	 * @Title queryUserStudentInfoCountByPara
+	 * @Description：统计数量
+	 * @param map
+	 * @return
+	 * @user LiuLei 2017年5月5日
+	 * @updater：
+	 * @updateTime：
+	 */
+	int queryUserStudentInfoCountByPara(Map<String, Object> map);
 
 }
