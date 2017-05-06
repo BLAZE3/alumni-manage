@@ -198,6 +198,21 @@ public class UserController extends BaseController{
 	}
 	
 	/**
+	 * @Title logout
+	 * @Description：用户登出,注销
+	 * @param request
+	 * @return
+	 * @user LiuLei 2017年5月6日
+	 * @updater：
+	 * @updateTime：
+	 */
+	@RequestMapping("logout")
+	public String logout(HttpServletRequest request){
+		request.getSession().removeAttribute(BlazeConstants.SESSION_SAVE_LOGIN);// 用户注销
+		return "index/login";
+	}
+	
+	/**
 	 * @Title forwardUpdatePassword
 	 * @Description：跳转到修改密码页面
 	 * @param userInfoVo

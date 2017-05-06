@@ -19,5 +19,6 @@
 	</c:otherwise>
 </c:choose>
 <a href="user/forwardUpdatePassword" target="_blank">密码修改</a>
+<a href="user/logout">注销</a>
 </body>
 </html>

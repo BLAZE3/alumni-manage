@@ -13,5 +13,6 @@
 <a href="user/forwardQueryUserInfo?type=admin" target="_blank">查看管理员信息</a>
 <a href="user/forwardUpdatePassword" target="_blank">查看组信息</a>
 <a href="user/forwardUpdatePassword" target="_blank">查看日志</a>
+<a href="user/logout">注销</a>
 </body>
 </html>
