@@ -37,7 +37,7 @@ public class EducationInfoController extends BaseController{
 	@RequestMapping("forwardEducationInfoPage")
 	public String forwardEducationInfoPage(HttpServletRequest request){
 		String studentId = this.getNotNullValue(request.getParameter("studentId"));
-		studentId = "d8b706386fc446289e0b93c18bd94a72";
+//		studentId = "d8b706386fc446289e0b93c18bd94a72";
 		List<EducationInfo> educationInfoList = educationInfoService.findEducationInfoByStudentId(studentId);
 		List<EducationInfoVo> educationInfoVoList = new LinkedList<EducationInfoVo>();
 		for (EducationInfo educationInfo : educationInfoList) {
@@ -46,19 +46,24 @@ public class EducationInfoController extends BaseController{
 			educationInfoVoList.add(educationInfoVo);
 		}
 		request.setAttribute("educationInfoList", educationInfoVoList);
+		request.setAttribute("studentId", studentId);
 		return "educationInfo/education_update";
 	}
 	
 	/**
 	 * @Title addEducationInfo
 	 * @Description：添加学历信息
+	 * @param educationInfoVo
+	 * @param studentId 学生信息id
 	 * @param request
-	 * @user LiuLei 2017年4月23日
+	 * @return
+	 * @user LiuLei 2017年5月6日
 	 * @updater：
 	 * @updateTime：
 	 */
+	@ResponseBody
 	@RequestMapping("addEducationInfo")
-	public void addEducationInfo(EducationInfoVo educationInfoVo, HttpServletRequest request){
+	public Map<String, Object> addEducationInfo(EducationInfoVo educationInfoVo, String studentId, HttpServletRequest request){
 		String entranceTimeStr = educationInfoVo.getEntranceTimeStr();
 		String graduationTimeStr = educationInfoVo.getGraduationTimeStr();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM");
@@ -68,12 +73,14 @@ public class EducationInfoController extends BaseController{
 			educationInfoVo.setEntranceTime(entrancetime);
 			Date graduationtime = sf.parse(graduationTimeStr);
 			educationInfoVo.setGraduationTime(graduationtime);
-			
+			educationInfoVo.setStudentId(studentId);
 		} catch (ParseException e) {
 			e.printStackTrace();
+			return buildJsonMap("操作失败!", "日期格式输入不对");
 		}
 		
 		educationInfoService.addEductionInfo(educationInfoVo);
+		return buildJsonMap("success", "");
 	}
 	
 	/**

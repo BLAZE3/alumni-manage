@@ -92,7 +92,7 @@ public class EducationInfoVo {
 	}
 
 	public String getEntranceTimeStr() {
-		return entranceTimeStr==null?sf.format(entranceTime):entranceTimeStr;
+		return entranceTimeStr==null && entranceTime!=null?sf.format(entranceTime):entranceTimeStr;
 	}
 
 	public void setEntranceTimeStr(String entranceTimeStr) {
@@ -100,7 +100,7 @@ public class EducationInfoVo {
 	}
 
 	public String getGraduationTimeStr() {
-		return graduationTimeStr==null?sf.format(graduationTime):graduationTimeStr;
+		return graduationTimeStr==null && graduationTime!=null?sf.format(graduationTime):graduationTimeStr;
 	}
 
 	public void setGraduationTimeStr(String graduationTimeStr) {

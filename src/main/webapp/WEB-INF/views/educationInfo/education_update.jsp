@@ -13,8 +13,17 @@
 	$(function(){
 		
 		$("#add_btn").click(function(){
-			$("#add_education_form").submit();
-			//location.reload();
+			
+			if(submitCheck()){// 表单校验
+				var url = "educationInfo/addEducationInfo";
+				$.post(url,$("#add_education_form").serialize(),function(data){
+					if(data.info=="success"){
+						location.reload();
+					}else {
+						alert(data.info+"原因:"+data.data);
+					}
+				});
+			}
 		});
 	});
 	
@@ -34,14 +43,31 @@
 			);
 	}
 	
+	// 提交前验证
+	function submitCheck(){
+		var msg = null;// 错误提示
+		$(".submit_time").each(function(i,n){
+			var time = $(n).val();
+			if(time==null || time==""){
+				msg = $(n).attr("placeholder");
+				return;
+			}
+		});
+		if(!msg){
+			return true;
+		}else {
+			alert (msg);
+			return false;
+		}
+	}
 </script>
 <body>
 	<form id="add_education_form" action="educationInfo/addEducationInfo" method="post">
-		<input type="hidden" name="studentId" value="${userId}"/>
+		<input type="hidden" name="studentId" value="${studentId}"/>
 		<table>
 			<tr>
 				<td>
-					<select name="schoolName">
+					<select name="schoolName" title="请选择学校">
 						<!-- <option>--请选择学校--</option> -->
 						<option value="中国科学技术大学">中国科学技术大学</option>
 						<option value="中国科学院大学">中国科学院大学</option>
@@ -49,7 +75,7 @@
 				</td>
 				<td>
 					<!-- <input type="text" name="institute" placeholder="请输入所在院"> -->
-					<select name="institute">
+					<select name="institute" title="请选择学院">
 						<!-- <option>--所在学院--</option> -->
 						<option value="软件学院">软件学院</option>
 						<option value="计算机学院">计算机学院</option>
@@ -57,7 +83,7 @@
 				</td>
 				<td>
 					<!-- <input type="text" name="major" placeholder="请输入专业"> -->
-					<select name="major">
+					<select name="major" title="请选择专业">
 						<!-- <option>--所在专业--</option> -->
 						<option value="软件系统设计">软件系统设计</option>
 						<option value="嵌入式软件设计">嵌入式系统</option>
@@ -66,13 +92,20 @@
 					</select>
 				</td>
 				<td>
-					<input type="text" name="education" placeholder="请输入学历">
+					<!-- <input type="text" name="education" placeholder="请输入学历"> -->
+					<select name="education" title="请选择学历">
+						<option value="大专">大专</option>
+						<option value="本科">本科</option>
+						<option value="硕士">硕士</option>
+						<option value="博士">博士</option>
+					</select>
+					</select>
 				</td>
 				<td>
-					<input type="text" name="entranceTimeStr" placeholder="请输入入学年份">
+					<input type="text" name="entranceTimeStr"  class="submit_time" placeholder="请输入入学年份">
 				</td>
 				<td>
-					<input type="text" name="graduationTimeStr" placeholder="请输入毕业年份">
+					<input type="text" name="graduationTimeStr"  class="submit_time" placeholder="请输入毕业年份">
 				</td>
 				<td>
 					<button id="add_btn" type="button">添加</button>
@@ -83,8 +116,8 @@
 		</table>
 	</form>
 	
-	<table>
-		<c:if test="${educationInfoList.size()-1>0}">
+	<table style='border:1px solid #ff00ff;'>
+		<c:if test="${educationInfoList.size()>0}">
 			<c:forEach items="${educationInfoList}" var="education" varStatus="status">
 				<tr>
 					<td>
@@ -119,8 +152,8 @@
 						<!-- <input type="text" name="userName" placeholder="请输入毕业年份"> -->
 					</td>
 					<td>
-						<button id="update_btn" type="button" onclick="updateEducation()">修改</button>
-						&nbsp;&nbsp;
+						<!-- <button id="update_btn" type="button" onclick="updateEducation()">修改</button>
+						&nbsp;&nbsp; -->
 						<button id="del_btn" type="button" onclick="delEducationById('${education.id}')">删除</button>
 					</td>
 				</tr>
