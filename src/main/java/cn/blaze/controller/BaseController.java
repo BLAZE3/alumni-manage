@@ -19,6 +19,7 @@ import jxl.write.WritableWorkbook;
 import org.apache.commons.lang3.StringUtils;
 
 import cn.blaze.domain.UserInfo;
+import cn.blaze.utils.BlazeConstants;
 import cn.blaze.utils.HttpParamUtil;
 import cn.blaze.vo.AjaxResult;
 
@@ -36,7 +37,7 @@ public class BaseController {
 	 * @updateTime：
 	 */
 	protected void saveLoginUser(HttpServletRequest request, UserInfo user){
-		request.getSession().setAttribute("loginUser", user);
+		request.getSession().setAttribute(BlazeConstants.SESSION_SAVE_LOGIN, user);
 	}
 	
 	/**
@@ -49,7 +50,7 @@ public class BaseController {
 	 * @updateTime：
 	 */
 	protected UserInfo getLoginUser(HttpServletRequest request){
-		return (UserInfo) request.getSession().getAttribute("loginUser");
+		return (UserInfo) request.getSession().getAttribute(BlazeConstants.SESSION_SAVE_LOGIN);
 	}
 	
 	/**

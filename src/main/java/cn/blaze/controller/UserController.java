@@ -209,7 +209,8 @@ public class UserController extends BaseController{
 	 */
 	@RequestMapping("forwardUpdatePassword")
 	public String forwardUpdatePassword(HttpServletRequest request){
-		UserInfo user = (UserInfo) request.getSession().getAttribute("loginUser");
+//		UserInfo user = (UserInfo) request.getSession().getAttribute("loginUser");
+		UserInfo user = this.getLoginUser(request);
 		request.setAttribute("userInfo", user);
 		return "userInfo/update_password";
 	}

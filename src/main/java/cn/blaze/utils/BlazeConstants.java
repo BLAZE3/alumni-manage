@@ -1,6 +1,7 @@
 package cn.blaze.utils;
 
 public class BlazeConstants {
+	public static final String SESSION_SAVE_LOGIN = "loginUser";
 	/**
 	 * 用户类型--管理员
 	 */
