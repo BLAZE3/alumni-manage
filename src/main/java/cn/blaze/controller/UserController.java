@@ -136,11 +136,24 @@ public class UserController extends BaseController{
 		}
 		return buildJsonMap("success", "");
 	}
+
+	/**
+	 * @Title userLogin
+	 * @Description：跳转到用户登录界面
+	 * @param request
+	 * @return
+	 * @user LiuLei 2017年4月26日
+	 * @updater：
+	 * @updateTime：
+	 */
+	@RequestMapping("userLogin")
+	public String userLogin(HttpServletRequest request){
+		return "index/login";
+	}
 	
 	/**
 	 * @Title adminLogin
 	 * @Description：跳转到管理员用户登录界面
-	 * @param userInfo
 	 * @param request
 	 * @return
 	 * @user LiuLei 2017年4月26日

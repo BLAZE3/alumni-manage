@@ -33,7 +33,13 @@
     <servlet-name>springmvc</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
+  
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/WEB-INF/views/error/404.jsp</location>
+  </error-page>
+  
   <welcome-file-list>
-    <welcome-file>login.jsp</welcome-file>
+    <welcome-file>home.jsp</welcome-file>
   </welcome-file-list>
 </web-app>

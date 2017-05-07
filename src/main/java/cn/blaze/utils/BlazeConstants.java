@@ -1,7 +1,20 @@
 package cn.blaze.utils;
 
+/**
+ * @ClassName BlazeConstants
+ * @Description 存储项目常量
+ * @author LiuLei
+ * @date 2017年5月7日 下午4:39:04
+ */
 public class BlazeConstants {
+	/**
+	 * 存储在session中用户对应的key
+	 */
 	public static final String SESSION_SAVE_LOGIN = "loginUser";
+	/**
+	 * 存储错误页面的错误信息
+	 */
+	public static final String ERROR_PAGE_MESSAGE = "error_message";
 	/**
 	 * 用户类型--管理员
 	 */
