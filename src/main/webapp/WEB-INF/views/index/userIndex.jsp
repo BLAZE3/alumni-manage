@@ -19,6 +19,10 @@
 	</c:otherwise>
 </c:choose>
 <a href="user/forwardUpdatePassword" target="_blank">密码修改</a>
-<a href="user/logout">注销</a>
+<a href="user/logout">注销</a><br>
+<form action="fileOperate/upload" enctype="multipart/form-data" method="post">
+	<input type="file" name="file"/>
+	<input type="submit" value="提交">
+</form>
 </body>
 </html>
