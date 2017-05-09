@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Insert title here</title>
+	<title>用户首页</title>
 	<jsp:include page="/component/title.jsp"/>
 </head>
 <body>
@@ -20,9 +20,5 @@
 </c:choose>
 <a href="user/forwardUpdatePassword" target="_blank">密码修改</a>
 <a href="user/logout">注销</a><br>
-<form action="fileOperate/upload" enctype="multipart/form-data" method="post">
-	<input type="file" name="file"/>
-	<input type="submit" value="提交">
-</form>
 </body>
 </html>

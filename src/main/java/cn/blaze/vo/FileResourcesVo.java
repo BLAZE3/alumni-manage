@@ -1,5 +1,6 @@
-package cn.blaze.domain;
+package cn.blaze.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -8,13 +9,14 @@ import java.util.Date;
  * @author LiuLei
  * @date 2017年5月9日 下午8:01:02
  */
-public class FileResources {
+public class FileResourcesVo {
 
 	private String id;
     private String fileName;
     private String publisherId;
     private String publisherName;
     private Date publishTime;
+    private String publishTimeStr;
     private String filePath;
     private String groupId;
     private String groupType;
@@ -22,6 +24,9 @@ public class FileResources {
     private String fileDesc;
     private String fileSize;// 资源大小
     private Integer downCount;// 下载次数
+    
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    
     public String getId() {
         return id;
     }
@@ -117,4 +122,13 @@ public class FileResources {
 	public void setDownCount(Integer downCount) {
 		this.downCount = downCount;
 	}
+
+	public String getPublishTimeStr() {
+		return publishTimeStr==null && publishTime!=null?sf.format(publishTime):publishTimeStr;
+	}
+
+	public void setPublishTimeStr(String publishTimeStr) {
+		this.publishTimeStr = publishTimeStr;
+	}
+	
 }

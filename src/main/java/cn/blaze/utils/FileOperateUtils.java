@@ -29,11 +29,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
  * @date 2017年5月8日 下午10:14:30
  */
 public class FileOperateUtils {
-	private static final String REALNAME = "realName";
-    private static final String STOREPATH = "storePath";
-    private static final String SIZE = "size";
-    private static final String CONTENTTYPE = "contentType";
-    private static final String UPLOADDIR = "uploadDir/";// 项目下文件存储的根目录名
+	public static final String REALNAME = "realName";
+	public static final String STOREPATH = "storePath";
+	public static final String SIZE = "size";
+	public static final String CONTENTTYPE = "contentType";
+	public static final String UPLOADDIR = "C://alumni-manage//";// 项目下文件存储的根目录名
   
     /**
      * @Title rename
@@ -89,15 +89,15 @@ public class FileOperateUtils {
      * @updater：
      * @updateTime：
      */
-    public static List<Map<String, Object>> upload(HttpServletRequest request)throws Exception {
+    public static List<Map<String, Object>> upload(HttpServletRequest request) throws Exception {
   
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         MultipartHttpServletRequest mRequest = (MultipartHttpServletRequest)request;
         Map<String, MultipartFile> fileMap = mRequest.getFileMap();
   
-        String uploadDir = request.getSession().getServletContext() 
-                .getRealPath("/")+ FileOperateUtils.UPLOADDIR;// 文件存储的根目录
-        
+//        String uploadDir = request.getSession().getServletContext() 
+//                .getRealPath("/")+ FileOperateUtils.UPLOADDIR;// 文件存储的根目录
+        String uploadDir = FileOperateUtils.UPLOADDIR;// 文件存储的根目录
         File file = new File(uploadDir);
         if (!file.exists()){
             file.mkdir();

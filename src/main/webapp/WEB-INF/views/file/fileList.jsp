@@ -1,11 +1,11 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE>
+<html>
 <head>
-    <title>管理员信息总览</title>
-    <jsp:include page="/component/title.jsp"></jsp:include>
-    
+	<title>文件资源列表</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<jsp:include page="/component/title.jsp"/>
     <!-- ligerui 表格 -->
     <link href="ligerUI1.3.3/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" />
     <script src="ligerUI1.3.3/lib/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
@@ -27,17 +27,42 @@
     <!-- toolbar -->
     <link href="ligerUI1.3.3/lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
     <script src="ligerUI1.3.3/lib/ligerUI/js/plugins/ligerToolBar.js" type="text/javascript"></script>
-
-    <script src="js/userInfo/userInfo_admin.js" type="text/javascript"></script>
-    <script type="text/javascript">
-	    var manager, g;
-	    $(f_initGrid);
+    
+	<script type="text/javascript" src="js/file/fileList.js"></script>
+	<script type="text/javascript">
+		var manager, g;
+		var tag = "${is_recycle}";//判断是不是回收站
+		var file_cancel = "${file_cancel}";// 删除权限
+		var dataUrl = "";
+		if(tag == "yes"){
+			dataUrl = "fileOperate/queryFileResourcesJson?type=recycle";// 是回收站
+		}else {
+			dataUrl = "fileOperate/queryFileResourcesJson";// 不是回收站
+		}
+		$(f_initGrid);
 	</script>
 </head>
-
-<body style="padding:10px">  
- <div class="l-clear"></div>
-    <div id="maingrid" style="margin-top:20px"></div><br/>
+<body>
+<h1>文件资源列表</h1>
+<table>
+	<tr>
+		<td>资源名</td>
+		<td>
+			<input type="text" id="userName" name="userName" class="select"/>
+		</td>
+		<td>发布者</td>
+		<td>
+			<input type="text" id="studentName" name="studentName" class="select"/>
+		</td>
+		<td colspan="2">
+			<button id="submit_btn">查询</button>
+			&nbsp;&nbsp;
+			<button id="reset_btn">重置</button>
+		</td>
+	</tr>
+</table> 
+<div class="l-clear"></div>
+   <div id="maingrid" style="margin-top:20px"></div><br/>
 </div>
 </body>
 </html>

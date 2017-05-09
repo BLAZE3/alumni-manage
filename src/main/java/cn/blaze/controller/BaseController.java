@@ -199,7 +199,7 @@ public class BaseController {
 	 * @param ajaxResult
 	 * @throws IOException
 	 */
-	public void writeJsonP(HttpServletRequest request,
+	protected void writeJsonP(HttpServletRequest request,
 						   HttpServletResponse response, AjaxResult ajaxResult) throws IOException {
 		String callback = HttpParamUtil.getRequestStringParam(request,
 				"callback", "");
@@ -221,4 +221,38 @@ public class BaseController {
 		response.getWriter().flush();
 	}
 	
+	/**
+	 * @Title printMessage
+	 * @Description：页面alert提示，同时refresh:true 主页面刷新，false主页面不刷新
+	 * @param response
+	 * @param message 提示消息
+	 * @param refresh 是否刷新主页面
+	 * @throws IOException
+	 * @user LiuLei 2017年5月9日
+	 * @updater：
+	 * @updateTime：
+	 */
+    protected void printMessage(HttpServletResponse response, String message, Boolean refresh) {
+        PrintWriter printWriter;
+		try {
+			printWriter = response.getWriter();
+			StringBuffer sb = new StringBuffer(500);
+			sb.append("<script language=javascript>");
+			sb.append("alert(");
+			sb.append("'");
+			sb.append(message);
+			sb.append("');");
+			// sb.append("window.top.hidePopWin();");
+			if (refresh){
+				sb.append("window.parent.document.location.reload();"); // 页面刷新
+			}
+			sb.append("window.top.hidePopWin(); ");
+			sb.append("</script>");
+			printWriter.write(sb.toString());
+			printWriter.flush();
+			printWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
 }

@@ -26,7 +26,6 @@
     
     <!-- toolbar -->
     <link href="ligerUI1.3.3/lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
-    <!-- <link href="ligerUI1.3.3/lib/ligerUI/skins/Gray/css/all.css" rel="stylesheet" type="text/css" /> -->
     <script src="ligerUI1.3.3/lib/ligerUI/js/plugins/ligerToolBar.js" type="text/javascript"></script>
 
     <script src="js/userInfo/userInfo_student.js" type="text/javascript"></script>
@@ -35,7 +34,6 @@
 	    var sexData = [{ Sex: '男', text: '男' }, { Sex: '女', text: '女'}];
 	    var manager, g;
 	    $(f_initGrid);
-	    
 	</script>
 </head>
 

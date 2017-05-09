@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CommonUtils {
 
 	/**
-	 * 判断字符串是否为空
+	 * 判断字符串是否为null或空字符串
 	 * @param str
 	 * @return
 	 */
@@ -105,16 +105,6 @@ public class CommonUtils {
 		return sb.toString();
 	}
 
-	public static void doAjaxResponse(HttpServletResponse response, String message) throws IOException {
-		response.setContentType("text/html");
-		response.setCharacterEncoding("utf-8");
-		PrintWriter out = response.getWriter();
-		out.print(message);
-		out.flush();
-		out.close();
-	}
-
-	
 	/**
 	 * 把page、total、list转换为json格式的数据，形如{"page":1,"rows":[{"id":"001","name":"ser"
 	 * },{"id":"002","name":"serdd"}],"total":"10"} 供页面的flexigrid使用
@@ -133,24 +123,6 @@ public class CommonUtils {
 		sb.append(JsonUtils.list2json(list));
 		sb.append(",\"Total\":");
 		sb.append(total);
-		sb.append("}");
-		return sb.toString();
-	}
-	
-	/**
-	 * @Title listLigerUIgridJson
-	 * @Description： 把list转换为json格式的数据，形如{rows":[{"id":"001","name":"ser"
-	 * },{"id":"002","name":"serdd"}]} 供页面的flexigrid使用
-	 * @param list
-	 * @return
-	 * @user LiuLei 2017年4月26日
-	 * @updater：
-	 * @updateTime：
-	 */
-	public static String listLigerUIgridJson(List<Object> list) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("{\"rows\":");
-		sb.append(JsonUtils.list2json(list));
 		sb.append("}");
 		return sb.toString();
 	}
@@ -253,7 +225,7 @@ public class CommonUtils {
     
     /**
      * @Title removeNullValue
-     * @Description：移除map中的value空值 
+     * @Description：移除map中的value为""和null
      * @param map
      * @user LiuLei 2017年5月4日
      * @updater：
@@ -271,7 +243,7 @@ public class CommonUtils {
     
     /**
      * @Title remove
-     * @Description：移除map中的空值 
+     * @Description：移除map中值为null和""
      * Iterator 是工作在一个独立的线程中，并且拥有一个 mutex 锁。  
      * Iterator 被创建之后会建立一个指向原来对象的单链索引表，当原来的对象数量发生变化时，这个索引表的内容不会同步改变， 
      * 所以当索引指针往后移动的时候就找不到要迭代的对象，所以按照 fail-fast 原则 Iterator 会马上抛出 java.util.ConcurrentModificationException 异常。 

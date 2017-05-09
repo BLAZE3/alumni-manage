@@ -4,3 +4,4 @@
 <c:set var="basePath" value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/" />
 <c:set var="requestURL" value="${pageContext.request.requestURL}" />
 <base href="${basePath}">
+<!-- <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script> -->

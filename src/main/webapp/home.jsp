@@ -7,7 +7,6 @@
 	<title>校友管理主页</title>
 	<link rel="shortcut icon" href="css/blaze.ico" type="image/x-icon" />
 	<jsp:include page="/component/title.jsp"/>
-	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 </head>
 <body>
 <a href="user/userLogin" target="_top">用户登录</a>
