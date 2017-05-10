@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>学生信息修改</title>
+	<title>学生信息查看</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<jsp:include page="/component/title.jsp"></jsp:include>
 	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
@@ -36,49 +36,51 @@
 			<tbody>
 				<tr>
 					<td>用户账号</td>
-					<td><input type="text" name="userName" value="${userInfo.userName}" disabled="disabled"></td>
+					<td>${userInfo.userName}</td>
 				</tr>
 				<tr>
 					<td>姓名</td>
-					<td><input type="text" name="studentName" value="${studentInfo.studentName}"></td>
+					<td>${studentInfo.studentName}</td>
 				</tr>
 				<tr>
 					<td>年龄</td>
-					<td><input type="text" name="age" value="${studentInfo.age}"></td>
+					<td>${studentInfo.age}</td>
 				</tr>
 				<tr>
 					<td>性别</td>
 					<td>
-						<input id="sex_male" type="radio" name="sex" value="男" class="sex_radio"><label for="sex_male">男</label>
+						<input id="sex_male" type="radio" name="sex" value="男" class="sex_radio" disabled="disabled"><label for="sex_male">男</label>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<input id="sex_female" type="radio" name="sex" value="女" class="sex_radio"><label for="sex_female">女</label>
+						<input id="sex_female" type="radio" name="sex" value="女" class="sex_radio" disabled="disabled"><label for="sex_female">女</label>
 					</td>
 				</tr>
 				<tr>
 					<td>手机号</td>
-					<td><input type="text" name="telephone" value="${studentInfo.telephone}"></td>
+					<td>${studentInfo.telephone}</td>
 				</tr>
 				<tr>
 					<td>联系地址</td>
-					<td><input type="text" name="address" value="${studentInfo.address}"></td>
+					<td>${studentInfo.address}</td>
 				</tr>
 				<tr>
 					<td>邮箱</td>
-					<td><input type="text" name="email" value="${studentInfo.email}"></td>
+					<td>${studentInfo.email}</td>
 				</tr>
 				<tr>
 					<td>QQ</td>
-					<td><input type="text" name="wechat" value="${studentInfo.wechat}"></td>
+					<td>${studentInfo.wechat}</td>
 				</tr>
 				<tr>
 					<td>微信</td>
-					<td><input type="text" name="qq" value="${studentInfo.qq}"></td>
+					<td>${studentInfo.qq}</td>
 				</tr>
+				<c:if test="${studentInfo.id!=null && studentInfo.id!=''}">
 				<tr>
 					<td colspan="2">
 						<a href="educationInfo/forwardEducationInfoPage?studentId=${studentInfo.id}" target="_blank">学历信息</a>
 					</td>
 				</tr>
+				</c:if>
 			</tbody>
 			<tfoot>
 				<tr>

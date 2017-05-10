@@ -30,8 +30,7 @@
 
     <script src="js/userInfo/userInfo_student.js" type="text/javascript"></script>
     <script type="text/javascript">
-	    //var DepartmentList = DepartmentData.Rows;
-	    var sexData = [{ Sex: '男', text: '男' }, { Sex: '女', text: '女'}];
+    	var operate = "${operate_tag}";
 	    var manager, g;
 	    $(f_initGrid);
 	</script>

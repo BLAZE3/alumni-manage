@@ -52,18 +52,30 @@ public class StudentInfoController extends BaseController{
 	 * @Title forwardStudentInfoUpdate
 	 * @Description：跳转到学生信息修改
 	 * @param request
+	 * @param userId 用户表id
 	 * @return
 	 * @user LiuLei 2017年4月24日
 	 * @updater：
 	 * @updateTime：
 	 */
 	@RequestMapping("forwardStudentInfoUpdate")
-	public String forwardStudentInfoUpdate(String studentId, HttpServletRequest request){
-//		String studentId = request.getParameter("studentId");// 获取登录的学生信息
-		StudentInfo studentInfo = studentInfoService.queryStudentInfoById(studentId);// 学生信息
-		UserInfo userInfo = userInfoService.queryUserInfoByStudentId(studentId);// 用户信息
-		request.setAttribute("studentInfo", studentInfo);
-		request.setAttribute("userInfo", userInfo);
+	public String forwardStudentInfoUpdate(String userId, HttpServletRequest request, HttpServletResponse response){
+		if(userId==null || "".equals(userId)){
+			printMessage(response, "对不起,用户账号有误!", false);
+		}else {
+			UserInfo userInfo = userInfoService.queryUserInfoById(userId);// 用户信息
+			
+			if(userInfo == null){
+				printMessage(response, "对不起,用户不存在!", false);
+			}else {// 用户存在
+				request.setAttribute("userInfo", userInfo);
+				String studentId = userInfo.getStudentId();
+				if(studentId!=null && !"".equals(studentId)){// 学生id不为空则查询学生信息
+					StudentInfo studentInfo = studentInfoService.queryStudentInfoById(studentId);// 学生信息
+					request.setAttribute("studentInfo", studentInfo);
+				}
+			}
+		}
 		return "studentInfo/studentInfo_update";
 	}
 	
@@ -77,8 +89,16 @@ public class StudentInfoController extends BaseController{
 	 * @updateTime：
 	 */
 	@RequestMapping("updateStudentInfo")
-	public String updateStudentInfo(StudentInfo studentInfo, HttpServletRequest request){
-		studentInfoService.updateStudentInfoById(studentInfo);
+	public String updateStudentInfo(StudentInfo studentInfo, HttpServletRequest request, HttpServletResponse response){
+		UserInfo loginUser = this.getLoginUser(request);
+		// 管理员可以修改,否则只能修改自己的信息
+		if(loginUserIsAdmin(request) || (loginUser.getStudentId()!=null && loginUser.getStudentId().equals(studentInfo.getId())))
+		{
+			studentInfoService.updateStudentInfoById(studentInfo);
+			// TODO 添加日志
+		}else {
+			printMessage(response, "对不起,您无权操作!", false);
+		}
 		return "redirect:/studentInfo/forwardStudentInfoUpdate";
 	}
 	
@@ -97,7 +117,7 @@ public class StudentInfoController extends BaseController{
 		// TODO 对传入的参数校验?
 		registerVo.setCreateTime(new Date());
 		studentInfoService.studentRegister(registerVo);
-		
+		// TODO 添加日志
 		UserInfo user = userInfoService.queryUserInfoById(registerVo.getId());
 		this.saveLoginUser(request, user);//更新登录用户信息
 		request.setAttribute("user", user);
@@ -105,6 +125,7 @@ public class StudentInfoController extends BaseController{
 	}
 	
 	/**
+	 * TODO 似乎是垃圾代码
 	 * @Title queryStudentInfo
 	 * @Description：查询学生信息
 	 * @param request
@@ -154,4 +175,33 @@ public class StudentInfoController extends BaseController{
 		exportExcel("",mapList, column, title, response);
 	}
 	
+	/**
+	 * @Title forwardStudentInfoUpdate
+	 * @Description：跳转到学生信息查看
+	 * @param request
+	 * @param userId 用户表id
+	 * @return
+	 * @user LiuLei 2017年4月24日
+	 * @updater：
+	 * @updateTime：
+	 */
+	@RequestMapping("forwardStudentInfoView")
+	public String forwardStudentInfoView(String userId, HttpServletRequest request, HttpServletResponse response){
+		if(userId==null || "".equals(userId)){
+			printMessage(response, "对不起,用户账号有误!", false);
+		}else {
+			UserInfo userInfo = userInfoService.queryUserInfoById(userId);// 用户信息
+			if(userInfo == null){
+				printMessage(response, "对不起,用户不存在!", false);
+			}else {
+				request.setAttribute("userInfo", userInfo);
+				String studentId = userInfo.getStudentId();
+				if(studentId!=null && !"".equals(studentId)){// 学生id不为空则查询学生信息
+					StudentInfo studentInfo = studentInfoService.queryStudentInfoById(studentId);// 学生信息
+					request.setAttribute("studentInfo", studentInfo);
+				}
+			}
+		}
+		return "studentInfo/studentInfo_update";
+	}
 }

@@ -39,7 +39,7 @@ public interface FileResourcesDao {
 	 * @updater：
 	 * @updateTime：
 	 */
-	List<FileResourcesVo> selectFileResourcesByParam(Map<String, Object> map);
+	List<FileResources> selectFileResourcesByParam(Map<String, Object> map);
 
 	/**
 	 * @Title queryFileResourcesCountByParam
@@ -51,5 +51,16 @@ public interface FileResourcesDao {
 	 * @updateTime：
 	 */
 	int queryFileResourcesCountByParam(Map<String, Object> map);
+
+	/**
+	 * @Title selectFileResourcesVoByParam
+	 * @Description：条件查询
+	 * @param map
+	 * @return
+	 * @user LiuLei 2017年5月10日
+	 * @updater：
+	 * @updateTime：
+	 */
+	List<FileResourcesVo> selectFileResourcesVoByParam(Map<String, Object> map);
 
 }

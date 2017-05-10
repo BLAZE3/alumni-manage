@@ -28,7 +28,7 @@ public interface UserInfoService {
 	 * @updater：
 	 * @updateTime：
 	 */
-	void updateUserInfoById(UserInfo db_userInfo);
+	int updateUserInfoById(UserInfo db_userInfo);
 	
 	/**
 	 * @Title updateUserInfoByStudentId
@@ -38,7 +38,7 @@ public interface UserInfoService {
 	 * @updater：
 	 * @updateTime：
 	 */
-	void updateUserInfoByStudentId(UserInfo db_userInfo);
+	int updateUserInfoByStudentId(UserInfo db_userInfo);
 
 	/**
 	 * @Title queryUserInfoByStudentId
@@ -81,7 +81,7 @@ public interface UserInfoService {
 	 * @updater：
 	 * @updateTime：
 	 */
-	void cancelUserByStudentId(String studentId);
+	int cancelUserByStudentId(String studentId);
 
 	/**
 	 * @Title enableUserByStudentId
@@ -91,7 +91,7 @@ public interface UserInfoService {
 	 * @updater：
 	 * @updateTime：
 	 */
-	void enableUserByStudentId(String studentId);
+	int enableUserByStudentId(String studentId);
 
 	/**
 	 * @Title resetuserPasswordById
@@ -101,7 +101,7 @@ public interface UserInfoService {
 	 * @updater：
 	 * @updateTime：
 	 */
-	void resetuserPasswordById(String id);
+	int resetuserPasswordById(String id);
 
 	/**
 	 * @Title cancelUserById
@@ -111,7 +111,7 @@ public interface UserInfoService {
 	 * @updater：
 	 * @updateTime：
 	 */
-	void cancelUserById(String id);
+	int cancelUserById(String id);
 
 	/**
 	 * @Title enableUserById
@@ -121,7 +121,7 @@ public interface UserInfoService {
 	 * @updater：
 	 * @updateTime：
 	 */
-	void enableUserById(String id);
+	int enableUserById(String id);
 
 	/**
 	 * @Title userRegister
@@ -131,6 +131,6 @@ public interface UserInfoService {
 	 * @updater：
 	 * @updateTime：
 	 */
-	void userRegister(UserInfo userInfo);
+	int userRegister(UserInfo userInfo);
 
 }

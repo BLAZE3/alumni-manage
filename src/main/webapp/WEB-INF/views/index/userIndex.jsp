@@ -18,7 +18,10 @@
 		<a href="studentInfo/forwardStudentInfoUpdate?studentId=${loginUser.studentId}" target="_blank">学生信息管理</a>
 	</c:otherwise>
 </c:choose>
+<a href="user/forwardQueryUserInfo?type=student" target="_blank">查看学生信息(学历信息)</a>
 <a href="user/forwardUpdatePassword" target="_blank">密码修改</a>
+<a href="fileOperate/forwardUpload" target="_blank">文件上传</a>
+<a href="fileOperate/forwardFileList" target="_blank">资源库</a>
 <a href="user/logout">注销</a><br>
 </body>
 </html>

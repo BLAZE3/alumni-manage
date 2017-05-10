@@ -13,11 +13,12 @@ public interface UserInfoDao {
 	 * @Title insertUserInfoWithIdAuto
 	 * @Description：插入用户信息,主键自动生成
 	 * @param userInfo
+	 * @return 
 	 * @user LiuLei 2017年4月23日
 	 * @updater：
 	 * @updateTime：
 	 */
-	void insertUserInfoWithIdAuto(UserInfo userInfo);
+	int insertUserInfoWithIdAuto(UserInfo userInfo);
 
 	/**
 	 * @Title selectUserInfoByPara
@@ -49,16 +50,17 @@ public interface UserInfoDao {
 	 * @updater：
 	 * @updateTime：
 	 */
-	void updateById(UserInfo db_userInfo);
+	int updateById(UserInfo db_userInfo);
 
 	/**
 	 * @Title updateByStudentId
 	 * @Description：根据studentId更新
 	 * @param db_userInfo 待更新的字段
+	 * @return 
 	 * @user LiuLei 2017年4月28日
 	 * @updater：
 	 * @updateTime：
 	 */
-	void updateByStudentId(UserInfo db_userInfo);
+	int updateByStudentId(UserInfo db_userInfo);
 
 }

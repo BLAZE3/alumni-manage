@@ -30,10 +30,15 @@ public class FileResourcesServiceImpl implements FileResourcesService {
 	}
 
 	@Override
-	public List<FileResourcesVo> queryFileResourcesByParam(Map<String, Object> map) {
-		return fileResourcesDao.selectFileResourcesByParam(map);
+	public List<FileResourcesVo> queryFileResourcesVoByParam(Map<String, Object> map) {
+		return fileResourcesDao.selectFileResourcesVoByParam(map);
 	}
 
+	@Override
+	public List<FileResources> queryFileResourcesByParam(Map<String, Object> map) {
+		return fileResourcesDao.selectFileResourcesByParam(map);
+	}
+	
 	@Override
 	public int cancelFileResourceById(String id) {
 		FileResources resource = new FileResources();
@@ -51,7 +56,7 @@ public class FileResourcesServiceImpl implements FileResourcesService {
 	}
 
 	@Override
-	public String queryFileResourcesByParamForLigerUI(Map<String, Object> map,
+	public String queryFileResourcesVoByParamForLigerUI(Map<String, Object> map,
 			String sortName, String sortOrder, int page, int pageSize) {
 		int total = this.queryFileResourcesCountByParam(map);
 		
@@ -60,7 +65,7 @@ public class FileResourcesServiceImpl implements FileResourcesService {
 		map.put("start", String.valueOf((page-1)*pageSize));
 		map.put("pageSize", String.valueOf(pageSize));
 		CommonUtils.removeNullValue(map);
-		List<FileResourcesVo> list = this.queryFileResourcesByParam(map);
+		List<FileResourcesVo> list = this.queryFileResourcesVoByParam(map);
 		return CommonUtils.list2FlexigridJson(page+"", list, String.valueOf(total));
 	}
 
@@ -70,16 +75,22 @@ public class FileResourcesServiceImpl implements FileResourcesService {
 	}
 
 	@Override
-	public FileResourcesVo queryFileResourcesById(String id) {
+	public FileResources queryFileResourcesById(String id) {
 		if(id==null || "".equals(id)){
 			return null;
 		}else {
 			Map<String,Object> map = new HashMap<String, Object>(1);
 			map.put("id", id);
-			List<FileResourcesVo> list = this.queryFileResourcesByParam(map);
+			List<FileResources> list = this.queryFileResourcesByParam(map);
 			return list!=null&&list.size()>0?list.get(0):null;
 		}
 	}
-	
 
+	@Override
+	public void updateFileResourceDownCount(FileResources dbfile) {
+		Integer downCount = dbfile.getDownCount()==null?1:dbfile.getDownCount()+1;
+		dbfile.setDownCount(downCount);
+		this.updateFileResourceById(dbfile);
+	}
+	
 }

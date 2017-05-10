@@ -31,8 +31,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	@Override
-	public void updateUserInfoById(UserInfo db_userInfo) {
-		userInfoDao.updateById(db_userInfo);
+	public int updateUserInfoById(UserInfo db_userInfo) {
+		return userInfoDao.updateById(db_userInfo);
 	}
 
 	@Override
@@ -60,60 +60,61 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	@Override
-	public void cancelUserByStudentId(String studentId) {
+	public int cancelUserByStudentId(String studentId) {
 		UserInfo user = new UserInfo();
 		user.setIsvalid(BlazeConstants.ISVALID_NO);
 		user.setStudentId(studentId);
-		this.updateUserInfoByStudentId(user);;
+		return this.updateUserInfoByStudentId(user);
 	}
 
 	@Override
-	public void updateUserInfoByStudentId(UserInfo db_userInfo) {
-		userInfoDao.updateByStudentId(db_userInfo);
+	public int updateUserInfoByStudentId(UserInfo db_userInfo) {
+		return userInfoDao.updateByStudentId(db_userInfo);
 	}
 
 	@Override
-	public void enableUserByStudentId(String studentId) {
+	public int enableUserByStudentId(String studentId) {
 		UserInfo user = new UserInfo();
 		user.setIsvalid(BlazeConstants.ISVALID_YES);
 		user.setStudentId(studentId);
-		this.updateUserInfoByStudentId(user);
+		return this.updateUserInfoByStudentId(user);
 	}
 
 	@Override
-	public void resetuserPasswordById(String id) {
+	public int resetuserPasswordById(String id) {
 		UserInfo user = new UserInfo();
 		String password = RandomStringUtils.randomNumeric(6);;
 		user.setPassword(password);
 		user.setId(id);
-		this.updateUserInfoById(user);
+		int res = this.updateUserInfoById(user);
 		// 如果是学生用户,则发送邮件
 		UserInfo db_user = this.queryUserInfoById(id);
 		if(BlazeConstants.USER_TYPE_STUDENT.equals(db_user.getType())){//是学生
 			StudentInfo student = studentInfoService.queryStudentInfoById(db_user.getStudentId());
 			mailService.sendMail(student.getEmail(), "校友管理系统密码重置--"+user.getUserName(), "您的密码已经重置为:"+password);
 		}
+		return res;
 	}
 
 	@Override
-	public void cancelUserById(String id) {
+	public int cancelUserById(String id) {
 		UserInfo user = new UserInfo();
 		user.setIsvalid(BlazeConstants.ISVALID_NO);
 		user.setId(id);
-		this.updateUserInfoById(user);
+		return this.updateUserInfoById(user);
 	}
 
 	@Override
-	public void enableUserById(String id) {
+	public int enableUserById(String id) {
 		UserInfo user = new UserInfo();
 		user.setIsvalid(BlazeConstants.ISVALID_YES);
 		user.setId(id);
-		this.updateUserInfoById(user);
+		return this.updateUserInfoById(user);
 	}
 
 	@Override
-	public void userRegister(UserInfo userInfo) {
-		userInfoDao.insertUserInfoWithIdAuto(userInfo);
+	public int userRegister(UserInfo userInfo) {
+		return userInfoDao.insertUserInfoWithIdAuto(userInfo);
 	}
 	
 }

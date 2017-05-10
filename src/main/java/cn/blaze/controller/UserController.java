@@ -66,26 +66,36 @@ public class UserController extends BaseController{
 	@ResponseBody
 	@RequestMapping("queryUserInfoJson")
 	public String queryUserInfoJson(String type, HttpServletRequest request){
-		Map<String, Object> map = new HashMap<String, Object>();
-		if("admin".equals(type)){
-			map.put("type",BlazeConstants.USER_TYPE_ADMIN);
-		}else {
-			map.put("type",BlazeConstants.USER_TYPE_STUDENT);
-		}
-		String userName = this.getNotNullValue(request.getParameter("userName"));
-		String studentName = this.getNotNullValue(request.getParameter("studentName"));
-		String status = this.getNotNullValue(request.getParameter("status"));
-		String isvalid = this.getNotNullValue(request.getParameter("isvalid"));
-		map.put("userName", userName);
-		map.put("studentName", studentName);
-		map.put("status", status);
-		map.put("isvalid", isvalid);
 		
-		String sortName = this.getNotNullValue(request.getParameter("sortname"));
-		String sortOrder = this.getNotNullValue(request.getParameter("sortorder"));
-		int page = this.getNotNullValueToInt(request.getParameter("page"));
-		int size = this.getNotNullValueToInt(request.getParameter("pagesize"));
-		return studentInfoService.queryUserStudentInfoByParameterForLigerUI(map, sortName, sortOrder, page, size);
+		if(!this.isRealUser(request)){// 不是认证用户,过滤数据
+			return CommonUtils.list2FlexigridJson("1", null, "0");
+		}else {
+			Map<String, Object> map = new HashMap<String, Object>();
+			if("admin".equals(type) && loginUserIsAdmin(request)){// 管理员列表数据-管理员才能看
+				map.put("type",BlazeConstants.USER_TYPE_ADMIN);
+			}else {// 学生类表数据
+				map.put("type",BlazeConstants.USER_TYPE_STUDENT);
+			}
+			String userName = this.getNotNullValue(request.getParameter("userName"));
+			String studentName = this.getNotNullValue(request.getParameter("studentName"));
+			String status = this.getNotNullValue(request.getParameter("status"));
+			String isvalid = this.getNotNullValue(request.getParameter("isvalid"));
+			map.put("userName", userName);
+			map.put("studentName", studentName);
+			map.put("status", status);
+			map.put("isvalid", isvalid);
+			
+			String sortName = this.getNotNullValue(request.getParameter("sortname"));
+			String sortOrder = this.getNotNullValue(request.getParameter("sortorder"));
+			int page = this.getNotNullValueToInt(request.getParameter("page"));
+			int size = this.getNotNullValueToInt(request.getParameter("pagesize"));
+			
+			if(loginUserIsAdmin(request)){// 是管理员用户,添加可操作标记
+				request.setAttribute("operate_tag", "yes");
+			}
+			
+			return studentInfoService.queryUserStudentInfoByParameterForLigerUI(map, sortName, sortOrder, page, size);
+		}
 	}
 	
 	/**
@@ -112,7 +122,7 @@ public class UserController extends BaseController{
 	
 	/**
 	 * @Title cancelUser
-	 * @Description：注销用户
+	 * @Description：注销/恢复用户
 	 * @param request
 	 * @return
 	 * @user LiuLei 2017年4月28日
@@ -130,9 +140,15 @@ public class UserController extends BaseController{
 		}
 		
 		if(BlazeConstants.ISVALID_NO.equals(isvalid)){
-			userInfoService.cancelUserById(id);
+			int res = userInfoService.cancelUserById(id);
+			if(res > 0){
+				// TODO 添加日志--注销成功
+			}
 		}else if(BlazeConstants.ISVALID_YES.equals(isvalid)){
-			userInfoService.enableUserById(id);
+			int res = userInfoService.enableUserById(id);
+			if(res > 0){
+				// TODO 添加日志--恢复成功
+			}
 		}
 		return buildJsonMap("success", "");
 	}
@@ -256,15 +272,27 @@ public class UserController extends BaseController{
 	@ResponseBody
 	@RequestMapping("updatePassword")
 	public Object updatePassword(UserInfoVo userInfoVo, HttpServletRequest request){
-		UserInfo db_userInfo = userInfoService.queryUserInfoByStudentId(userInfoVo.getStudentId());
-		String pwd = db_userInfo.getPassword();
-		if(pwd!=null && pwd.equals(userInfoVo.getPassword())){
-			db_userInfo.setPassword(userInfoVo.getNewPassword());
-			db_userInfo.setUpdateTime(new Date());
-			userInfoService.updateUserInfoById(db_userInfo);
-			return buildJsonMap("success", null);
+		UserInfo loginUser = this.getLoginUser(request);
+		// 管理员可以修改,否则只能修改自己密码
+		if(loginUserIsAdmin(request) || (loginUser.getId()!=null && loginUser.getId().equals(userInfoVo.getId()))){
+			UserInfo db_userInfo = userInfoService.queryUserInfoById(userInfoVo.getId());
+			String pwd = db_userInfo.getPassword();
+			if(pwd!=null && pwd.equals(userInfoVo.getPassword())){
+				db_userInfo.setPassword(userInfoVo.getNewPassword());
+				db_userInfo.setUpdateTime(new Date());
+				int res = userInfoService.updateUserInfoById(db_userInfo);
+				if(res > 0){
+					// TODO 添加日志
+				}
+				return buildJsonMap("success", null);
+			}else {
+				return buildJsonMap("密码错误,请重新输入正确密码!", null);
+			}
+			
+		}else {
+			return buildJsonMap("你没有操作权限!", null);
 		}
-		return buildJsonMap("密码错误,请重新输入正确密码!", null);
+		
 	}
 	
 	/**
@@ -283,7 +311,10 @@ public class UserController extends BaseController{
 		userInfo.setIsvalid(BlazeConstants.ISVALID_YES);
 		userInfo.setType(BlazeConstants.USER_TYPE_COMMON);
 		userInfo.setStatus("0");
-		userInfoService.userRegister(userInfo);
+		int res = userInfoService.userRegister(userInfo);
+		if(res > 0){
+			// TODO 添加日志
+		}
 		return "index/login";
 	}
 }

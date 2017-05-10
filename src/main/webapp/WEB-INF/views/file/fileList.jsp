@@ -31,10 +31,12 @@
 	<script type="text/javascript" src="js/file/fileList.js"></script>
 	<script type="text/javascript">
 		var manager, g;
-		var tag = "${is_recycle}";//判断是不是回收站
+		var gridManager=$("#maingrid").ligerGetGridManager();
+		var is_recycle = "${is_recycle}";//判断是不是回收站
 		var file_cancel = "${file_cancel}";// 删除权限
+		var file_restore = "${file_restore}";// 删除权限
 		var dataUrl = "";
-		if(tag == "yes"){
+		if(is_recycle == "yes"){
 			dataUrl = "fileOperate/queryFileResourcesJson?type=recycle";// 是回收站
 		}else {
 			dataUrl = "fileOperate/queryFileResourcesJson";// 不是回收站
@@ -43,16 +45,15 @@
 	</script>
 </head>
 <body>
-<h1>文件资源列表</h1>
 <table>
 	<tr>
 		<td>资源名</td>
 		<td>
-			<input type="text" id="userName" name="userName" class="select"/>
+			<input type="text" id="fileName" name="fileName" class="select"/>
 		</td>
 		<td>发布者</td>
 		<td>
-			<input type="text" id="studentName" name="studentName" class="select"/>
+			<input type="text" id="publisherName" name="publisherName" class="select"/>
 		</td>
 		<td colspan="2">
 			<button id="submit_btn">查询</button>
@@ -62,7 +63,7 @@
 	</tr>
 </table> 
 <div class="l-clear"></div>
-   <div id="maingrid" style="margin-top:20px"></div><br/>
+<div id="maingrid" style="margin-top:20px;height:90%"></div><br/>
 </div>
 </body>
 </html>

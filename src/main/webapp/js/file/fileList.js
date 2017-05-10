@@ -1,3 +1,4 @@
+
 function f_initGrid()
 {
     g = manager = $("#maingrid").ligerGrid({
@@ -5,28 +6,43 @@ function f_initGrid()
         columns: [
         { 
         	display: '资源名', 
-        	name: 'fileName',
-        	width: '20%'
+        	name: 'file_name',
+        	width: '20%',
+        	render:function(row){
+        		return row.fileName;
+        	}
         },
         { 
         	display: '大小', 
-        	name: 'fileSize',
-        	width: '10%'
+        	name: 'file_size',
+        	width: '10%',
+        	render:function(row){
+        		return row.fileSize;
+        	}
         },
         { 
         	display: '发布者', 
-        	name: 'publisherName',
-        	width: '10%'
+        	name: 'publisher_name',
+        	width: '10%',
+        	render:function(row){
+        		return row.publisherName;
+        	}
         },
         { 
         	display: '发布时间', 
-        	name: 'publishTimeStr', 
-        	width: '20%'
+        	name: 'publish_time', 
+        	width: '20%',
+        	render:function(row){
+        		return row.publishTimeStr;
+        	}
         },
         { 
         	display: '下载次数', 
-        	name: 'downCount', 
-        	width: '20%'
+        	name: 'down_count', 
+        	width: '20%',
+        	render:function(row){
+        		return row.downCount;
+        	}
         },
         { 
         	display: '操作', 
@@ -37,8 +53,10 @@ function f_initGrid()
 	           var h = "";
                h += "<a href='javascript:fileDownload(\""+rowdata.id+"\")'>下载</a> ";
                h += "<a href='javascript:viewDetail(\""+rowdata.id+"\")'>查看详情</a> ";
-               if(file_cancel=="Y"){
+               if(file_cancel=="yes"){
             	   h += "<a href='javascript:cancelFile(\""+rowdata.id+"\")'>删除</a> ";
+ 	           }else if(file_restore=="yes"){
+            	   h += "<a href='javascript:restoreFile(\""+rowdata.id+"\")'>恢复</a> ";
  	           }
 	           return h;
         	}
@@ -58,7 +76,7 @@ function f_initGrid()
         enabledEdit: true,
         clickToEdit:false,
         width: '100%',
-        height : "100%",
+        height: '100%',
         onSelectRow: function (rowdata, rowindex)
         {
             $("#txtrowindex").val(rowindex);
@@ -68,26 +86,23 @@ function f_initGrid()
     /***提交***/
 	$("#submit_btn").click(function(){
 		gridManager = $("#maingrid").ligerGetGridManager(); 
-		var userName = $("#userName").val().trim();
-		var studentName = $("#studentName").val().trim();
-		var status = $("#status").val().trim();
-		var isvalid = $("#isvalid").val().trim();
+		var fileName = $("#fileName").val().trim();
+		var publisherName = $("#publisherName").val().trim();
 		gridManager.setOptions( 
 				{ 
 					parms: [
-							{ name: 'userName', value: userName},
-							{ name: 'studentName', value: studentName},
-							{ name: 'status', value: status},
-							{ name: 'isvalid', value: isvalid}
+							{ name: 'fileName', value: fileName},
+							{ name: 'publisherName', value: publisherName}
 						]
 				} 
 			); 
-			gridManager.loadData(); 
+			gridManager.loadData();
 	});
 	
 	/***重置***/
 	$("#reset_btn").click(function(){
 		$(".select").val("");
+		reloadGrid();
 	});
     
 }
@@ -97,17 +112,8 @@ function f_initGrid()
  * @param id
  */
 function fileDownload(id){
-	$.ligerDialog.open({
-		height : 500,
-		url : 'studentInfo/forwardStudentInfoUpdate?id='+id,
-		width : null,
-		showMax : true,
-		showToggle : false,
-		showMin : false,
-		isResize : false,
-		modal : false,
-		title : "修改用户信息"
-	});
+	var url = "fileOperate/download?id="+id;
+	window.open(url,"资源下载");
 }
 /**
  * 根据id查看详情
@@ -132,14 +138,36 @@ function viewDetail(id){
  * @param id
  */
 function cancelFile(id){
-	var url = "user/changeUserValidById";
-	$.post(
-		url,
-		{id:id,isvalid:'Y'},
+	var url = "fileOperate/cancelFile";
+	$.post(url,{id:id},
 		function(data){
-			if(data.info=="success"){
+			if(data=="success"){
 				g.reload();
+			}else {
+				alert(data);
 			}
 		}
 	);
+}
+
+/**
+ * 根据id恢复
+ * @param id
+ */
+function restoreFile(id){
+	var url = "fileOperate/restoreFile";
+	$.post(url,{id:id},
+		function(data){
+			if(data=="success"){
+				g.reload();
+			}else {
+				alert(data);
+			}
+		}
+	);
+}
+
+function reloadGrid(){
+	gridManager.setOptions( {parms: []} );
+	gridManager.loadData();
 }

@@ -31,6 +31,17 @@ public interface FileResourcesService {
 	int updateFileResourceById(FileResources resource);
 	
 	/**
+	 * @Title queryFileResourcesVoByParam
+	 * @Description：条件查询
+	 * @param map
+	 * @return
+	 * @user LiuLei 2017年5月9日
+	 * @updater：
+	 * @updateTime：
+	 */
+	List<FileResourcesVo> queryFileResourcesVoByParam(Map<String, Object> map);
+	
+	/**
 	 * @Title queryFileResourcesByParam
 	 * @Description：条件查询
 	 * @param map
@@ -39,7 +50,7 @@ public interface FileResourcesService {
 	 * @updater：
 	 * @updateTime：
 	 */
-	List<FileResourcesVo> queryFileResourcesByParam(Map<String, Object> map);
+	List<FileResources> queryFileResourcesByParam(Map<String, Object> map);
 	
 	/**
 s	 * @Title cancelFileResourceById
@@ -64,7 +75,7 @@ s	 * @Title cancelFileResourceById
 	int restoreFileResourceById(String id);
 
 	/**
-	 * @Title queryFileResourcesByParamForLigerUI
+	 * @Title queryFileResourcesVoByParamForLigerUI
 	 * @Description：查询供ligerUI显示的json数据
 	 * @param map 条件
 	 * @param sortName 排序列
@@ -76,7 +87,7 @@ s	 * @Title cancelFileResourceById
 	 * @updater：
 	 * @updateTime：
 	 */
-	String queryFileResourcesByParamForLigerUI(Map<String, Object> map,
+	String queryFileResourcesVoByParamForLigerUI(Map<String, Object> map,
 			String sortName, String sortOrder, int page, int pageSize);
 	
 	/**
@@ -99,5 +110,16 @@ s	 * @Title cancelFileResourceById
 	 * @updater：
 	 * @updateTime：
 	 */
-	FileResourcesVo queryFileResourcesById(String id);
+	FileResources queryFileResourcesById(String id);
+
+	/**
+	 * @Title updateFileResourceDownCount
+	 * @Description：更新文件下载次数
+	 * @param dbfile 下载的文件
+	 * @user LiuLei 2017年5月10日
+	 * @updater：
+	 * @updateTime：
+	 */
+	void updateFileResourceDownCount(FileResources dbfile);
+
 }

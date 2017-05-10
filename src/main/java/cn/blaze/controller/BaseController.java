@@ -54,6 +54,24 @@ public class BaseController {
 	}
 	
 	/**
+	 * @Title loginUserIsAdmin
+	 * @Description：是否是管理员
+	 * @param request
+	 * @return
+	 * @user LiuLei 2017年5月10日
+	 * @updater：
+	 * @updateTime：
+	 */
+	protected boolean loginUserIsAdmin(HttpServletRequest request){
+		UserInfo loginUser = this.getLoginUser(request);
+		if(loginUser != null){
+			return BlazeConstants.USER_TYPE_ADMIN.equals(loginUser.getType())?true:false;
+		}else {
+			return false;
+		}
+	}
+	
+	/**
 	 * @Title getNotNullValue
 	 * @Description：返回输入对象的字符串
 	 * @param obj 
@@ -235,6 +253,7 @@ public class BaseController {
     protected void printMessage(HttpServletResponse response, String message, Boolean refresh) {
         PrintWriter printWriter;
 		try {
+			response.setContentType("text/html;charset=UTF-8");
 			printWriter = response.getWriter();
 			StringBuffer sb = new StringBuffer(500);
 			sb.append("<script language=javascript>");
@@ -242,11 +261,10 @@ public class BaseController {
 			sb.append("'");
 			sb.append(message);
 			sb.append("');");
-			// sb.append("window.top.hidePopWin();");
 			if (refresh){
 				sb.append("window.parent.document.location.reload();"); // 页面刷新
 			}
-			sb.append("window.top.hidePopWin(); ");
+//			sb.append("window.top.hidePopWin(); ");
 			sb.append("</script>");
 			printWriter.write(sb.toString());
 			printWriter.flush();
@@ -254,5 +272,28 @@ public class BaseController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+    }
+    
+    /**
+     * @Title isRealUser
+     * @Description：判断是否是注册用户
+     * @param request
+     * @return 管理员和认证后的学生返回true,否则返回false
+     * @user LiuLei 2017年5月10日
+     * @updater：
+     * @updateTime：
+     */
+    protected boolean isRealUser(HttpServletRequest request){
+    	UserInfo loginUser = this.getLoginUser(request);
+    	if(loginUser == null){
+    		return false;
+    	}
+    	
+    	String userType = loginUser.getType();
+    	if(BlazeConstants.USER_TYPE_ADMIN.equals(userType) || BlazeConstants.USER_TYPE_STUDENT.equals(userType)){
+    		return true;
+    	}else {
+    		return false;
+    	}
     }
 }

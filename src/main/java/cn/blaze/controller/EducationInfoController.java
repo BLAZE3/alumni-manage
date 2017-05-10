@@ -37,7 +37,6 @@ public class EducationInfoController extends BaseController{
 	@RequestMapping("forwardEducationInfoPage")
 	public String forwardEducationInfoPage(HttpServletRequest request){
 		String studentId = this.getNotNullValue(request.getParameter("studentId"));
-//		studentId = "d8b706386fc446289e0b93c18bd94a72";
 		List<EducationInfo> educationInfoList = educationInfoService.findEducationInfoByStudentId(studentId);
 		List<EducationInfoVo> educationInfoVoList = new LinkedList<EducationInfoVo>();
 		for (EducationInfo educationInfo : educationInfoList) {
@@ -80,6 +79,7 @@ public class EducationInfoController extends BaseController{
 		}
 		
 		educationInfoService.addEductionInfo(educationInfoVo);
+		// TODO 添加日志
 		return buildJsonMap("success", "");
 	}
 	
@@ -98,6 +98,7 @@ public class EducationInfoController extends BaseController{
 		if(!"".equals(id)){
 			boolean res = educationInfoService.delEducationById(id);
 			if(res){
+				// TODO 添加日志
 				return buildJsonMap("success", null);
 			}
 		}

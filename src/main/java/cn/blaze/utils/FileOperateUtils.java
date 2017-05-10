@@ -4,7 +4,10 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -138,29 +141,50 @@ public class FileOperateUtils {
      * @param storePath 文件的存储路径
      * @param contentType
      * @param viewName 前台显示的名称(文件上传时的文件名)
+     * @return 成功返回字符串success,否则返回错误提示
      * @throws Exception
-     * @user LiuLei 2017年5月8日
+     * @user LiuLei 2017年5月10日
      * @updater：
      * @updateTime：
      */
-    public static void download(HttpServletResponse response, String storePath, String contentType, String viewName)throws Exception {
-        response.setContentType("text/html;charset=UTF-8");
+    public static String download(HttpServletResponse response, String storePath, String contentType, String viewName) throws Exception {
+        String message = "success";
+//    	response.setContentType("text/html;charset=UTF-8");
         BufferedInputStream bis = null;
         BufferedOutputStream bos = null;
-  
+        viewName = viewName==null||"".equals(viewName)?"未命名资源文件.zip":viewName;
+        contentType = contentType==null||"".equals(contentType)?"application/octet-stream":contentType;
         long fileLength = new File(storePath).length();
-        response.setContentType(contentType);
-        response.setHeader("Content-disposition", "attachment; filename=" + new String(viewName.getBytes("utf-8"), "ISO8859-1"));
-        response.setHeader("Content-Length", String.valueOf(fileLength));
+        
+        try {
   
-        bis = new BufferedInputStream(new FileInputStream(storePath));
-        bos = new BufferedOutputStream(response.getOutputStream());
-        byte[] buff = new byte[2048];
-        int bytesRead;
-        while (-1 != (bytesRead = bis.read(buff, 0, buff.length))){
-            bos.write(buff, 0, bytesRead);
-        }
-        bis.close();
-        bos.close();
+			bis = new BufferedInputStream(new FileInputStream(storePath));
+			bos = new BufferedOutputStream(response.getOutputStream());
+			
+			response.setHeader("Content-disposition", "attachment; filename=" + new String(viewName.getBytes("utf-8"), "ISO8859-1"));
+			response.setHeader("Content-Length", String.valueOf(fileLength));
+			response.setContentType(contentType);
+			
+			byte[] buff = new byte[2048];
+			int bytesRead;
+			while (-1 != (bytesRead = bis.read(buff, 0, buff.length))){
+			    bos.write(buff, 0, bytesRead);
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			message = "文件名下载时编码错误";
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			message = "文件未找到";
+		} catch (IOException e) {
+			e.printStackTrace();
+	        message = "文件输出错误";
+		}finally {
+			if(bis != null)
+				bis.close();
+			if(bos != null)
+				bos.close();
+		}
+        return message;
     }
 }

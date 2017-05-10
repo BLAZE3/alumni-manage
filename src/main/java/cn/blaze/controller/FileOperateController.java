@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +20,8 @@ import cn.blaze.domain.UserInfo;
 import cn.blaze.service.FileResourcesService;
 import cn.blaze.service.StudentInfoService;
 import cn.blaze.utils.BlazeConstants;
+import cn.blaze.utils.CommonUtils;
 import cn.blaze.utils.FileOperateUtils;
-import cn.blaze.vo.FileResourcesVo;
 
 /**
  * @ClassName FileOperateController
@@ -39,8 +40,10 @@ public class FileOperateController extends BaseController{
 	@RequestMapping("showFileResourceById")
 	public String showFileResourceById(HttpServletRequest request){
 		String id = this.getNotNullValue(request.getParameter("id"));
-		FileResourcesVo resource = fileResourcesService.queryFileResourcesById(id);
-		request.setAttribute("file", resource);
+		FileResources resource = fileResourcesService.queryFileResourcesById(id);
+		FileResources fileVo = new FileResources();
+		BeanUtils.copyProperties(resource, fileVo);
+		request.setAttribute("file", fileVo);
 		return "file/fileDetail";
 	}
 	
@@ -56,8 +59,15 @@ public class FileOperateController extends BaseController{
 	@RequestMapping("forwardFileList")
 	public String forwardFileList(HttpServletRequest request){
 		String type = this.getNotNullValue(request.getParameter("type"));// recycle表示回收站
-		if("recycle".equals(type)){
-			request.setAttribute("is_recycle", "recycle");
+		if("recycle".equals(type)){// 回收站
+			request.setAttribute("is_recycle", "yes");
+			if(loginUserIsAdmin(request)){
+				request.setAttribute("file_restore", "yes");
+			}
+		}else {
+			if(loginUserIsAdmin(request)){
+				request.setAttribute("file_cancel", "yes");
+			}
 		}
 		return "file/fileList";
 	}
@@ -75,27 +85,30 @@ public class FileOperateController extends BaseController{
 	@RequestMapping("queryFileResourcesJson")
 	public String queryFileResourcesJson(HttpServletRequest request){
 		UserInfo loginUser = this.getLoginUser(request);
-		// TODO 对非注册的用户过滤数据
-		Map<String, Object> map = new HashMap<String, Object>();
-		String fileName = this.getNotNullValue(request.getParameter("fileName"));
-		String publisherName = this.getNotNullValue(request.getParameter("publisherName"));
-		String type = this.getNotNullValue(request.getParameter("type"));// recycle表示回收站
-		
-		map.put("fileName", fileName);
-		map.put("publisherName", publisherName);
-		
-		// 判断是不是输出回收站的文件
-		if("recycle".equals(type) && BlazeConstants.USER_TYPE_ADMIN.equals(loginUser.getType())){// 只有管理员可见回收站数据
-			map.put("isvalid", BlazeConstants.ISVALID_NO);
+		if(!this.isRealUser(request)){// 不是认证用户,过滤数据
+			return CommonUtils.list2FlexigridJson("1", null, "0");
 		}else {
-			map.put("isvalid", BlazeConstants.ISVALID_YES);
+			Map<String, Object> map = new HashMap<String, Object>();
+			String fileName = this.getNotNullValue(request.getParameter("fileName"));
+			String publisherName = this.getNotNullValue(request.getParameter("publisherName"));
+			String type = this.getNotNullValue(request.getParameter("type"));// recycle表示回收站
+			
+			map.put("fileName", fileName);
+			map.put("publisherName", publisherName);
+			
+			// 判断是不是输出回收站的文件
+			if("recycle".equals(type) && BlazeConstants.USER_TYPE_ADMIN.equals(loginUser.getType())){// 只有管理员可见回收站数据
+				map.put("isvalid", BlazeConstants.ISVALID_NO);
+			}else {
+				map.put("isvalid", BlazeConstants.ISVALID_YES);
+			}
+			
+			String sortName = this.getNotNullValue(request.getParameter("sortname"));
+			String sortOrder = this.getNotNullValue(request.getParameter("sortorder"));
+			int page = this.getNotNullValueToInt(request.getParameter("page"));
+			int size = this.getNotNullValueToInt(request.getParameter("pagesize"));
+			return fileResourcesService.queryFileResourcesVoByParamForLigerUI(map, sortName, sortOrder, page, size);
 		}
-		
-		String sortName = this.getNotNullValue(request.getParameter("sortname"));
-		String sortOrder = this.getNotNullValue(request.getParameter("sortorder"));
-		int page = this.getNotNullValueToInt(request.getParameter("page"));
-		int size = this.getNotNullValueToInt(request.getParameter("pagesize"));
-		return fileResourcesService.queryFileResourcesByParamForLigerUI(map, sortName, sortOrder, page, size);
 	}
 	
 	/**
@@ -157,6 +170,7 @@ public class FileOperateController extends BaseController{
     				resource.setPublisherName(studentInfo.getStudentName());
     			}
     			fileResourcesService.saveFileResource(resource);
+    			// TODO 添加日志
     		}
     	}catch(Exception e){
     		// 上传出错
@@ -168,7 +182,7 @@ public class FileOperateController extends BaseController{
   
     /**
      * @Title download
-     * @Description：文件下载
+     * @Description：文件下载,需给出资源的id
      * @param request
      * @param response
      * @throws Exception
@@ -176,13 +190,78 @@ public class FileOperateController extends BaseController{
      * @updater：
      * @updateTime：
      */
-    @RequestMapping(value = "download")  
+    @RequestMapping("download")  
     public void download(HttpServletRequest request,  
             HttpServletResponse response) throws Exception {
-  
-//        String storeName = "201205051340364510870879724.zip";
-//        String realName = "Java设计模式.zip";
-//        String contentType = "application/octet-stream";
-//        FileOperateUtils.download(request, response, storeName, contentType, realName);
+    	if(this.isRealUser(request)){// 注册的用户有权下载
+    		String id = this.getNotNullValue(request.getParameter("id"));
+    		FileResources file = fileResourcesService.queryFileResourcesById(id);
+    		if(BlazeConstants.ISVALID_YES.equals(file.getIsvalid())){
+    			String res = FileOperateUtils.download(response, file.getFilePath(), "", file.getFileName());
+    			if(!"success".equals(res)){// 下载错误是返回错误信息
+    				printMessage(response, res, false);
+    			}else {
+    				fileResourcesService.updateFileResourceDownCount(file);
+    			}
+    		}else {
+    			printMessage(response, "对不起,该资源已失效!", false);
+    		}
+    	}else {// 未注册无权下载
+    		printMessage(response, "对不起,为注册用户无权下载!", false);
+    	}
+    }
+    
+    /**
+     * @Title cancelFile
+     * @Description：删除资源(软删)
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     * @user LiuLei 2017年5月10日
+     * @updater：
+     * @updateTime：
+     */
+    @ResponseBody
+    @RequestMapping("cancelFile")  
+    public String cancelFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	if(loginUserIsAdmin(request)){
+    		String id = this.getNotNullValue(request.getParameter("id"));
+    		int res = fileResourcesService.cancelFileResourceById(id);
+    		if(res > 0){
+    			// TODO 添加日志-删除成功
+    		}
+    		return "success";
+    	}else {
+    		printMessage(response, "未登录或权限不足!", false);
+    		return "fail";
+    	}
+    }
+    
+    /**
+     * @Title cancelFile
+     * @Description：恢复资源
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     * @user LiuLei 2017年5月10日
+     * @updater：
+     * @updateTime：
+     */
+    @ResponseBody
+    @RequestMapping("restoreFile")  
+    public String restoreFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	if(loginUserIsAdmin(request)){
+    		String id = this.getNotNullValue(request.getParameter("id"));
+    		int res = fileResourcesService.restoreFileResourceById(id);
+    		if(res > 0){
+    			// TODO 添加日志-恢复成功
+    		}
+    		return "success";
+    	}else {
+    		printMessage(response, "未登录或权限不足!", false);
+    		return "fail";
+    	}
     }
 }

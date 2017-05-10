@@ -2,7 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.blaze.dao.FileResourcesDao">
 
-<resultMap id="BaseResultMap" type="cn.blaze.vo.FileResourcesVo">
+<resultMap id="BaseResultMapVo" type="cn.blaze.vo.FileResourcesVo">
+  <result column="id" jdbcType="VARCHAR" property="id" />
+  <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+  <result column="publisher_id" jdbcType="VARCHAR" property="publisherId" />
+  <result column="publisher_name" jdbcType="VARCHAR" property="publisherName" />
+  <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime" />
+  <result column="file_path" jdbcType="VARCHAR" property="filePath" />
+  <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+  <result column="group_type" jdbcType="CHAR" property="groupType" />
+  <result column="isvalid" jdbcType="CHAR" property="isvalid" />
+  <result column="file_desc" jdbcType="VARCHAR" property="fileDesc" />
+  <result column="file_size" jdbcType="VARCHAR" property="fileSize" />
+  <result column="down_count" jdbcType="INTEGER" property="downCount" />
+</resultMap>
+
+<resultMap id="BaseResultMap" type="cn.blaze.domain.FileResources">
   <result column="id" jdbcType="VARCHAR" property="id" />
   <result column="file_name" jdbcType="VARCHAR" property="fileName" />
   <result column="publisher_id" jdbcType="VARCHAR" property="publisherId" />
@@ -28,13 +43,13 @@
 	  and id = #{id,jdbcType=VARCHAR}
 	</if>
 	<if test="fileName != null">
-	  and file_name = #{fileName,jdbcType=VARCHAR}
+	  and file_name LIKE '%${fileName}%'
 	</if>
 	<if test="publisherId != null">
 	  and publisher_id = #{publisherId,jdbcType=VARCHAR}
 	</if>
 	<if test="publisherName != null">
-	  and publisher_name = #{publisherName,jdbcType=VARCHAR}
+	  and publisher_name LIKE '%${publisherName}%'
 	</if>
 	<if test="publishTime != null">
 	  and publish_time = #{publishTime,jdbcType=TIMESTAMP}
@@ -61,6 +76,25 @@
 	  and down_count = #{downCount,jdbcType=INTEGER},
 	</if>
 </sql>
+
+<select id="selectFileResourcesVoByParam" parameterType="java.util.Map" resultMap="BaseResultMapVo">
+	SELECT a.* from (
+		SELECT 
+			<include refid="Base_Column_List"/>
+		FROM file_resources
+		<include refid="File_Resource_Where"/>
+	) a 
+	<if test="sortName!=null and sortName!='' and sortOrder!=null">
+    	<![CDATA[
+	    order by ${sortName} ${sortOrder}
+    	]]>
+    </if>
+    <if test="start!=null and start!='' and pageSize!=null and pageSize!=''">
+    	<![CDATA[
+	    LIMIT ${start},${pageSize}
+    	]]>
+    </if>
+</select>
 
 <select id="selectFileResourcesByParam" parameterType="java.util.Map" resultMap="BaseResultMap">
 	SELECT a.* from (

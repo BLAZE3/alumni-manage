@@ -42,6 +42,7 @@
 			}else {
 				return true;
 			}
+			return false;
 		}
 	</script>
 	<body class="login-layout">

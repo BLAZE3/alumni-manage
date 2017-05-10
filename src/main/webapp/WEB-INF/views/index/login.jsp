@@ -42,6 +42,7 @@
 			}else {
 				return true;
 			}
+			return false;
 		}
 		
 		function checkRegisterForm(){

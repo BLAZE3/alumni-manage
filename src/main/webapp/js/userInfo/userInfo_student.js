@@ -7,14 +7,18 @@ function f_initGrid()
         columns: [
         { 
         	display: '学生ID', 
-        	name: 'studentId',
+        	name: 'student_id',
         	width: 50,
-        	hide:true,
+        	hide:true
+           
         },
         { 
         	display: '账号', 
-        	name: 'userName',
-            editor: { type: 'text' }
+        	name: 'user_name',
+            editor: { type: 'text'},
+            render:function(row){
+            	return row.userName;
+            }
         },
         { 
         	display: '密码', 
@@ -70,8 +74,11 @@ function f_initGrid()
         },
         { 
         	display: '姓名', 
-        	name: 'studentName',
-            editor: { type: 'text' }
+        	name: 'student_name',
+            editor: { type: 'text'},
+            render:function(row){
+            	return row.studentName;
+            }
         },
         { 
         	display: '年龄', 
@@ -112,13 +119,16 @@ function f_initGrid()
         	render: function (rowdata, rowindex, value)
         	{
 	           var h = "";
-               h += "<a href='javascript:editRow(\""+rowdata.studentId+"\")'>修改</a> ";
-               if(rowdata.isvalid=="Y"){
-            	   h += "<a href='javascript:cancelRow(\""+rowdata.id+"\")'>注销</a> ";
- 	           }else{
- 	        	   h += "<a href='javascript:enableRow(\""+rowdata.id+"\")'>启用</a> ";
- 	           }
-               h += "<a href='javascript:resetPassword(\""+rowdata.id+"\")'>重置密码</a> ";
+	           h += "<a href='javascript:studentInfoDetail(\""+rowdata.id+"\")'>查看</a> ";
+	           if(operate == "yes"){// 管理员可以操作
+	        	   h += "<a href='javascript:editRow(\""+rowdata.id+"\")'>修改</a> ";
+	        	   if(rowdata.isvalid=="Y"){
+	        		   h += "<a href='javascript:cancelRow(\""+rowdata.id+"\")'>注销</a> ";
+	        	   }else{
+	        		   h += "<a href='javascript:enableRow(\""+rowdata.id+"\")'>启用</a> ";
+	        	   }
+	        	   h += "<a href='javascript:resetPassword(\""+rowdata.id+"\")'>重置密码</a> ";
+	           }
 	           return h;
         	}
         }
@@ -197,10 +207,10 @@ function f_initGrid()
  * 弹出编辑窗
  * @param studentId
  */
-function editRow(studentId){
+function editRow(userId){
 	$.ligerDialog.open({
 		height : 500,
-		url : 'studentInfo/forwardStudentInfoUpdate?studentId='+studentId,
+		url : 'studentInfo/forwardStudentInfoUpdate?userId='+userId,
 		width : null,
 		showMax : true,
 		showToggle : false,
@@ -210,6 +220,25 @@ function editRow(studentId){
 		title : "修改用户信息"
 	});
 }
+
+/**
+ * 弹出详情窗
+ * @param studentId
+ */
+function studentInfoDetail(userId){
+	$.ligerDialog.open({
+		height : 500,
+		url : 'studentInfo/forwardStudentInfoView?userId='+userId,
+		width : null,
+		showMax : true,
+		showToggle : false,
+		showMin : false,
+		isResize : false,
+		modal : false,
+		title : "查看用户信息"
+	});
+}
+
 /**
  * 根据studentId注销账号
  * @param studentId
