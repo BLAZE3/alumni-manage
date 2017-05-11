@@ -41,7 +41,7 @@ public class StudentInfoServiceImpl implements StudentInfoService {
 		/***更新用户信息,使用户信息与学生信息表关联***/
 		UserInfo userInfo = new UserInfo();
 		userInfo.setId(registerVo.getId());
-		userInfo.setType(BlazeConstants.USER_TYPE_STUDENT);// type设置为1 表示学生
+		userInfo.setType(BlazeConstants.USER_TYPE_CONFIRM);// type设置为1 表示学生
 		userInfo.setStudentId(studentInfo.getId());// 更新用户的学生信息
 		userInfoDao.updateById(userInfo);
 	}

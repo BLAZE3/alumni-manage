@@ -28,6 +28,11 @@ public class BlazeConstants {
 	 */
 	public static final String USER_TYPE_COMMON="2";
 	/**
+	 * 用户类型--认证中
+	 */
+	public static final String USER_TYPE_CONFIRM = "3";
+
+	/**
 	 * 是否有效--有效
 	 */
 	public static final String ISVALID_YES="Y";
@@ -35,4 +40,5 @@ public class BlazeConstants {
 	 * 是否有效--无效
 	 */
 	public static final String ISVALID_NO="N";
+	
 }

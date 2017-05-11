@@ -92,8 +92,7 @@ public class StudentInfoController extends BaseController{
 	public String updateStudentInfo(StudentInfo studentInfo, HttpServletRequest request, HttpServletResponse response){
 		UserInfo loginUser = this.getLoginUser(request);
 		// 管理员可以修改,否则只能修改自己的信息
-		if(loginUserIsAdmin(request) || (loginUser.getStudentId()!=null && loginUser.getStudentId().equals(studentInfo.getId())))
-		{
+		if(loginUserIsAdmin(request) || (loginUser.getStudentId()!=null && loginUser.getStudentId().equals(studentInfo.getId()))){
 			studentInfoService.updateStudentInfoById(studentInfo);
 			// TODO 添加日志
 		}else {

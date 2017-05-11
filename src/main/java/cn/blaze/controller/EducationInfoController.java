@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.blaze.domain.EducationInfo;
+import cn.blaze.domain.UserInfo;
 import cn.blaze.service.EducationInfoService;
 import cn.blaze.vo.EducationInfoVo;
 
@@ -35,17 +37,26 @@ public class EducationInfoController extends BaseController{
 	 * @updateTime：
 	 */
 	@RequestMapping("forwardEducationInfoPage")
-	public String forwardEducationInfoPage(HttpServletRequest request){
-		String studentId = this.getNotNullValue(request.getParameter("studentId"));
-		List<EducationInfo> educationInfoList = educationInfoService.findEducationInfoByStudentId(studentId);
-		List<EducationInfoVo> educationInfoVoList = new LinkedList<EducationInfoVo>();
-		for (EducationInfo educationInfo : educationInfoList) {
-			EducationInfoVo educationInfoVo = new EducationInfoVo();
-			BeanUtils.copyProperties(educationInfo, educationInfoVo);
-			educationInfoVoList.add(educationInfoVo);
+	public String forwardEducationInfoPage(HttpServletRequest request, HttpServletResponse response){
+		if(isRealUser(request)){
+			UserInfo loginUser = getLoginUser(request);
+			String studentId = this.getNotNullValue(request.getParameter("studentId"));
+			List<EducationInfo> educationInfoList = educationInfoService.findEducationInfoByStudentId(studentId);
+			List<EducationInfoVo> educationInfoVoList = new LinkedList<EducationInfoVo>();
+			for (EducationInfo educationInfo : educationInfoList) {
+				EducationInfoVo educationInfoVo = new EducationInfoVo();
+				BeanUtils.copyProperties(educationInfo, educationInfoVo);
+				educationInfoVoList.add(educationInfoVo);
+			}
+			request.setAttribute("educationInfoList", educationInfoVoList);
+			request.setAttribute("studentId", studentId);
+			if(studentId.equals(loginUser.getStudentId()) || loginUserIsAdmin(request)){
+				request.setAttribute("operate", "yes");
+			}
+			
+		}else {
+			printMessage(response, "对不起,您无权查看!", false);
 		}
-		request.setAttribute("educationInfoList", educationInfoVoList);
-		request.setAttribute("studentId", studentId);
 		return "educationInfo/education_update";
 	}
 	

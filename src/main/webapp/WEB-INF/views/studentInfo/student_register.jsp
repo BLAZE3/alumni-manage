@@ -10,14 +10,14 @@
 </head>
 <script type="text/javascript">
 	$(function(){
-		if(submitCheck()){
-			// 提交表单
-			$("#submit_btn").click(function(){
+		// 提交表单
+		$("#submit_btn").click(function(){
+			if(submitCheck()){
 				if(confirm("确认提交?")){
 					$("#student_register_form").submit();
 				}
-			});
-		}
+			}
+		});
 	});
 	
 	// 提交前验证
@@ -76,7 +76,7 @@
 				</tr>
 				<tr>
 					<td><font color="red">*</font>邮箱</td>
-					<td><input type="text" name="email" class="submit_check" placeholder="请舒服邮箱"></td>
+					<td><input type="text" name="email" class="submit_check" placeholder="请输入邮箱"></td>
 				</tr>
 				<tr>
 					<td>QQ</td>

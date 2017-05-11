@@ -28,7 +28,7 @@
 	
 </script>
 <body>
-	<c:if test="${studentInfo!=null}">
+	<%-- <c:if test="${studentInfo!=null}"> --%>
 	<form id="student_update_form" action="studentInfo/updateStudentInfo" method="post">
 		<input type="hidden" name="id" value="${studentInfo.id}">
 		<table>
@@ -91,6 +91,6 @@
 			</tfoot>
 		</table>
 	</form>
-	</c:if>
+	<%-- </c:if> --%>
 </body>
 </html>

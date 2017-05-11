@@ -12,7 +12,7 @@
 		var errorCount = "${error_count}";
 		
 		var operate = "${operate}";
-		// 关闭页面-暂时未起作用
+		// 关闭页面-非脚本打开不会起作用
 		if(operate!=null&&operate=="close"){
 			window.opener=null;
 			window.close();

@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>学生信息总览</title>
+    <title>学生认证审批</title>
     <jsp:include page="/component/title.jsp"></jsp:include>
     
     <!-- ligerui 表格 -->
@@ -28,7 +28,7 @@
     <link href="ligerUI1.3.3/lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
     <script src="ligerUI1.3.3/lib/ligerUI/js/plugins/ligerToolBar.js" type="text/javascript"></script>
 
-    <script src="js/userInfo/userInfo_student.js" type="text/javascript"></script>
+    <script src="js/userInfo/userInfo_approve.js" type="text/javascript"></script>
     <script type="text/javascript">
     	var operate = "${operate_tag}";
     	var gridManager=$("#maingrid").ligerGetGridManager();
@@ -48,22 +48,10 @@
 		<td>
 			<input type="text" id="studentName" name="studentName" class="select"/>
 		</td>
-		<td>
-			状态
-		</td>
-		<td>
-			<select id="status" name="status" class="select">
-				<option value="">--请选择--</option>
-				<option value="0">正常</option>
-				<option value="1">其他</option>
-			</select>
-		</td>
 		<td colspan="2">
 			<button id="submit_btn">查询</button>
 			&nbsp;&nbsp;
 			<button id="reset_btn">重置</button>
-			&nbsp;&nbsp;
-			<button id="export_btn">导出</button>
 		</td>
 	</tr>
 </table> 

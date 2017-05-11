@@ -2,7 +2,7 @@
 function f_initGrid()
 {
     g = manager = $("#maingrid").ligerGrid({
-    	url:"user/queryUserInfoJson?type=student",
+    	url:"user/queryUserInfoJson?type=confirm",
 //    	dataType : 'json',
         columns: [
         { 
@@ -29,12 +29,6 @@ function f_initGrid()
         	display: '性别', 
         	width: 50, 
         	name: 'sex', 
-            /*editor: { type: 'select', data: sexData, valueField: 'Sex' },
-            render: function (item)
-            {
-                if (parseInt(item.Sex) == 1) return '男';
-                return '女';
-            }*/
         },
         { 
         	display: '创建时间', 
@@ -49,12 +43,11 @@ function f_initGrid()
         { 
         	display: '状态', 
         	name: 'status',
-            editor: { type: 'text' },
             render: function (rowdata)
         	{
 	           if(rowdata.status=="0"){
 	        	   return "<p style='color:green'>正常</p>";
-	           }else{
+	           }else {
 	        	   return "<p style='color:red'>其他</p>";
 	           }
         	}
@@ -124,16 +117,8 @@ function f_initGrid()
         	render: function (rowdata, rowindex, value)
         	{
 	           var h = "";
-	           h += "<a href='javascript:studentInfoDetail(\""+rowdata.id+"\")'>查看</a> ";
-	           if(operate == "yes"){// 管理员可以操作
-	        	   h += "<a href='javascript:editRow(\""+rowdata.id+"\")'>修改</a> ";
-	        	   if(rowdata.isvalid=="Y"){
-	        		   h += "<a href='javascript:cancelRow(\""+rowdata.id+"\")'>注销</a> ";
-	        	   }else{
-	        		   h += "<a href='javascript:enableRow(\""+rowdata.id+"\")'>启用</a> ";
-	        	   }
-	        	   h += "<a href='javascript:resetPassword(\""+rowdata.id+"\")'>重置密码</a> ";
-	           }
+	           h += "<a href='javascript:approve(\""+rowdata.id+"\")'>通过</a> ";
+	           h += "<a href='javascript:refuse(\""+rowdata.id+"\")'>拒绝</a> ";
 	           return h;
         	}
         }
@@ -158,71 +143,6 @@ function f_initGrid()
             $("#txtrowindex").val(rowindex);
         }
     });
-    
-    /***提交***/
-	$("#submit_btn").click(function(){
-		gridManager = $("#maingrid").ligerGetGridManager(); 
-		var userName = $("#userName").val().trim();
-		var studentName = $("#studentName").val().trim();
-		var status = $("#status").val().trim();
-		gridManager.setOptions( 
-				{ 
-					parms: [
-							{ name: 'userName', value: userName},
-							{ name: 'studentName', value: studentName},
-							{ name: 'status', value: status}
-						]
-				} 
-			); 
-			gridManager.loadData(); 
-	});
-	
-	/***重置***/
-	$("#reset_btn").click(function(){
-		$(".select").val("");
-		reloadGrid();
-	});
-    
-	/***导出***/
-	$("#export_btn").click(function(){
-		var conditions = "";
-		var userName = $("#userName").val().trim();
-		var studentName = $("#studentName").val().trim();
-		var status = $("#status").val().trim();
-		var isvalid = $("#isvalid").val().trim();
-		if(userName!=null && userName!=""){
-			conditions+="&userName="+userName;
-		}
-		if(studentName!=null && studentName!=""){
-			conditions+="&studentName="+studentName;
-		}
-		if(status!=null && status!=""){
-			conditions+="&status="+status;
-		}
-		if(isvalid!=null && isvalid!=""){
-			conditions+="&isvalid="+isvalid;
-		}
-		window.open("studentInfo/exportStudentInfo?abc=abc"+conditions);
-		$("#submit_btn").click();
-	});
-}
-
-/**
- * 弹出编辑窗
- * @param studentId
- */
-function editRow(userId){
-	$.ligerDialog.open({
-		height : 500,
-		url : 'studentInfo/forwardStudentInfoUpdate?userId='+userId,
-		width : null,
-		showMax : true,
-		showToggle : false,
-		showMin : false,
-		isResize : false,
-		modal : false,
-		title : "修改用户信息"
-	});
 }
 
 /**
@@ -244,32 +164,33 @@ function studentInfoDetail(userId){
 }
 
 /**
- * 根据studentId注销账号
+ * 批准
  * @param studentId
  */
-function cancelRow(id){
-	var url = "user/changeUserValidById";
+function approve(id){
+	var url = "user/userApplyOpertate";
 	$.post(
 		url,
-		{id:id,isvalid:'N'},
+		{id:id,type:"approve"},
 		function(data){
-			if(data.info=="success"){
+			if(data=="success"){
 				g.reload();
 			}
 		}
 	);
 }
+
 /**
- * 根据studentId启用账号
- * @param studentId
+ * 拒绝
+ * @param id
  */
-function enableRow(id){
-	var url = "user/changeUserValidById";
+function refuse(id){
+	var url = "user/userApplyOpertate";
 	$.post(
 		url,
-		{id:id,isvalid:'Y'},
+		{id:id,type:"refuse"},
 		function(data){
-			if(data.info=="success"){
+			if(data=="success"){
 				g.reload();
 			}
 		}
@@ -294,6 +215,14 @@ function resetPassword(id){
 	}
 }
 
+/***重置表格***/
+function resetGrid(){
+	$(".select").val("");
+	gridManager.setOptions( {parms: []} );
+	gridManager.loadData();
+}
+
+/***重新载入表格***/
 function reloadGrid(){
 	gridManager.setOptions( {parms: []} );
 	gridManager.loadData();

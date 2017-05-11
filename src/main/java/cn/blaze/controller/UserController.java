@@ -44,6 +44,65 @@ public class UserController extends BaseController{
 	private StudentInfoService studentInfoService;
 	@Autowired
 	private MailService mailService;
+	
+	/**
+	 * @Title forwardUserApprove
+	 * @Description：跳转到审批页面
+	 * @param request
+	 * @param response
+	 * @return
+	 * @user LiuLei 2017年5月11日
+	 * @updater：
+	 * @updateTime：
+	 */
+	@RequestMapping("forwardUserApprove")
+	public String forwardUserApprove(HttpServletRequest request, HttpServletResponse response){
+		if(loginUserIsAdmin(request)){
+			return "userInfo/userInfo_approve";
+		}else {
+			printMessage(response, "对不起,您无权操作!", false);
+			return "index/adminLogin";
+		}
+	}
+	
+	/**
+	 * @Title userApplyOpertate
+	 * @Description：审批操作,同意或拒绝
+	 * @param request
+	 * @param response
+	 * @return
+	 * @user LiuLei 2017年5月11日
+	 * @updater：
+	 * @updateTime：
+	 */
+	@ResponseBody
+	@RequestMapping("userApplyOpertate")
+	public String userApplyOpertate(HttpServletRequest request, HttpServletResponse response){
+		if(loginUserIsAdmin(request)){
+			String type = getNotNullValue(request.getParameter("type"));
+			String userId = getNotNullValue(request.getParameter("id"));
+			UserInfo userInfo = new UserInfo();
+			userInfo.setId(userId);
+			if("approve".equals(type)){// 同意
+				userInfo.setType(BlazeConstants.USER_TYPE_STUDENT);
+				userInfoService.updateUserInfoById(userInfo);
+				// TODO 添加日志-审批同意
+				
+			}else if("refuse".equals(type)){// 拒绝
+				userInfo.setType(BlazeConstants.USER_TYPE_COMMON);
+				userInfoService.updateUserInfoById(userInfo);
+				// TODO 添加日志-审批拒绝
+				
+			}else {
+				printMessage(response, "操作失败,操作类型未知!", false);
+			}
+			return "success";
+		}else {
+			printMessage(response, "对不起,您无权操作!", false);
+			return "fail";
+		}
+	}
+	
 	/**
 	 * @Title forwardQueryUserInfo
 	 * @Description：跳转到用户信息列表
@@ -83,6 +142,8 @@ public class UserController extends BaseController{
 			Map<String, Object> map = new HashMap<String, Object>();
 			if("admin".equals(type) && loginUserIsAdmin(request)){// 管理员列表数据-管理员才能看
 				map.put("type",BlazeConstants.USER_TYPE_ADMIN);
+			}else if("confirm".equals(type)){// 审批待认证
+				map.put("type",BlazeConstants.USER_TYPE_CONFIRM);
 			}else {// 学生类表数据
 				map.put("type",BlazeConstants.USER_TYPE_STUDENT);
 			}

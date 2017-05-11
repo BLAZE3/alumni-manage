@@ -14,8 +14,11 @@
 	<c:when test="${user.type=='2'}">
 		<a href="studentInfo/forwardStudentRegister" target="_blank">学生信息认证</a>
 	</c:when>
+	<c:when test="${user.type=='3'}">
+		<a href="javascript:void(0);">学生信息(认证中)</a>
+	</c:when>
 	<c:otherwise>
-		<a href="studentInfo/forwardStudentInfoUpdate?studentId=${loginUser.studentId}" target="_blank">学生信息管理</a>
+		<a href="studentInfo/forwardStudentInfoUpdate?userId=${loginUser.id}" target="_blank">信息管理</a>
 	</c:otherwise>
 </c:choose>
 <a href="user/forwardQueryUserInfo?type=student" target="_blank">查看学生信息(学历信息)</a>
