@@ -13,11 +13,11 @@ import cn.blaze.domain.UserInfo;
 import cn.blaze.service.StudentInfoService;
 import cn.blaze.utils.BlazeConstants;
 import cn.blaze.utils.CommonUtils;
-import cn.blaze.utils.SystemUtils;
 import cn.blaze.vo.StudentRegisterVo;
 
 @Service
 public class StudentInfoServiceImpl implements StudentInfoService {
+	
 	@Autowired
 	private StudentInfoDao studentInfoDao;
 	@Autowired
@@ -27,7 +27,7 @@ public class StudentInfoServiceImpl implements StudentInfoService {
 	public void studentRegister(StudentRegisterVo registerVo) {
 		/***插入学生信息***/
 		StudentInfo studentInfo = new StudentInfo();
-		studentInfo.setId(SystemUtils.buildUniqueId());
+		studentInfo.setId(CommonUtils.buildUniqueId());
 		studentInfo.setAddress(registerVo.getAddress());
 		studentInfo.setAge(registerVo.getAge());
 		studentInfo.setEmail(registerVo.getEmail());
@@ -94,6 +94,11 @@ public class StudentInfoServiceImpl implements StudentInfoService {
 	@Override
 	public List<Map<String, Object>> queryUserStudentInfoMapByPara(Map<String, Object> map) {
 		return studentInfoDao.selectUserStudentInfoMapByPara(map);
+	}
+
+	@Override
+	public int insertStudent(StudentInfo student) {
+		return studentInfoDao.insertStudentInfo(student);
 	}
 
 }

@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,6 +19,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
 
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipOutputStream;
@@ -36,7 +41,6 @@ public class FileOperateUtils {
 	public static final String STOREPATH = "storePath";
 	public static final String SIZE = "size";
 	public static final String CONTENTTYPE = "contentType";
-	public static final String UPLOADDIR = "C://alumni-manage//";// 项目下文件存储的根目录名
   
     /**
      * @Title rename
@@ -54,9 +58,9 @@ public class FileOperateUtils {
         // 加上后缀
         if (name.indexOf(".")!= -1){
             fileName += name.substring(name.lastIndexOf("."));
-        }
+       }
         return fileName;
-    }
+   }
   
     /**
      * @Title zipName
@@ -71,11 +75,11 @@ public class FileOperateUtils {
         String prefix = "";
         if (name.indexOf(".")!= -1){
             prefix = name.substring(0, name.lastIndexOf("."));
-        } else {
+       } else {
             prefix = name;
-        }
+       }
         return prefix + ".zip";
-    }
+   }
   
     /**
      * @Title upload
@@ -100,11 +104,11 @@ public class FileOperateUtils {
   
 //        String uploadDir = request.getSession().getServletContext() 
 //                .getRealPath("/")+ FileOperateUtils.UPLOADDIR;// 文件存储的根目录
-        String uploadDir = FileOperateUtils.UPLOADDIR;// 文件存储的根目录
+        String uploadDir = CommonUtils.getPropertiesValue("upload_dir");// 从properties中读取资源存储的根目录
         File file = new File(uploadDir);
         if (!file.exists()){
             file.mkdir();
-        }
+       }
   
         String fileName = null;
         for (Iterator<Map.Entry<String, MultipartFile>> it = fileMap.entrySet().iterator(); it.hasNext();){
@@ -130,9 +134,9 @@ public class FileOperateUtils {
             map.put(FileOperateUtils.CONTENTTYPE, "application/octet-stream");
   
             result.add(map);
-        }
+       }
         return result;
-    }
+   }
   
     /**
      * @Title download
@@ -149,7 +153,6 @@ public class FileOperateUtils {
      */
     public static String download(HttpServletResponse response, String storePath, String contentType, String viewName) throws Exception {
         String message = "success";
-//    	response.setContentType("text/html;charset=UTF-8");
         BufferedInputStream bis = null;
         BufferedOutputStream bos = null;
         viewName = viewName==null||"".equals(viewName)?"未命名资源文件.zip":viewName;
@@ -187,4 +190,5 @@ public class FileOperateUtils {
 		}
         return message;
     }
+    
 }

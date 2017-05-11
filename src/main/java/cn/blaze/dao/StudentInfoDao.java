@@ -17,11 +17,12 @@ public interface StudentInfoDao {
 	 * @Title insertStudentInfo
 	 * @Description：
 	 * @param studentInfo
+	 * @return 
 	 * @user LiuLei 2017年4月23日
 	 * @updater：
 	 * @updateTime：
 	 */
-	void insertStudentInfo(StudentInfo studentInfo);
+	int insertStudentInfo(StudentInfo studentInfo);
 	
 	/**
 	 * 插入学生信息,主键自动生成

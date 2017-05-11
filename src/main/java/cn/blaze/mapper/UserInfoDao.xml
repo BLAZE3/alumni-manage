@@ -18,6 +18,30 @@
     id, student_id, user_name, password, status, type, isvalid, create_time, update_time 
   </sql>
   
+  <insert id="insertUserInfo" parameterType="cn.blaze.domain.UserInfo">
+    insert into user_info (
+    	id, 
+    	student_id, 
+    	user_name, 
+      	password, 
+      	status, 
+      	type, 
+      	isvalid, 
+      	create_time, 
+      	update_time
+    ) values (
+    	#{id,jdbcType=VARCHAR}, 
+    	#{studentId,jdbcType=VARCHAR}, 
+    	#{userName,jdbcType=VARCHAR}, 
+      	#{password,jdbcType=VARCHAR}, 
+      	#{status,jdbcType=VARCHAR}, 
+      	#{type,jdbcType=VARCHAR}, 
+      	#{isvalid,jdbcType=CHAR},
+      	#{createTime,jdbcType=TIMESTAMP}, 
+      	#{updateTime,jdbcType=TIMESTAMP}
+     )
+  </insert>
+  
   <insert id="insertUserInfoWithIdAuto" parameterType="cn.blaze.domain.UserInfo">
 	<selectKey keyProperty="id" resultType="String" order="BEFORE">
 	    select replace(uuid(),'-','') from dual

@@ -18,6 +18,7 @@ import cn.blaze.utils.BlazeConstants;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
+	
 	@Autowired
 	private UserInfoDao userInfoDao;
 	@Autowired
@@ -115,6 +116,13 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Override
 	public int userRegister(UserInfo userInfo) {
 		return userInfoDao.insertUserInfoWithIdAuto(userInfo);
+	}
+
+	@Override
+	public int importExcelRegister(UserInfo user, StudentInfo student) {
+		userInfoDao.insertUserInfo(user);
+		studentInfoService.insertStudent(student);
+		return 1;
 	}
 	
 }

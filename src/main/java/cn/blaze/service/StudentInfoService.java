@@ -109,4 +109,14 @@ public interface StudentInfoService {
 	 * @updateTime：
 	 */
 	int queryUserStudentInfoCountByPara(Map<String, Object> map);
+
+	/**
+	 * @Title insertStudent
+	 * @Description：注册用户
+	 * @param student
+	 * @user LiuLei 2017年5月11日
+	 * @updater：
+	 * @updateTime：
+	 */
+	int insertStudent(StudentInfo student);
 }

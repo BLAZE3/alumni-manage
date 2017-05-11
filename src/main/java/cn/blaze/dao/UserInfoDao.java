@@ -63,4 +63,14 @@ public interface UserInfoDao {
 	 */
 	int updateByStudentId(UserInfo db_userInfo);
 
+	/**
+	 * @Title insertUserInfo
+	 * @Description：插入用信息
+	 * @param user
+	 * @user LiuLei 2017年5月11日
+	 * @updater：
+	 * @updateTime：
+	 */
+	void insertUserInfo(UserInfo user);
+
 }

@@ -1,16 +1,26 @@
 package cn.blaze.controller;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.blaze.domain.StudentInfo;
 import cn.blaze.domain.UserInfo;
 import cn.blaze.service.MailService;
 import cn.blaze.service.StudentInfoService;
@@ -253,7 +263,6 @@ public class UserController extends BaseController{
 	 */
 	@RequestMapping("forwardUpdatePassword")
 	public String forwardUpdatePassword(HttpServletRequest request){
-//		UserInfo user = (UserInfo) request.getSession().getAttribute("loginUser");
 		UserInfo user = this.getLoginUser(request);
 		request.setAttribute("userInfo", user);
 		return "userInfo/update_password";
@@ -316,5 +325,126 @@ public class UserController extends BaseController{
 			// TODO 添加日志
 		}
 		return "index/login";
+	}
+	
+	/**
+	 * @Title forwardImportExcel
+	 * @Description：跳转到导入页面
+	 * @param request
+	 * @return
+	 * @user LiuLei 2017年5月11日
+	 * @updater：
+	 * @updateTime：
+	 */
+	@RequestMapping("forwardImportExcel")
+	public String forwardImportExcel(HttpServletRequest request){
+		return "file/importExcel";
+	}
+	
+	/**
+	 * @Title importExcels
+	 * @Description：数据导入
+	 * @param request
+	 * @param response
+	 * @return
+	 * @user LiuLei 2017年5月11日
+	 * @updater：
+	 * @updateTime：
+	 */
+	@RequestMapping("importExcels")
+	public String importExcels(HttpServletRequest request, HttpServletResponse response) {
+		Workbook readwb = null;
+		List<String> errorList = new ArrayList<String>();//存储导入的错误信息
+		try {
+//			List<UserInfo> userList = new ArrayList<UserInfo>();
+//			List<StudentInfo> studentList = new ArrayList<StudentInfo>();
+			
+			// 构建Workbook对象, 只读Workbook对象
+			// 直接从本地文件创建Workbook
+			InputStream instream = new FileInputStream("E:/test.xls");
+			readwb = Workbook.getWorkbook(instream);
+			// 获取第一张Sheet表 ,Sheet的下标是从0开始
+			Sheet sheet = readwb.getSheet(0);
+//			// 获取Sheet表中所包含的总列数
+//			int rsColumns = sheet.getColumns();
+			// 获取Sheet表中所包含的总行数
+			int rsRows = sheet.getRows();
+	
+			int beginRowIndex = 1;// 开始行,第一行为0
+			// 获取指定单元格的对象引用
+			for (int rowIndex = beginRowIndex; rowIndex < rsRows; rowIndex++) {
+				Cell[] cells 		= sheet.getRow(rowIndex);// 读取每一行
+				String userName 	= getNotNullValue(cells[0].getContents()).trim();// 账户名-必填
+				String sex 			= getNotNullValue(cells[1].getContents()).trim();// 性别
+				String studentName 	= getNotNullValue(cells[2].getContents()).trim();// 姓名-必填
+				String age 			= getNotNullValue(cells[3].getContents()).trim();// 年龄
+				String tel 			= getNotNullValue(cells[4].getContents()).trim();// 手机
+				String address 		= getNotNullValue(cells[5].getContents()).trim();// 地址
+				String email 		= getNotNullValue(cells[6].getContents()).trim();// 邮箱-必填
+				String wechat 		= getNotNullValue(cells[7].getContents()).trim();// 微信
+				String qq 			= getNotNullValue(cells[8].getContents()).trim();// QQ
+				
+				if("".equals(userName)){
+					errorList.add("第"+rowIndex+"行账号名不可为空");
+					continue;
+				}else if("".equals(studentName)){
+					errorList.add("第"+rowIndex+"行姓名不可为空");
+					continue;
+				}else if("".equals(email)){
+					errorList.add("第"+rowIndex+"行邮箱不可为空");
+					continue;
+				}else if("".equals(age)){
+					try {
+						Integer.parseInt(age);// 判断年龄转换是否会有异常
+					} catch (Exception e) {
+						errorList.add("第"+rowIndex+"行年龄有误");
+						continue;
+					}
+				}else {
+					
+					StudentInfo student = new StudentInfo();
+					student.setAge(Integer.parseInt(age));
+					student.setEmail(email);
+					student.setAddress(address);
+					student.setQq(qq);
+					student.setTelephone(tel);
+					student.setStudentName(studentName);
+					student.setWechat(wechat);
+					student.setSex(sex);
+					student.setId(CommonUtils.buildUniqueId());
+					
+					UserInfo user = new UserInfo();
+					user.setUserName(userName);
+					user.setCreateTime(new Date());
+					user.setStatus("0");
+					user.setPassword(userName);
+					user.setIsvalid(BlazeConstants.ISVALID_YES);
+					user.setStudentId(student.getId());
+					user.setId(CommonUtils.buildUniqueId());
+//					userList.add(user);
+//					studentList.add(student);
+					
+					try {
+						userInfoService.importExcelRegister(user, student);
+					} catch (Exception e) {
+						e.printStackTrace();
+						errorList.add("第"+rowIndex+"行插入错误");
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(readwb != null)
+				readwb.close();
+		}
+		int error_count = errorList.size();
+		if(error_count>0){
+			request.setAttribute("error_count", error_count);
+			request.setAttribute("error_list", errorList);
+		}else {
+			request.setAttribute("operate", "close");
+		}
+		return "file/importExcel";// 跳回导入页面
 	}
 }

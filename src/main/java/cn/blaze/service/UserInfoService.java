@@ -3,6 +3,7 @@ package cn.blaze.service;
 import java.util.List;
 import java.util.Map;
 
+import cn.blaze.domain.StudentInfo;
 import cn.blaze.domain.UserInfo;
 import cn.blaze.vo.UserInfoVo;
 
@@ -132,5 +133,17 @@ public interface UserInfoService {
 	 * @updateTime：
 	 */
 	int userRegister(UserInfo userInfo);
+
+	/**
+	 * @Title importExcelRegister
+	 * @Description：excel导入时注册
+	 * @param user
+	 * @param student
+	 * @return
+	 * @user LiuLei 2017年5月11日
+	 * @updater：
+	 * @updateTime：
+	 */
+	int importExcelRegister(UserInfo user, StudentInfo student);
 
 }

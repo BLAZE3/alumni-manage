@@ -1,40 +1,70 @@
 package cn.blaze.utils;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.FileInputStream;
 import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
+import java.util.UUID;
 
-import javax.servlet.http.HttpServletResponse;
 
 public class CommonUtils {
-
+	public static final String RPROPERTIES_PATH = "/properties.properties";
+	
 	/**
-	 * 判断字符串是否为null或空字符串
-	 * @param str
+	 * 生成唯一的主键值
+	 * @Title buildUniqueId
+	 * @Description：
 	 * @return
+	 * @user LiuLei 2017年4月23日
+	 * @updater：
+	 * @updateTime：
 	 */
-	public static boolean isEmpty(String str) {
-		if (str == null || "".equals(str.trim()))
-			return true;
-		return false;
+	public static String buildUniqueId() {
+		return UUID.randomUUID().toString().replaceAll("\\-", "");
 	}
-
+	
 	/**
-	 * 判断字符串是否非空
-	 * @param str
+	 * @Title getPropertiesValue
+	 * @Description：获取properties文件的值
+	 * @param key
 	 * @return
+	 * @user LiuLei 2017年5月11日
+	 * @updater：
+	 * @updateTime：
 	 */
-	public static boolean isNotEmpty(String str) {
-		return !isEmpty(str);
+	public static String getPropertiesValue(String key){
+		String value = "";
+		Properties properties = new Properties();
+		try {
+			FileInputStream fileInputStream = new FileInputStream(CommonUtils.class.getResource(RPROPERTIES_PATH).getPath());
+			properties.load(fileInputStream);
+			fileInputStream.close();
+			if (properties.containsKey(key)) {
+				value = new String(properties.getProperty(key).getBytes("ISO8859-1") ,"UTF-8");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return value;
 	}
-
+    
+    /**
+     * @Title isEmpty
+     * @Description：为null或者为空字符串返回true,否则返回false
+     * @param obj
+     * @return
+     * @user LiuLei 2017年5月4日
+     * @updater：
+     * @updateTime：
+     */
+    public static boolean isEmpty(Object obj){  
+        return obj == null || obj.toString().length() == 0;  
+    }
+	
 	/**
 	 * @Title decodeStr
 	 * @Description：字符串转码 对用JS中的encodeURIComponent(encodeURIComponent(xxx))传到后台的字符串进行转码，防止乱码
@@ -185,45 +215,6 @@ public class CommonUtils {
 	}
 	
     /**
-     * 获得2个日期之间的天数
-     * @param start yyyy-MM-dd
-     * @param end yyyy-MM-dd
-     * @return
-     */
-    public static Long getDayBetweenDate(String start, String end){
-    	try{
-    		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    		Date sDate = sdf.parse(start);
-    		Date eDate = sdf.parse(end);
-    		Long day = (eDate.getTime()-sDate.getTime())/(24*60*60*1000)+1;
-    		return day;
-    		
-    	}catch(Exception e){
-    		e.printStackTrace();
-    	}
-    	return null;
-    }
-    
-    /**
-     * 数组转换为('xxx','yyyy','zzz')
-     * @param strs
-     * @return
-     */
-    public static final String generateInString(String[] strs) {
-        if (strs == null || strs.length == 0) {
-            return null;
-        } else {
-            String strAll = "(";
-            for (int i = 0, length = strs.length; i < length; i++) {
-                String str = strs[i];
-                strAll += "'" + str + "'" + (i == length - 1 ? ")" : ",");
-
-            }
-            return strAll;
-        }
-    }
-    
-    /**
      * @Title removeNullValue
      * @Description：移除map中的value为""和null
      * @param map
@@ -283,17 +274,5 @@ public class CommonUtils {
             }   
         }   
     }   
-    
-    /**
-     * @Title isEmpty
-     * @Description：为null或者为空字符串返回true,否则返回false
-     * @param obj
-     * @return
-     * @user LiuLei 2017年5月4日
-     * @updater：
-     * @updateTime：
-     */
-    public static boolean isEmpty(Object obj){  
-        return obj == null || obj.toString().length() == 0;  
-    }
+
 }
