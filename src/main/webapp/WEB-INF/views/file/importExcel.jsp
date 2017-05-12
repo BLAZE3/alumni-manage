@@ -14,6 +14,7 @@
 		var operate = "${operate}";
 		// 关闭页面-非脚本打开不会起作用
 		if(operate!=null&&operate=="close"){
+			alert("导入成功,初始密码是用户账号");
 			window.opener=null;
 			window.close();
 		}
@@ -26,14 +27,20 @@
 			}
 			
 		});
+		
+		function downImportUserModel(){
+			window.open("fileOperate/downImportUserModel");
+		}
+		
 		function submitCheck(){
 			return true;
 		}
 	</script>
 </head>
 <body>
-	<a href="javascript:window.close();">关闭</a>
-	<form action="user/importExcels" method="post" enctype="multipart/form-data" onsubmit="submitCheck();">
+	<a href="javascript:window.close();">关闭</a><br>
+	<a href="javascript:void(0);" onclick="downImportUserModel();">下载学生信息导入模板.xls</a>
+	<form action="user/importExcel" method="post" enctype="multipart/form-data" onsubmit="submitCheck();">
 		<input type="file" name="file"/><br>
 		<button type="submit">上传</button>
 	</form>

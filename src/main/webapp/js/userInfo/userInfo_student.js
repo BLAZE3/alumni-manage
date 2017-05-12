@@ -202,8 +202,8 @@ function f_initGrid()
 		if(isvalid!=null && isvalid!=""){
 			conditions+="&isvalid="+isvalid;
 		}
-		window.open("studentInfo/exportStudentInfo?abc=abc"+conditions);
-		$("#submit_btn").click();
+		window.open("studentInfo/exportStudentInfo?abc=abc"+conditions);// 弹出下载框
+		$("#submit_btn").click();// 刷新数据
 	});
 }
 

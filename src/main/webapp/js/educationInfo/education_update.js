@@ -7,7 +7,10 @@ $(function() {
 		$(".del_btn").hide();
 	}
 	
-	fillCountry();
+	fillCountry();// 填充国家的下拉选项
+	
+	$("#entranceTimeStr").ligerDateEditor({ /*showTime: true, label: '入学时间', */labelWidth: 100, labelAlign: 'left' });
+	$("#graduationTimeStr").ligerDateEditor({ /*showTime: true, label: '入学时间', */labelWidth: 100, labelAlign: 'left' });
 	
 	$("#add_btn").click(function() {
 		if (submitCheck()) {// 表单校验
@@ -99,6 +102,24 @@ function submitCheck() {
 			return;
 		}
 	});
+	
+	// 插件自带日期格式校正,此处日期格式验证不需要
+//	$(".submit_time").each(function(i, n) {
+//		var time = $(n).val();
+//		if (time == null || time == "") {// 不可为空
+//			$(n).focus();
+//			msg =  $(n).attr("title");
+//			return;
+//		}else {// 判断格式
+//			var formate = /^(\d{4})-(\d{2})-(\d{2})$/;
+//			if (!formate.test(time)){
+//				$(n).focus();
+//				msg =  "日期格式不正确!";
+//				return;
+//			}
+//		}
+//	});
+	
 	if (!msg) {
 		return true;
 	} else {

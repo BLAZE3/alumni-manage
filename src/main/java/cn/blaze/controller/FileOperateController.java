@@ -1,5 +1,7 @@
 package cn.blaze.controller;
 
+import java.io.File;
+import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +39,15 @@ public class FileOperateController extends BaseController{
 	@Autowired
 	private FileResourcesService fileResourcesService;
 	
+	/**
+	 * @Title showFileResourceById
+	 * @Description：查看资源详情
+	 * @param request
+	 * @return
+	 * @user LiuLei 2017年5月12日
+	 * @updater：
+	 * @updateTime：
+	 */
 	@RequestMapping("showFileResourceById")
 	public String showFileResourceById(HttpServletRequest request){
 		String id = this.getNotNullValue(request.getParameter("id"));
@@ -45,6 +56,20 @@ public class FileOperateController extends BaseController{
 		BeanUtils.copyProperties(resource, fileVo);
 		request.setAttribute("file", fileVo);
 		return "file/fileDetail";
+	}
+	
+	/**
+	 * @Title forwardImportExcel
+	 * @Description：跳转到导入页面
+	 * @param request
+	 * @return
+	 * @user LiuLei 2017年5月11日
+	 * @updater：
+	 * @updateTime：
+	 */
+	@RequestMapping("forwardImportExcel")
+	public String forwardImportExcel(HttpServletRequest request){
+		return "file/importExcel";
 	}
 	
 	/**
@@ -206,6 +231,20 @@ public class FileOperateController extends BaseController{
     		}else {
     			printMessage(response, "对不起,该资源已失效!", false);
     		}
+    	}else {// 未注册无权下载
+    		printMessage(response, "对不起,为注册用户无权下载!", false);
+    	}
+    }
+    
+    @RequestMapping("downImportUserModel")  
+    public void downImportUserModel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	if(this.isRealUser(request)){// 注册的用户有权下载
+    		String filePath = request.getSession().getServletContext().getRealPath(File.separator) + java.io.File.separator
+    				+ "fileModel" + java.io.File.separator + "userImportModl.xls";// 获取模板路径
+			String res = FileOperateUtils.download(response, filePath, "", "学生信息导入模板.xls");
+			if(!"success".equals(res)){// 下载错误是返回错误信息
+				printMessage(response, res, false);
+			}
     	}else {// 未注册无权下载
     		printMessage(response, "对不起,为注册用户无权下载!", false);
     	}

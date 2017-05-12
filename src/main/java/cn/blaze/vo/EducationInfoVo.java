@@ -17,7 +17,7 @@ public class EducationInfoVo {
     private String major;// 专业
     private String education;// 学历
 
-    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
     
     public String getId() {
         return id;

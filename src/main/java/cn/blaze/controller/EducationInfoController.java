@@ -76,7 +76,7 @@ public class EducationInfoController extends BaseController{
 	public Map<String, Object> addEducationInfo(EducationInfoVo educationInfoVo, String studentId, HttpServletRequest request){
 		String entranceTimeStr = educationInfoVo.getEntranceTimeStr();
 		String graduationTimeStr = educationInfoVo.getGraduationTimeStr();
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM");
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		try {
 			Date entrancetime = sf.parse(entranceTimeStr);

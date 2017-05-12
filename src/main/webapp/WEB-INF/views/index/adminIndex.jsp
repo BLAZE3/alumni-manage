@@ -16,6 +16,7 @@
 <a href="user/forwardUpdatePassword" target="_blank">查看日志</a>
 <a href="fileOperate/forwardUpload" target="_blank">文件上传</a>
 <a href="fileOperate/forwardFileList" target="_blank">资源库</a>
+<a href="fileOperate/forwardImportExcel" target="_blank">信息导入</a>
 <a href="fileOperate/forwardFileList?type=recycle" target="_blank">资源回收站</a>
 <a href="user/logout">注销</a>
 </body>

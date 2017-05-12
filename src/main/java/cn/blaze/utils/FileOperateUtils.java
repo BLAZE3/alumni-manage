@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -97,81 +98,85 @@ public class FileOperateUtils {
      * @updateTime：
      */
     public static List<Map<String, Object>> upload(HttpServletRequest request) throws Exception {
-  
-        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
-        MultipartHttpServletRequest mRequest = (MultipartHttpServletRequest)request;
-        Map<String, MultipartFile> fileMap = mRequest.getFileMap();
-  
-//        String uploadDir = request.getSession().getServletContext() 
-//                .getRealPath("/")+ FileOperateUtils.UPLOADDIR;// 文件存储的根目录
-        String uploadDir = CommonUtils.getPropertiesValue("upload_dir");// 从properties中读取资源存储的根目录
-        File file = new File(uploadDir);
-        if (!file.exists()){
-            file.mkdir();
-       }
+
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		MultipartHttpServletRequest mRequest = (MultipartHttpServletRequest) request;
+		Map<String, MultipartFile> fileMap = mRequest.getFileMap();
+
+		String uploadDir = CommonUtils.getPropertiesValue("upload_dir");// 从properties中读取资源存储的根目录
+		File file = new File(uploadDir);
+		if (!file.exists()) {
+			file.mkdir();
+		}
   
         String fileName = null;
-        for (Iterator<Map.Entry<String, MultipartFile>> it = fileMap.entrySet().iterator(); it.hasNext();){
+		for (Iterator<Entry<String, MultipartFile>> it = fileMap.entrySet().iterator(); it.hasNext();) {
 
-            Map.Entry<String, MultipartFile> entry = it.next();
-            MultipartFile mFile = entry.getValue();
-  
-            fileName = mFile.getOriginalFilename();
-            String storePath = zipName(uploadDir + rename(fileName));// 文件存储的全路径名
-  
-            // 上传成为压缩文件  
-            ZipOutputStream outputStream = new ZipOutputStream( new BufferedOutputStream(new FileOutputStream(storePath)));
-            outputStream.putNextEntry(new ZipEntry(fileName));
-            outputStream.setEncoding("GBK");
-  
-            FileCopyUtils.copy(mFile.getInputStream(), outputStream);
-  
-            Map<String, Object> map = new HashMap<String, Object>();
-            // 固定参数值对  
-            map.put(FileOperateUtils.REALNAME, zipName(fileName)); // 文件上传时的文件名,后缀变为zip,用于前端显示
-            map.put(FileOperateUtils.STOREPATH, storePath);// 文件存储的全路径名
-            map.put(FileOperateUtils.SIZE, new File(storePath).length());// 文件大小
-            map.put(FileOperateUtils.CONTENTTYPE, "application/octet-stream");
-  
-            result.add(map);
-       }
-        return result;
-   }
-  
-    /**
-     * @Title download
-     * @Description：文件下载
-     * @param response
-     * @param storePath 文件的存储路径
-     * @param contentType
-     * @param viewName 前台显示的名称(文件上传时的文件名)
-     * @return 成功返回字符串success,否则返回错误提示
-     * @throws Exception
-     * @user LiuLei 2017年5月10日
-     * @updater：
-     * @updateTime：
-     */
-    public static String download(HttpServletResponse response, String storePath, String contentType, String viewName) throws Exception {
-        String message = "success";
-        BufferedInputStream bis = null;
-        BufferedOutputStream bos = null;
-        viewName = viewName==null||"".equals(viewName)?"未命名资源文件.zip":viewName;
-        contentType = contentType==null||"".equals(contentType)?"application/octet-stream":contentType;
-        long fileLength = new File(storePath).length();
-        
-        try {
-  
+			Entry<String, MultipartFile> entry = it.next();
+			MultipartFile mFile = entry.getValue();
+
+			fileName = mFile.getOriginalFilename();
+			String storePath = zipName(uploadDir + rename(fileName));// 文件存储的全路径名
+
+			// 上传成为压缩文件
+			ZipOutputStream outputStream = new ZipOutputStream(
+					new BufferedOutputStream(new FileOutputStream(storePath)));
+			outputStream.putNextEntry(new ZipEntry(fileName));
+			outputStream.setEncoding("GBK");
+
+			FileCopyUtils.copy(mFile.getInputStream(), outputStream);
+
+			Map<String, Object> map = new HashMap<String, Object>();
+			// 固定参数值对
+			map.put(FileOperateUtils.REALNAME, zipName(fileName)); // 文件上传时的文件名,后缀变为zip,用于前端显示
+			map.put(FileOperateUtils.STOREPATH, storePath);// 文件存储的全路径名
+			map.put(FileOperateUtils.SIZE, new File(storePath).length());// 文件大小
+			map.put(FileOperateUtils.CONTENTTYPE, "application/octet-stream");
+
+			result.add(map);
+		}
+		return result;
+	}
+
+	/**
+	 * @Title download
+	 * @Description：文件下载
+	 * @param response
+	 * @param storePath
+	 *            文件的存储路径
+	 * @param contentType
+	 * @param viewName
+	 *            前台显示的名称(文件上传时的文件名)
+	 * @return 成功返回字符串success,否则返回错误提示
+	 * @throws Exception
+	 * @user LiuLei 2017年5月10日
+	 * @updater：
+	 * @updateTime：
+	 */
+	public static String download(HttpServletResponse response,
+			String storePath, String contentType, String viewName)
+			throws Exception {
+		String message = "success";
+		BufferedInputStream bis = null;
+		BufferedOutputStream bos = null;
+		viewName = viewName == null || "".equals(viewName) ? "未命名资源文件.zip"
+				: viewName;
+		contentType = contentType == null || "".equals(contentType) ? "application/octet-stream":contentType;
+		long fileLength = new File(storePath).length();
+
+		try {
+
 			bis = new BufferedInputStream(new FileInputStream(storePath));
 			bos = new BufferedOutputStream(response.getOutputStream());
-			
-			response.setHeader("Content-disposition", "attachment; filename=" + new String(viewName.getBytes("utf-8"), "ISO8859-1"));
+
+			response.setHeader("Content-disposition", "attachment; filename="+new String(viewName.getBytes("utf-8"), "ISO8859-1"));
 			response.setHeader("Content-Length", String.valueOf(fileLength));
 			response.setContentType(contentType);
-			
+
 			byte[] buff = new byte[2048];
 			int bytesRead;
-			while (-1 != (bytesRead = bis.read(buff, 0, buff.length))){
-			    bos.write(buff, 0, bytesRead);
+			while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
+				bos.write(buff, 0, bytesRead);
 			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
