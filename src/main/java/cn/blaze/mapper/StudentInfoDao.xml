@@ -69,7 +69,7 @@
 		  	<![CDATA[ AND user.student_id=#{studentId,jdbcType=VARCHAR}]]>
 		</if>
 		<if test="userName != null and userName != ''">
-		  	<![CDATA[ AND user.user_name=#{userName,jdbcType=VARCHAR}]]>
+		  	<![CDATA[ AND user.user_name like '%${userName,jdbcType=VARCHAR}%']]>
 		</if>
 		<if test="password != null and password != ''">
 		  	<![CDATA[ AND user.password=#{password,jdbcType=VARCHAR}]]>

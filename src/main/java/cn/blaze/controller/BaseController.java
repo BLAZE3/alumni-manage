@@ -85,6 +85,21 @@ public class BaseController {
 	}
 	
 	/**
+	 * @Title getRequestNotNullValue
+	 * @Description：获取request的非null值
+	 * @param key
+	 * @param request
+	 * @return ""或字符串.trim
+	 * @user LiuLei 2017年5月14日
+	 * @updater：
+	 * @updateTime：
+	 */
+	protected String getRequestNotNullValue(String key, HttpServletRequest request){
+		String obj = request.getParameter(key);
+		return obj!=null?obj.toString().trim():"";
+	}
+	
+	/**
 	 * @Title getNotNullValueToInt
 	 * @Description：返回输入对象的整数值
 	 * @param obj
@@ -94,6 +109,20 @@ public class BaseController {
 	 * @updateTime：
 	 */
 	protected int getNotNullValueToInt(String obj) {
+		return obj!=null?Integer.parseInt(obj):0;
+	}
+	
+	/**
+	 * @Title getRequestNotNullValueToInt
+	 * @Description：返回输入对象的整数值
+	 * @param obj
+	 * @return 如果是null返回0,否则返回对应的整数
+	 * @user LiuLei 2017年4月30日
+	 * @updater：
+	 * @updateTime：
+	 */
+	protected int getRequestNotNullValueToInt(String key, HttpServletRequest request) {
+		String obj = request.getParameter(key);
 		return obj!=null?Integer.parseInt(obj):0;
 	}
 	

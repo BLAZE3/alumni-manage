@@ -5,7 +5,6 @@ import java.util.Map;
 
 import cn.blaze.domain.StudentInfo;
 import cn.blaze.vo.StudentRegisterVo;
-import cn.blaze.vo.UserInfoVo;
 
 public interface StudentInfoService {
 

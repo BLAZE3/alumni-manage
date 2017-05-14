@@ -1,7 +1,6 @@
 package cn.blaze.controller;
 
 import java.io.File;
-import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +19,7 @@ import cn.blaze.domain.FileResources;
 import cn.blaze.domain.StudentInfo;
 import cn.blaze.domain.UserInfo;
 import cn.blaze.service.FileResourcesService;
+import cn.blaze.service.LogService;
 import cn.blaze.service.StudentInfoService;
 import cn.blaze.utils.BlazeConstants;
 import cn.blaze.utils.CommonUtils;
@@ -38,7 +38,8 @@ public class FileOperateController extends BaseController{
 	private StudentInfoService studentInfoService;
 	@Autowired
 	private FileResourcesService fileResourcesService;
-	
+	@Autowired
+	private LogService logService;
 	/**
 	 * @Title showFileResourceById
 	 * @Description：查看资源详情
@@ -195,7 +196,8 @@ public class FileOperateController extends BaseController{
     				resource.setPublisherName(studentInfo.getStudentName());
     			}
     			fileResourcesService.saveFileResource(resource);
-    			// TODO 添加日志
+    			// 添加日志
+    			logService.insertLog(loginUser.getId(), "用户"+loginUser.getUserName()+"上传了资源文件"+realName);
     		}
     	}catch(Exception e){
     		// 上传出错
@@ -266,9 +268,12 @@ public class FileOperateController extends BaseController{
     public String cancelFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
     	if(loginUserIsAdmin(request)){
     		String id = this.getNotNullValue(request.getParameter("id"));
-    		int res = fileResourcesService.cancelFileResourceById(id);
+    		FileResources db_file = fileResourcesService.queryFileResourcesById(id);// 获取资源记录
+    		int res = fileResourcesService.cancelFileResourceById(id);// 标记为删除
     		if(res > 0){
-    			// TODO 添加日志-删除成功
+    			UserInfo loginUser = getLoginUser(request);
+    			// 添加日志-删除成功
+    			logService.insertLog(loginUser.getId(), "用户"+loginUser.getUserName()+"删除了资源文件"+db_file.getFileName());
     		}
     		return "success";
     	}else {
@@ -294,8 +299,11 @@ public class FileOperateController extends BaseController{
     	if(loginUserIsAdmin(request)){
     		String id = this.getNotNullValue(request.getParameter("id"));
     		int res = fileResourcesService.restoreFileResourceById(id);
+    		FileResources db_file = fileResourcesService.queryFileResourcesById(id);
     		if(res > 0){
-    			// TODO 添加日志-恢复成功
+    			UserInfo loginUser = getLoginUser(request);
+    			// 添加日志-恢复成功
+    			logService.insertLog(loginUser.getId(), "用户"+loginUser.getUserName()+"恢复了被删除资源文件"+db_file.getFileName());
     		}
     		return "success";
     	}else {

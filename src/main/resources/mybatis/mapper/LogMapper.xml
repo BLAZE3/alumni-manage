@@ -1,80 +1,159 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.blaze.dao.LogDao">
-  <resultMap id="BaseResultMap" type="cn.blaze.domain.Log">
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="actorid" jdbcType="VARCHAR" property="actorid" />
-    <result column="actinfo" jdbcType="VARCHAR" property="actinfo" />
-    <result column="inserttime" jdbcType="TIMESTAMP" property="inserttime" />
-  </resultMap>
+	<resultMap id="BaseResultMap" type="cn.blaze.domain.Log">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="actorid" jdbcType="VARCHAR" property="actorid" />
+		<result column="actinfo" jdbcType="VARCHAR" property="actinfo" />
+		<result column="inserttime" jdbcType="TIMESTAMP" property="inserttime" />
+	</resultMap>
 
-  <sql id="Base_Column_List">
-    id, actorid, actinfo, inserttime
-  </sql>
+	<resultMap id="LogVoMap" type="cn.blaze.vo.LogVo">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="actorid" jdbcType="VARCHAR" property="actorid" />
+		<result column="actinfo" jdbcType="VARCHAR" property="actinfo" />
+		<result column="inserttime" jdbcType="TIMESTAMP" property="inserttime" />
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+	</resultMap>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from TB_LOG
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
+	<sql id="Base_Column_List">
+		id, actorid, actinfo, inserttime
+	</sql>
+	
+	<sql id="Join_Column_List">
+		log.id, log.actorid, log.actinfo, log.inserttime
+	</sql>
 
-  <select id="selectByActorAndTime" parameterType="Map" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from TB_LOG
-    where
+	<sql id="Join_Where_List">
+		where 1=1
+		<if test="id != null and id != ''">
+			and log.id = #{id,jdbcType=VARCHAR}
+		</if>
+		<if test="actorid != null and actorid != ''">
+			and log.actorid = #{actorid,jdbcType=VARCHAR}
+		</if>
+		<if test="startTime != null and startTime != ''">
+		<![CDATA[
+			and log.inserttime > #{startTime,jdbcType=TIMESTAMP}
+		]]>
+		</if>
+		<if test="endTime != null and endTime != ''">
+		<![CDATA[
+			and log.inserttime < #{endTime,jdbcType=TIMESTAMP}
+		]]>	
+		</if>
+	</sql>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Join_Column_List" />
+		from TB_LOG
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectByActorAndTime" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="Join_Column_List" />
+		from TB_LOG
+		where
     <![CDATA[
     actorid = #{actorid} AND inserttime > #{startDate} AND inserttime < #{startDate}
     ]]>
-  </select>
+	</select>
 
-  <select id="selectByTime" parameterType="Map" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from TB_LOG
-    where
+	<select id="selectByTime" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="Join_Column_List" />
+		from TB_LOG
+		where
     <![CDATA[
     inserttime > #{startDate} AND inserttime < #{endDate}
     ]]>
-  </select>
+	</select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from TB_LOG
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from TB_LOG
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
 
-  <insert id="insert" parameterType="cn.blaze.domain.Log" keyProperty="id">
-    <selectKey keyProperty="id" resultType="String" order="BEFORE">
-      select replace(uuid(),'-','') from dual
-    </selectKey>
-    insert into TB_LOG (id, actorid, actinfo, 
-      inserttime)
-    values (#{id,jdbcType=VARCHAR}, #{actorid,jdbcType=VARCHAR}, #{actinfo,jdbcType=VARCHAR}, 
-      #{inserttime,jdbcType=TIMESTAMP})
-  </insert>
+	<insert id="insert" parameterType="cn.blaze.domain.Log"
+		keyProperty="id">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">
+			select replace(uuid(),'-','') from dual
+		</selectKey>
+		insert into TB_LOG (id, actorid, actinfo,
+		inserttime)
+		values (#{id,jdbcType=VARCHAR}, #{actorid,jdbcType=VARCHAR},
+		#{actinfo,jdbcType=VARCHAR},
+		#{inserttime,jdbcType=TIMESTAMP})
+	</insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="cn.blaze.domain.Log">
-    update TB_LOG
-    <set>
-      <if test="actorid != null">
-        actorid = #{actorid,jdbcType=VARCHAR},
-      </if>
-      <if test="actinfo != null">
-        actinfo = #{actinfo,jdbcType=VARCHAR},
-      </if>
-      <if test="inserttime != null">
-        inserttime = #{inserttime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
+	<update id="updateByPrimaryKeySelective" parameterType="cn.blaze.domain.Log">
+		update TB_LOG
+		<set>
+			<if test="actorid != null">
+				actorid = #{actorid,jdbcType=VARCHAR},
+			</if>
+			<if test="actinfo != null">
+				actinfo = #{actinfo,jdbcType=VARCHAR},
+			</if>
+			<if test="inserttime != null">
+				inserttime = #{inserttime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
 
-  <update id="updateByPrimaryKey" parameterType="cn.blaze.domain.Log">
-    update TB_LOG
-    set actorid = #{actorid,jdbcType=VARCHAR},
-      actinfo = #{actinfo,jdbcType=VARCHAR},
-      inserttime = #{inserttime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
+	<update id="updateByPrimaryKey" parameterType="cn.blaze.domain.Log">
+		update TB_LOG
+		set actorid = #{actorid,jdbcType=VARCHAR},
+		actinfo = #{actinfo,jdbcType=VARCHAR},
+		inserttime = #{inserttime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectByParam" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Join_Column_List" />
+		from TB_LOG log
+		<include refid="Join_Where_List"/>
+	</select>
+
+	<select id="selectLogVoForLigerUIByParam" parameterType="java.util.Map" resultMap="LogVoMap">
+		select a.* from (
+			select user.User_name,
+			<include refid="Join_Column_List"/>
+			from TB_LOG log left join user_info user on log.actorid = user.id
+			<include refid="Join_Where_List"/>
+			<if test="userName != null and userName != ''">
+			<![CDATA[
+				and user.user_name like '%${userName}%'
+			]]>
+			</if>
+		)a
+	    <if test="sortName!=null and sortName!='' and sortOrder!=null">
+	    	<![CDATA[
+		    order by ${sortName} ${sortOrder}
+	    	]]>
+	    </if>
+	    <if test="start!=null and start!='' and pageSize!=null and pageSize!=''">
+	    	<![CDATA[
+		    LIMIT ${start},${pageSize}
+	    	]]>
+	    </if>
+	</select>
+
+	<delete id="deleteByIds" parameterType="java.lang.String">
+		delete from TB_LOG
+		where id in (${ids})
+	</delete>
+
+	<select id="queryLogCountByParam" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(*)
+		from TB_LOG log
+		<include refid="Join_Where_List"/>
+	</select>
 </mapper>

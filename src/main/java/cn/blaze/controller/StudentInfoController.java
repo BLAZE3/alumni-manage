@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.blaze.domain.StudentInfo;
 import cn.blaze.domain.UserInfo;
+import cn.blaze.service.LogService;
 import cn.blaze.service.StudentInfoService;
 import cn.blaze.service.UserInfoService;
 import cn.blaze.utils.BlazeConstants;
@@ -33,6 +34,8 @@ public class StudentInfoController extends BaseController{
 	private StudentInfoService studentInfoService;
 	@Autowired
 	private UserInfoService userInfoService;
+	@Autowired
+	private LogService logService;
 	
 	/**
 	 * @Title forwardStudentRegister
@@ -94,7 +97,8 @@ public class StudentInfoController extends BaseController{
 		// 管理员可以修改,否则只能修改自己的信息
 		if(loginUserIsAdmin(request) || (loginUser.getStudentId()!=null && loginUser.getStudentId().equals(studentInfo.getId()))){
 			studentInfoService.updateStudentInfoById(studentInfo);
-			// TODO 添加日志
+			// 添加日志
+			logService.insertLog(loginUser.getId(), "更新"+loginUser.getUserName()+"的用户信息");
 		}else {
 			printMessage(response, "对不起,您无权操作!", false);
 		}
@@ -116,9 +120,10 @@ public class StudentInfoController extends BaseController{
 		// TODO 对传入的参数校验?
 		registerVo.setCreateTime(new Date());
 		studentInfoService.studentRegister(registerVo);
-		// TODO 添加日志
 		UserInfo user = userInfoService.queryUserInfoById(registerVo.getId());
 		this.saveLoginUser(request, user);//更新登录用户信息
+		// 添加日志
+		logService.insertLog(user.getId(), "用户"+user.getUserName()+"完成用户信息认证");
 		request.setAttribute("user", user);
 		return "index/userIndex";
 	}
@@ -154,24 +159,32 @@ public class StudentInfoController extends BaseController{
 	 */
 	@RequestMapping("exportStudentInfo")
 	public void exportStudentInfo(HttpServletRequest request, HttpServletResponse response){
-		String userName = this.getNotNullValue(request.getParameter("userName"));
-		String studentName = this.getNotNullValue(request.getParameter("studentName"));
-		String status = this.getNotNullValue(request.getParameter("status"));
-		String isvalid = this.getNotNullValue(request.getParameter("isvalid"));
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userName", userName);
-		map.put("studentName", studentName);
-		map.put("status", status);
-		map.put("isvalid", isvalid);
-		map.put("type", BlazeConstants.USER_TYPE_STUDENT);
-		
-		List<Map<String, Object>> mapList = studentInfoService.queryUserStudentInfoMapByPara(map);
-		String[] title = new String[] { "账号", "性别", "创建时间", "更新时间", "状态",
-				"是否删除", "姓名", "年龄", "手机", "地址", "邮箱", "微信号", "QQ" };
-		String[] column = new String[] { "userName", "sex", "createTime",
-				"updateTime", "status", "isvalid","studentName","age","telephone","address","email","wechat","qq"};
-		exportExcel("",mapList, column, title, response);
+		if(loginUserIsAdmin(request)){
+			String userName = this.getNotNullValue(request.getParameter("userName"));
+			String studentName = this.getNotNullValue(request.getParameter("studentName"));
+			String status = this.getNotNullValue(request.getParameter("status"));
+			String isvalid = this.getNotNullValue(request.getParameter("isvalid"));
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("userName", userName);
+			map.put("studentName", studentName);
+			map.put("status", status);
+			map.put("isvalid", isvalid);
+			map.put("type", BlazeConstants.USER_TYPE_STUDENT);
+			
+			List<Map<String, Object>> mapList = studentInfoService.queryUserStudentInfoMapByPara(map);
+			String[] title = new String[] { "账号", "性别", "创建时间", "更新时间", "状态",
+					"是否删除", "姓名", "年龄", "手机", "地址", "邮箱", "微信号", "QQ" };
+			String[] column = new String[] { "userName", "sex", "createTime",
+					"updateTime", "status", "isvalid","studentName","age","telephone","address","email","wechat","qq"};
+			exportExcel("",mapList, column, title, response);
+			UserInfo loginUser = getLoginUser(request);
+			// 添加日志
+			logService.insertLog(loginUser.getId(), "用户"+loginUser.getUserName()+"导出用户信息数据!");
+			
+		}else {
+			printMessage(response, "无权导出数据!", false);
+		}
 	}
 	
 	/**

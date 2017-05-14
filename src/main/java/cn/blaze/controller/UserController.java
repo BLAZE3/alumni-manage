@@ -1,6 +1,5 @@
 package cn.blaze.controller;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import jxl.read.biff.BiffException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +27,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import cn.blaze.domain.StudentInfo;
 import cn.blaze.domain.UserInfo;
+import cn.blaze.service.LogService;
 import cn.blaze.service.MailService;
 import cn.blaze.service.StudentInfoService;
 import cn.blaze.service.UserInfoService;
@@ -51,6 +50,8 @@ public class UserController extends BaseController{
 	private StudentInfoService studentInfoService;
 	@Autowired
 	private MailService mailService;
+	@Autowired
+	private LogService logService;
 	
 	/**
 	 * @Title forwardUserApprove
@@ -86,6 +87,8 @@ public class UserController extends BaseController{
 	@RequestMapping("userApplyOpertate")
 	public String userApplyOpertate(HttpServletRequest request, HttpServletResponse response){
 		if(loginUserIsAdmin(request)){
+			UserInfo loginUser = getLoginUser(request);
+			
 			String type = getNotNullValue(request.getParameter("type"));
 			String userId = getNotNullValue(request.getParameter("id"));
 			UserInfo userInfo = new UserInfo();
@@ -93,12 +96,14 @@ public class UserController extends BaseController{
 			if("approve".equals(type)){// 同意
 				userInfo.setType(BlazeConstants.USER_TYPE_STUDENT);
 				userInfoService.updateUserInfoById(userInfo);
-				// TODO 添加日志-审批同意
+				// 添加日志-审批同意
+				logService.insertLog(loginUser.getId(), "用户"+loginUser.getUserName()+"通过了用户"+userInfo.getUserName()+"认证申请");
 				
 			}else if("refuse".equals(type)){// 拒绝
 				userInfo.setType(BlazeConstants.USER_TYPE_COMMON);
 				userInfoService.updateUserInfoById(userInfo);
-				// TODO 添加日志-审批拒绝
+				// 添加日志-审批拒绝
+				logService.insertLog(loginUser.getId(), "用户"+loginUser.getUserName()+"拒绝了用户"+userInfo.getUserName()+"认证申请");
 				
 			}else {
 				printMessage(response, "操作失败,操作类型未知!", false);
@@ -216,16 +221,19 @@ public class UserController extends BaseController{
 		if(!BlazeConstants.USER_TYPE_ADMIN.equals(this.getLoginUser(request).getType())){// 不是管理员无权注销
 			return buildJsonMap("fail", "不是管理员无权操作");
 		}
-		
+		UserInfo loginUser = getLoginUser(request);
+		UserInfo db_user = userInfoService.queryUserInfoById(id);
 		if(BlazeConstants.ISVALID_NO.equals(isvalid)){
 			int res = userInfoService.cancelUserById(id);
 			if(res > 0){
-				// TODO 添加日志--注销成功
+				// 添加日志--注销成功
+				logService.insertLog(loginUser.getId(), "管理员用户"+loginUser.getUserName()+"注销了用户"+db_user.getUserName());
 			}
 		}else if(BlazeConstants.ISVALID_YES.equals(isvalid)){
 			int res = userInfoService.enableUserById(id);
 			if(res > 0){
-				// TODO 添加日志--恢复成功
+				// 添加日志--恢复成功
+				logService.insertLog(loginUser.getId(), "管理员用户"+loginUser.getUserName()+"恢复了被注销的用户"+db_user.getUserName());
 			}
 		}
 		return buildJsonMap("success", "");
@@ -281,7 +289,7 @@ public class UserController extends BaseController{
 			map.put("password", password);
 			map.put("type", type);
 			CommonUtils.removeNullValue(map);
-			UserInfo user = userInfoService.queryUserInfoByUserNameAndPassword(map);
+			UserInfo user = userInfoService.queryByUserNameAndPasswordForLogin(map);
 			
 			if(user != null){// 用户存在
 				if(BlazeConstants.USER_TYPE_ADMIN.equals(type)){// 管理员登录
@@ -359,7 +367,8 @@ public class UserController extends BaseController{
 				db_userInfo.setUpdateTime(new Date());
 				int res = userInfoService.updateUserInfoById(db_userInfo);
 				if(res > 0){
-					// TODO 添加日志
+					// 添加日志
+					logService.insertLog(loginUser.getId(), "用户"+loginUser.getUserName()+"更新了用户"+db_userInfo.getUserName()+"的密码");
 				}
 				return buildJsonMap("success", null);
 			}else {
@@ -390,7 +399,9 @@ public class UserController extends BaseController{
 		userInfo.setStatus("0");
 		int res = userInfoService.userRegister(userInfo);
 		if(res > 0){
-			// TODO 添加日志
+			UserInfo db_user = userInfoService.queryUserInfoByUserNameAndPassword(userInfo.getUserName(), userInfo.getPassword());
+			// 添加日志
+			logService.insertLog(db_user.getId(), "用户"+db_user.getUserName()+"完成了用户注册");
 		}
 		return "index/login";
 	}

@@ -41,6 +41,18 @@ public interface UserInfoDao {
 	 * @updateTime：
 	 */
 	UserInfo selectById(@Param("id")String id);
+	
+	/**
+	 * @Title selectByUserNameAndPasswordForLogin
+	 * @Description：用户登录
+	 * @param userName
+	 * @param password
+	 * @return
+	 * @user LiuLei 2017年5月14日
+	 * @updater：
+	 * @updateTime：
+	 */
+	UserInfo selectByUserNameAndPasswordForLogin(Map<String, Object> map);
 
 	/**
 	 * @Title updateById

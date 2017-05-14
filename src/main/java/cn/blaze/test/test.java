@@ -1,6 +1,9 @@
 package cn.blaze.test;
 
-import org.apache.commons.lang3.RandomStringUtils;
+import java.util.Date;
+
+import cn.blaze.utils.TimeUtils;
+
 
 public class test {
 
@@ -9,7 +12,5 @@ public class test {
 	}
 
 	public static void test(){
-		String password = RandomStringUtils.randomNumeric(6);
-		System.out.println(password);
 	}
 }

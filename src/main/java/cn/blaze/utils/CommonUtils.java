@@ -196,22 +196,23 @@ public class CommonUtils {
 	}
 	
 	/**
-	 * @Title stringToIn
-	 * @Description：aaa,bbb,ccc转换成('aaa','bbb','ccc')
+	 * @Title stringForWhereIn
+	 * @Description：aaa,bbb,ccc转换成'aaa','bbb','ccc'
 	 * @param data
 	 * @return
 	 * @user LiuLei 2017年4月26日
 	 * @updater：
 	 * @updateTime：
 	 */
-	public static String stringToIn(String data){
+	public static String stringForWhereIn(String data){
 		String[] arr=data.split(",");
-		String result="( ";
+		StringBuilder result = new StringBuilder();
+//		result.append("(");
 		for(int i=0;i<arr.length;i++){
-			result+="'"+arr[i]+"'"+(i==arr.length-1?"":",");
+			result.append("'"+arr[i]+"'"+(i==arr.length-1?"":","));
 		}
-		result+=" )";
-		return result;
+//		result.append(")");
+		return result.toString();
 	}
 	
     /**

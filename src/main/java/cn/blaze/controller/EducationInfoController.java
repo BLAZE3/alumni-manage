@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.blaze.domain.EducationInfo;
 import cn.blaze.domain.UserInfo;
 import cn.blaze.service.EducationInfoService;
+import cn.blaze.service.LogService;
 import cn.blaze.vo.EducationInfoVo;
 
 @Controller
@@ -26,6 +27,8 @@ import cn.blaze.vo.EducationInfoVo;
 public class EducationInfoController extends BaseController{
 	@Autowired
 	private EducationInfoService educationInfoService;
+	@Autowired
+	private LogService logService;
 	
 	/**
 	 * @Title forwardEducationInfoPage
@@ -88,9 +91,11 @@ public class EducationInfoController extends BaseController{
 			e.printStackTrace();
 			return buildJsonMap("操作失败!", "日期格式输入不对");
 		}
-		
 		educationInfoService.addEductionInfo(educationInfoVo);
-		// TODO 添加日志
+		
+		UserInfo loginUser = getLoginUser(request);
+		// 添加日志
+		logService.insertLog(loginUser.getId(), "用户"+loginUser.getUserName()+"增加了学历信息");
 		return buildJsonMap("success", "");
 	}
 	
@@ -105,11 +110,13 @@ public class EducationInfoController extends BaseController{
 	@ResponseBody
 	@RequestMapping("delEducationById")
 	public Map<String, Object> delEducationById(HttpServletRequest request){
+		UserInfo loginUser = getLoginUser(request);
 		String id = request.getParameter("id")!=null?request.getParameter("id"):"";
 		if(!"".equals(id)){
 			boolean res = educationInfoService.delEducationById(id);
 			if(res){
-				// TODO 添加日志
+				// 添加日志
+				logService.insertLog(loginUser.getId(), "用户"+loginUser.getUserName()+"删除了学历信息");
 				return buildJsonMap("success", null);
 			}
 		}

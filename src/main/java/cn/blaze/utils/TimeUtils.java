@@ -2,14 +2,17 @@ package cn.blaze.utils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by hzzhangchengshuo on 2017/3/27.
  */
 public class TimeUtils {
 
-    private static String formatStr="yyyy-MM-dd HH:mm:ss";
+    private static String FORMATSTR="yyyy-MM-dd HH:mm:ss";
 
     public static String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
 
@@ -45,7 +48,7 @@ public class TimeUtils {
      */
     public static Date parseTime(String time)
             throws ParseException {
-        return parseTime(time,formatStr);
+        return parseTime(time,FORMATSTR);
     }
 
     /** 输出格式: MM月dd日 */
@@ -67,4 +70,22 @@ public class TimeUtils {
         String s = format1.format(d);
         return s;
     }
+    
+    /**
+     * @Title getArroundDate
+     * @Description：获取附近日期
+     * @param date 目标日期
+     * @param day -1表示前一天,1表示后一天
+     * @return
+     * @user LiuLei 2017年5月14日
+     * @updater：
+     * @updateTime：
+     */
+	public static Date getArroundDate(Date date, int day) {
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
+		calendar.add(Calendar.DATE, day);// 把日期往前减少一天，若想把日期向后推一天则将负数改为正数
+		date = calendar.getTime();
+		return date;
+	}
 }

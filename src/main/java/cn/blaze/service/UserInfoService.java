@@ -5,7 +5,6 @@ import java.util.Map;
 
 import cn.blaze.domain.StudentInfo;
 import cn.blaze.domain.UserInfo;
-import cn.blaze.vo.UserInfoVo;
 
 
 public interface UserInfoService {
@@ -64,7 +63,7 @@ public interface UserInfoService {
 	List<UserInfo> queryUserInfoByParameter(Map<String, Object> map);
 
 	/**
-	 * @Title queryUserInfoByUserNameAndPassword
+	 * @Title queryByUserNameAndPasswordForLogin
 	 * @Description：根据用户名密码查询用户信息
 	 * @param map 存储用户名userName、密码password和用户类型type
 	 * @return  查询不到返回null
@@ -72,7 +71,19 @@ public interface UserInfoService {
 	 * @updater：
 	 * @updateTime：
 	 */
-	UserInfo queryUserInfoByUserNameAndPassword(Map<String, Object> map);
+	UserInfo queryByUserNameAndPasswordForLogin(Map<String, Object> map);
+	
+	/**
+	 * @Title queryUserInfoByUserNameAndPassword
+	 * @Description：根据用户名密码查询用户
+	 * @param userName 用户名
+	 * @param password 密码
+	 * @return
+	 * @user LiuLei 2017年5月14日
+	 * @updater：
+	 * @updateTime：
+	 */
+	UserInfo queryUserInfoByUserNameAndPassword(String userName, String password);
 
 	/**
 	 * @Title cancelUserByStudentId
@@ -145,5 +156,4 @@ public interface UserInfoService {
 	 * @updateTime：
 	 */
 	int importExcelRegister(UserInfo user, StudentInfo student);
-
 }

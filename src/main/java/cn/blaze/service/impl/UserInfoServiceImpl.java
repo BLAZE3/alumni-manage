@@ -51,8 +51,17 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	@Override
-	public UserInfo queryUserInfoByUserNameAndPassword(Map<String, Object> map) {
-		List<UserInfo> list = this.queryUserInfoByParameter(map);
+	public UserInfo queryByUserNameAndPasswordForLogin(Map<String, Object> map) {
+		return this.queryByUserNameAndPasswordForLogin(map );
+	}
+	
+	@Override
+	public UserInfo queryUserInfoByUserNameAndPassword(String userName, String password) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userName", userName);
+		map.put("password", password);
+		List<UserInfo> list = this.queryUserInfoByParameter(map );
 		if(list!=null && list.size()>0){
 			return list.get(0);
 		}else {
@@ -124,5 +133,5 @@ public class UserInfoServiceImpl implements UserInfoService {
 		studentInfoService.insertStudent(student);
 		return 1;
 	}
-	
+
 }

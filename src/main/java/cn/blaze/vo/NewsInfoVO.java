@@ -3,8 +3,6 @@ package cn.blaze.vo;
 import cn.blaze.domain.News;
 import cn.blaze.utils.TimeUtils;
 
-import java.util.Date;
-
 /**
  * Created by chengshuo on 2017/4/27.
  */
