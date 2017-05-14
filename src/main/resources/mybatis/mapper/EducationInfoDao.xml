@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.blaze.dao.EducationInfoDao">
+
+  <resultMap id="BaseResultMap" type="cn.blaze.domain.EducationInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="school_id" jdbcType="VARCHAR" property="schoolId" />
+    <result column="school_name" jdbcType="VARCHAR" property="schoolName" />
+    <result column="entrance_time" jdbcType="TIMESTAMP" property="entranceTime" />
+    <result column="graduation_time" jdbcType="TIMESTAMP" property="graduationTime" />
+    <result column="institute" jdbcType="VARCHAR" property="institute" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="education" jdbcType="VARCHAR" property="education" />
+    <result column="student_id" jdbcType="VARCHAR" property="studentId" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, school_id, school_name, entrance_time, graduation_time, institute, major, education, student_id
+  </sql>
+  
+  <insert id="insertEducationInfoWithAutoId" parameterType="cn.blaze.domain.EducationInfo">
+	<selectKey keyProperty="id" resultType="String" order="BEFORE">
+	    select replace(uuid(),'-','') from dual
+	</selectKey>
+    insert into education_info (
+		id, 
+		school_id, 
+		school_name, 
+      	entrance_time, 
+      	graduation_time, 
+      	institute, 
+      	major, 
+      	education,
+      	student_id
+     ) values (
+     	#{id,jdbcType=VARCHAR}, 
+     	#{schoolId,jdbcType=VARCHAR}, 
+     	#{schoolName,jdbcType=VARCHAR}, 
+      	#{entranceTime,jdbcType=TIMESTAMP}, 
+      	#{graduationTime,jdbcType=TIMESTAMP}, 
+      	#{institute,jdbcType=VARCHAR}, 
+      	#{major,jdbcType=VARCHAR}, 
+      	#{education,jdbcType=VARCHAR},
+      	#{studentId,jdbcType=VARCHAR}
+     )
+  </insert>
+  
+  <select id="selectByParameters" parameterType="java.util.Map" resultMap="BaseResultMap">
+	    select 
+	    <include refid="Base_Column_List" />
+	    from education_info
+	    where 1=1
+	    <if test="id != null">
+	      and id=#{id,jdbcType=VARCHAR}
+	    </if>
+	    <if test="schoolId != null">
+	      and school_id=#{schoolId,jdbcType=VARCHAR}
+	    </if>
+	    <if test="schoolName != null">
+	      and school_name=#{schoolName,jdbcType=VARCHAR}
+	    </if>
+	    <if test="entranceTime != null">
+	      and entrance_time=#{entranceTime,jdbcType=TIMESTAMP}
+	    </if>
+	    <if test="graduationTime != null">
+	      and graduation_time=#{graduationTime,jdbcType=TIMESTAMP}
+	    </if>
+	    <if test="institute != null">
+	      and institute=#{institute,jdbcType=VARCHAR}
+	    </if>
+	    <if test="major != null">
+	      and major=#{major,jdbcType=VARCHAR}
+	    </if>
+	    <if test="education != null">
+	      and education=#{education,jdbcType=VARCHAR}
+	    </if>
+	    <if test="studentId != null">
+	      and student_id=#{studentId,jdbcType=VARCHAR}
+	    </if>
+  </select>
+  
+  <delete id="deleteById" parameterType="java.lang.String">
+    delete from education_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <!-- 
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from education_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insertSelective" parameterType="cn.blaze.domain.EducationInfo">
+    insert into education_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="schoolId != null">
+        school_id,
+      </if>
+      <if test="schoolName != null">
+        school_name,
+      </if>
+      <if test="entranceTime != null">
+        entrance_time,
+      </if>
+      <if test="graduationTime != null">
+        graduation_time,
+      </if>
+      <if test="institute != null">
+        institute,
+      </if>
+      <if test="major != null">
+        major,
+      </if>
+      <if test="education != null">
+        education,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null">
+        #{schoolId,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolName != null">
+        #{schoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="entranceTime != null">
+        #{entranceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="graduationTime != null">
+        #{graduationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="institute != null">
+        #{institute,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        #{education,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByExampleSelective" parameterType="map">
+    update education_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schoolId != null">
+        school_id = #{record.schoolId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schoolName != null">
+        school_name = #{record.schoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entranceTime != null">
+        entrance_time = #{record.entranceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.graduationTime != null">
+        graduation_time = #{record.graduationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.institute != null">
+        institute = #{record.institute,jdbcType=VARCHAR},
+      </if>
+      <if test="record.major != null">
+        major = #{record.major,jdbcType=VARCHAR},
+      </if>
+      <if test="record.education != null">
+        education = #{record.education,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  <update id="updateByExample" parameterType="map">
+    update education_info
+    set id = #{record.id,jdbcType=VARCHAR},
+      school_id = #{record.schoolId,jdbcType=VARCHAR},
+      school_name = #{record.schoolName,jdbcType=VARCHAR},
+      entrance_time = #{record.entranceTime,jdbcType=TIMESTAMP},
+      graduation_time = #{record.graduationTime,jdbcType=TIMESTAMP},
+      institute = #{record.institute,jdbcType=VARCHAR},
+      major = #{record.major,jdbcType=VARCHAR},
+      education = #{record.education,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="cn.blaze.domain.EducationInfo">
+    update education_info
+    <set>
+      <if test="schoolId != null">
+        school_id = #{schoolId,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolName != null">
+        school_name = #{schoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="entranceTime != null">
+        entrance_time = #{entranceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="graduationTime != null">
+        graduation_time = #{graduationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="institute != null">
+        institute = #{institute,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="cn.blaze.domain.EducationInfo">
+    update education_info
+    set school_id = #{schoolId,jdbcType=VARCHAR},
+      school_name = #{schoolName,jdbcType=VARCHAR},
+      entrance_time = #{entranceTime,jdbcType=TIMESTAMP},
+      graduation_time = #{graduationTime,jdbcType=TIMESTAMP},
+      institute = #{institute,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update> -->
+</mapper>

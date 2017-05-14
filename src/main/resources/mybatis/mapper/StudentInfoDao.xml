@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.blaze.dao.StudentInfoDao">
+	<sql id="Base_Column_List">
+    	id, student_name, age, telephone, address, email, wechat, qq, image_path, email_show, qq_show, wechat_show, sex
+  	</sql>
+  	
+  	<sql id="Column_Equals_Bean">
+    	id as id, student_name as studentName, age as age, telephone as telephone, address as address, email as email, 
+    	wechat as wechat, qq as qq, image_path as imagePath,email_show as emailShow, qq_show as qqShow, wechat_show as wechatShow,sex 
+  	</sql>
+
+  	<sql id="Base_Where_List">
+    	where 1=1 
+	    <if test="id != null and id != ''">
+	    	<![CDATA[ AND id = #{id}]]>
+	    </if>
+	    <if test="studentName != null and studentName != ''">
+	    	<![CDATA[ AND student_name = #{studentName}]]>
+	    </if>
+	    <if test="age != null and age != ''">
+	    	<![CDATA[ AND age = #{age}]]>
+	    </if>
+	    <if test="telephone != null">
+	    	<![CDATA[ AND telephone = #{telephone}]]>
+	    </if>
+	    <if test="address != null">
+	    	<![CDATA[ AND address = #{address}]]>
+	    </if>
+	    <if test="email != null">
+	    	<![CDATA[ AND email = #{email}]]>
+	    </if>
+	    <if test="emailShow != null">
+	    	<![CDATA[ AND email_show = #{emailShow}]]>
+	    </if>
+	    <if test="wechat != null">
+	    	<![CDATA[ AND wechat = #{wechat}]]>
+	    </if>
+	    <if test="wechatShow != null">
+	    	<![CDATA[ AND wechat_show = #{wechatShow}]]>
+	    </if>
+	    <if test="qq != null">
+	    	<![CDATA[ AND qq = #{qq}]]>
+	    </if>
+	    <if test="qqShow != null">
+	    	<![CDATA[ AND qq_show = #{qqShow}]]>
+	    </if>
+	    <if test="imagePath != null">
+	    	<![CDATA[ AND imagePath = #{imagePath}]]>
+	    </if>
+	    <if test="sex != null and sex != ''">
+	    	<![CDATA[ AND sex = #{sex}]]>
+	    </if>
+  	</sql>
+  	
+  	<sql id="Column_User_Student_Info">
+    	user.id as id, student.id as student_id, user.user_name, user.password, user.status, user.type, user.isvalid, student.student_name, student.age, student.telephone, student.address, student.email, 
+    	student.wechat, student.qq, student.image_path, student.email_show, student.qq_show, student.wechat_show, student.sex, user.create_time as createTime, user.update_time as updateTime
+  	</sql>
+  	
+  	<sql id="Column_User_Student_Equals_Bean">
+    	user.id as id, student.id as studentId, user.user_name as userName, user.password, user.status, user.type, user.isvalid, student.student_name as studentName, student.age, student.telephone, student.address, student.email, 
+    	student.wechat, student.qq, student.image_path as imagePath, student.email_show as emailShow, student.qq_show as qqShow, student.wechat_show as wechatShow, student.sex, user.create_time as createTime, user.update_time as updateTime
+  	</sql>
+ 	
+ 	<sql id="User_StudentInfo_Where_List">
+    	where 1=1 
+    	<if test="studentId != null and studentId != ''">
+		  	<![CDATA[ AND user.student_id=#{studentId,jdbcType=VARCHAR}]]>
+		</if>
+		<if test="userName != null and userName != ''">
+		  	<![CDATA[ AND user.user_name like '%${userName,jdbcType=VARCHAR}%']]>
+		</if>
+		<if test="password != null and password != ''">
+		  	<![CDATA[ AND user.password=#{password,jdbcType=VARCHAR}]]>
+		</if>
+		<if test="status != null and status != ''">
+		  	<![CDATA[ AND user.status=#{status,jdbcType=VARCHAR}]]>
+		</if>
+		<if test="type != null and type != ''">
+		  	<![CDATA[ AND user.type IN (${type})]]>
+		</if>
+		<if test="isvalid != null and isvalid != ''">
+		  	<![CDATA[ AND user.isvalid=#{isvalid,jdbcType=CHAR}]]>
+		</if>
+	    <if test="id != null and id != ''">
+	    	<![CDATA[ AND student.id = #{id}]]>
+	    </if>
+	    <if test="studentName != null and studentName != ''">
+	    	<![CDATA[ AND student.student_name = #{studentName}]]>
+	    </if>
+	    <if test="age != null and age != ''">
+	    	<![CDATA[ AND student.age = #{age}]]>
+	    </if>
+	    <if test="telephone != null">
+	    	<![CDATA[ AND student.telephone = #{telephone}]]>
+	    </if>
+	    <if test="address != null">
+	    	<![CDATA[ AND student.address = #{address}]]>
+	    </if>
+	    <if test="email != null">
+	    	<![CDATA[ AND student.email = #{email}]]>
+	    </if>
+	    <if test="emailShow != null">
+	    	<![CDATA[ AND student.email_show = #{emailShow}]]>
+	    </if>
+	    <if test="wechat != null">
+	    	<![CDATA[ AND student.wechat = #{wechat}]]>
+	    </if>
+	    <if test="wechatShow != null">
+	    	<![CDATA[ AND student.wechat_show = #{wechatShow}]]>
+	    </if>
+	    <if test="qq != null">
+	    	<![CDATA[ AND student.qq = #{qq}]]>
+	    </if>
+	    <if test="qqShow != null">
+	    	<![CDATA[ AND student.qq_show = #{qqShow}]]>
+	    </if>
+	    <if test="imagePath != null">
+	    	<![CDATA[ AND student.imagePath = #{imagePath}]]>
+	    </if>
+	    <if test="sex != null and sex != ''">
+	    	<![CDATA[ AND student.sex = #{sex}]]>
+	    </if>
+  	</sql>
+ 	
+ 	<resultMap id="BaseResultMap" type="StudentInfo">
+	    <id column="id" jdbcType="VARCHAR" property="id" />
+	    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+	    <result column="age" jdbcType="INTEGER" property="age" />
+	    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+	    <result column="address" jdbcType="VARCHAR" property="address" />
+	    <result column="email" jdbcType="VARCHAR" property="email" />
+	    <result column="wechat" jdbcType="VARCHAR" property="wechat" />
+	    <result column="qq" jdbcType="VARCHAR" property="qq" />
+	    <result column="image_path" jdbcType="VARCHAR" property="imagePath" />
+	    <result column="email_show" jdbcType="VARCHAR" property="emailShow" />
+	    <result column="qq_show" jdbcType="VARCHAR" property="qqShow" />
+	    <result column="wechat_show" jdbcType="VARCHAR" property="wechatShow" />
+	    <result column="sex" jdbcType="VARCHAR" property="sex" />
+  	</resultMap>
+  	
+  	<resultMap id="UserStudentInfoResultMap" type="StudentRegisterVo">
+	  	<id column="id" jdbcType="VARCHAR" property="id" />
+	    <result column="student_id" jdbcType="VARCHAR" property="studentId" />
+	    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+	    <result column="password" jdbcType="VARCHAR" property="password" />
+	    <result column="status" jdbcType="VARCHAR" property="status" />
+	    <result column="type" jdbcType="VARCHAR" property="type" />
+	    <result column="isvalid" jdbcType="CHAR" property="isvalid" />
+	    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+	    <result column="age" jdbcType="INTEGER" property="age" />
+	    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+	    <result column="address" jdbcType="VARCHAR" property="address" />
+	    <result column="email" jdbcType="VARCHAR" property="email" />
+	    <result column="wechat" jdbcType="VARCHAR" property="wechat" />
+	    <result column="qq" jdbcType="VARCHAR" property="qq" />
+	    <result column="image_path" jdbcType="VARCHAR" property="imagePath" />
+	    <result column="email_show" jdbcType="VARCHAR" property="emailShow" />
+	    <result column="qq_show" jdbcType="VARCHAR" property="qqShow" />
+	    <result column="wechat_show" jdbcType="VARCHAR" property="wechatShow" />
+	    <result column="sex" jdbcType="VARCHAR" property="sex" />
+	    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    	<result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  	</resultMap>
+  	
+  	<insert id="insertStudentInfo" parameterType="StudentInfo">
+		insert into student_info (
+			id, 
+			student_name, 
+			age, 
+	    	telephone, 
+	    	address, 
+	    	email, 
+	    	wechat, 
+	    	qq, 
+	    	image_path, 
+	    	email_show, 
+	    	qq_show, 
+	    	wechat_show
+	    ) values (
+	    	#{id,jdbcType=VARCHAR}, 
+	    	#{studentName,jdbcType=VARCHAR}, 
+	    	#{age,jdbcType=INTEGER}, 
+	      	#{telephone,jdbcType=VARCHAR}, 
+	      	#{address,jdbcType=VARCHAR}, 
+	      	#{email,jdbcType=VARCHAR}, 
+	      	#{wechat,jdbcType=VARCHAR}, 
+	      	#{qq,jdbcType=VARCHAR}, 
+	      	#{imagePath,jdbcType=VARCHAR}, 
+	      	#{emailShow,jdbcType=VARCHAR}, 
+	      	#{qqShow,jdbcType=VARCHAR}, 
+	      	#{wechatShow,jdbcType=VARCHAR}
+	     )
+	</insert>
+  	
+	<insert id="insertStudentInfoWithIdAuto" parameterType="StudentInfo">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+		insert into student_info (
+			id, 
+			student_name, 
+			age, 
+	    	telephone, 
+	    	address, 
+	    	email, 
+	    	wechat, 
+	    	qq, 
+	    	image_path, 
+	    	email_show, 
+	    	qq_show, 
+	    	wechat_show
+	    ) values (
+	    	#{id,jdbcType=VARCHAR}, 
+	    	#{studentName,jdbcType=VARCHAR}, 
+	    	#{age,jdbcType=INTEGER}, 
+	      	#{telephone,jdbcType=VARCHAR}, 
+	      	#{address,jdbcType=VARCHAR}, 
+	      	#{email,jdbcType=VARCHAR}, 
+	      	#{wechat,jdbcType=VARCHAR}, 
+	      	#{qq,jdbcType=VARCHAR}, 
+	      	#{imagePath,jdbcType=VARCHAR}, 
+	      	#{emailShow,jdbcType=VARCHAR}, 
+	      	#{qqShow,jdbcType=VARCHAR}, 
+	      	#{wechatShow,jdbcType=VARCHAR}
+	     )
+	</insert>
+	
+	<select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+	    select 
+	    <include refid="Base_Column_List" />
+	    from student_info
+	    where id = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectByPara" parameterType="java.util.Map" resultMap="BaseResultMap">
+	    select 
+	    <include refid="Base_Column_List" />
+	    from student_info
+	    <include refid="Base_Where_List" />
+	</select>
+	
+	<select id="selectMapByPara" parameterType="java.util.Map" resultType="java.util.HashMap">
+	    select 
+	    <include refid="Column_Equals_Bean" />
+	    from student_info
+	    <include refid="Base_Where_List" />
+	</select>
+	
+	<select id="selectUserStudentInfoByPara" parameterType="java.util.Map" resultMap="UserStudentInfoResultMap">
+	    select a.* from (
+		    select 
+		    <include refid="Column_User_Student_Info" />
+		    from student_info student right join user_info user on user.student_id=student.id 
+		    <include refid="User_StudentInfo_Where_List" />
+	    )a
+	    <if test="sortName!=null and sortName!='' and sortOrder!=null">
+	    	<![CDATA[
+		    order by ${sortName} ${sortOrder}
+	    	]]>
+	    </if>
+	    <if test="start!=null and start!='' and pageSize!=null and pageSize!=''">
+	    	<![CDATA[
+		    LIMIT ${start},${pageSize}
+	    	]]>
+	    </if>
+	</select>
+	
+	<select id="selectUserStudentInfoMapByPara" parameterType="java.util.Map" resultType="java.util.HashMap">
+	    select a.* from (
+		    select 
+		    <include refid="Column_User_Student_Equals_Bean" />
+		    from student_info student right join user_info user on user.student_id=student.id 
+		    <include refid="User_StudentInfo_Where_List" />
+	    )a
+	    <if test="sortName!=null and sortName!='' and sortOrder!=null">
+	    	<![CDATA[
+		    order by ${sortName} ${sortOrder}
+	    	]]>
+	    </if>
+	    <if test="start!=null and start!='' and pageSize!=null and pageSize!=''">
+	    	<![CDATA[
+		    LIMIT ${start},${pageSize}
+	    	]]>
+	    </if>
+	</select>
+	
+	<select id="queryUserStudentInfoCountByPara" parameterType="java.util.Map" resultType="java.lang.Integer">
+		    select count(*) 
+		    from student_info student right join user_info user on user.student_id=student.id 
+		    <include refid="User_StudentInfo_Where_List" />
+	</select>
+	
+	<insert id="insertSelective" parameterType="StudentInfo">
+		insert into student_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+		  <if test="id != null">
+		    id,
+		  </if>
+		  <if test="studentName != null">
+		    student_name,
+		  </if>
+		  <if test="age != null">
+		    age,
+		  </if>
+		  <if test="telephone != null">
+		    telephone,
+		  </if>
+		  <if test="address != null">
+		    address,
+		  </if>
+		  <if test="email != null">
+		    email,
+		  </if>
+		  <if test="wechat != null">
+		    wechat,
+		  </if>
+		  <if test="qq != null">
+		    qq,
+		  </if>
+		  <if test="imagePath != null">
+		    image_path,
+		  </if>
+		  <if test="emailShow != null">
+		    email_show,
+		  </if>
+		  <if test="qqShow != null">
+		    qq_show,
+		  </if>
+		  <if test="wechatShow != null">
+		    wechat_show,
+		  </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+		  <if test="id != null">
+		    #{id,jdbcType=VARCHAR},
+		  </if>
+		  <if test="studentName != null">
+		    #{studentName,jdbcType=VARCHAR},
+		  </if>
+		  <if test="age != null">
+		    #{age,jdbcType=INTEGER},
+		  </if>
+		  <if test="telephone != null">
+		    #{telephone,jdbcType=VARCHAR},
+		  </if>
+		  <if test="address != null">
+		    #{address,jdbcType=VARCHAR},
+		  </if>
+		  <if test="email != null">
+		    #{email,jdbcType=VARCHAR},
+		  </if>
+		  <if test="wechat != null">
+		    #{wechat,jdbcType=VARCHAR},
+		  </if>
+		  <if test="qq != null">
+		    #{qq,jdbcType=VARCHAR},
+		  </if>
+		  <if test="imagePath != null">
+		    #{imagePath,jdbcType=VARCHAR},
+		  </if>
+		  <if test="emailShow != null">
+		    #{emailShow,jdbcType=VARCHAR},
+		  </if>
+		  <if test="qqShow != null">
+		    #{qqShow,jdbcType=VARCHAR},
+		  </if>
+		  <if test="wechatShow != null">
+		    #{wechatShow,jdbcType=VARCHAR},
+		  </if>
+		</trim>
+  </insert>
+	
+	<update id="updateById" parameterType="StudentInfo">
+	    update student_info
+	    <set>
+	      <if test="studentName != null">
+	        student_name = #{studentName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="age != null">
+	        age = #{age,jdbcType=INTEGER},
+	      </if>
+	      <if test="sex != null">
+	        sex = #{sex,jdbcType=INTEGER},
+	      </if>
+	      <if test="telephone != null">
+	        telephone = #{telephone,jdbcType=VARCHAR},
+	      </if>
+	      <if test="address != null">
+	        address = #{address,jdbcType=VARCHAR},
+	      </if>
+	      <if test="email != null">
+	        email = #{email,jdbcType=VARCHAR},
+	      </if>
+	      <if test="wechat != null">
+	        wechat = #{wechat,jdbcType=VARCHAR},
+	      </if>
+	      <if test="qq != null">
+	        qq = #{qq,jdbcType=VARCHAR},
+	      </if>
+	      <if test="imagePath != null">
+	        image_path = #{imagePath,jdbcType=VARCHAR},
+	      </if>
+	      <if test="emailShow != null">
+	        email_show = #{emailShow,jdbcType=VARCHAR},
+	      </if>
+	      <if test="qqShow != null">
+	        qq_show = #{qqShow,jdbcType=VARCHAR},
+	      </if>
+	      <if test="wechatShow != null">
+	        wechat_show = #{wechatShow,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+<!-- 
+  <update id="updateByPrimaryKey" parameterType="StudentInfo">
+    update student_info
+    set student_name = #{studentName,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      wechat = #{wechat,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      image_path = #{imagePath,jdbcType=VARCHAR},
+      email_show = #{emailShow,jdbcType=VARCHAR},
+      qq_show = #{qqShow,jdbcType=VARCHAR},
+      wechat_show = #{wechatShow,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  -->
+</mapper>
