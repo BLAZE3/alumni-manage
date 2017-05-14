@@ -287,7 +287,11 @@ public class UserController extends BaseController{
 			Map<String, Object> map = new HashMap<String, Object>(2);
 			map.put("userName", userName);
 			map.put("password", password);
-			map.put("type", type);
+			if(BlazeConstants.USER_TYPE_ADMIN.equals(type)){
+				map.put("type", "'0'");// 管理员类型是0
+			}else {
+				map.put("type", "'1','2'");// 非管理员用户
+			}
 			CommonUtils.removeNullValue(map);
 			UserInfo user = userInfoService.queryByUserNameAndPasswordForLogin(map);
 			
@@ -392,7 +396,14 @@ public class UserController extends BaseController{
 	 * @updateTime：
 	 */
 	@RequestMapping("userRegister")
-	public String userRegister(UserInfo userInfo, HttpServletRequest request){
+	public String userRegister(UserInfo userInfo, HttpServletRequest request, HttpServletResponse response){
+		String userName = getRequestNotNullValue("userName", request);
+		String password = getRequestNotNullValue("password", request);
+		if("".equals(userName) || "".equals(password)){
+			printMessage(response, "注册失败,用户名或密码为空!", false);;
+			return "index/login";
+		}
+		
 		userInfo.setCreateTime(new Date());
 		userInfo.setIsvalid(BlazeConstants.ISVALID_YES);
 		userInfo.setType(BlazeConstants.USER_TYPE_COMMON);

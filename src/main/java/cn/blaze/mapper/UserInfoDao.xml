@@ -85,7 +85,7 @@
 		from user_info
 		where user_name=#{userName,jdbcType=VARCHAR} AND
 		password=#{password,jdbcType=VARCHAR} AND 
-		type=#{type,jdbcType=VARCHAR} AND 
+		type IN (${type}) AND 
 		isvalid='Y'
 	</select>
 

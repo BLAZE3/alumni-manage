@@ -54,10 +54,10 @@
 							<div class="center">
 								<h1>
 									<i class="icon-leaf green"></i>
-									<span class="red">Ace</span>
+									<span class="red">Alumni Manage</span>
 									<span class="white">Application</span>
 								</h1>
-								<h4 class="blue">&copy; Blaze Project</h4>
+								<h4 class="blue">&copy; LiuLei Project</h4>
 							</div>
 
 							<div class="space-6"></div>
@@ -73,7 +73,7 @@
 
 											<div class="space-6"></div>
 
-											<form action="user/login" method="post" onsubmit="checkForm();">
+											<form action="user/login" method="post" onsubmit="return checkForm();">
 												<input type="hidden" name="type" value="0">
 												<fieldset>
 													<label class="block clearfix">

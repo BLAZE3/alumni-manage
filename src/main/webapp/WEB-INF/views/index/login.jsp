@@ -37,8 +37,10 @@
 			var password = $("#password").val();
 			if(username==""){
 				alert("请输入用户名!");
+				return false;
 			}else if(password==""){
 				alert("请输入密码!");
+				return false;
 			}else {
 				return true;
 			}
@@ -73,10 +75,10 @@
 							<div class="center">
 								<h1>
 									<i class="icon-leaf green"></i>
-									<span class="red">Ace</span>
+									<span class="red">Alumni Manage</span>
 									<span class="white">Application</span>
 								</h1>
-								<h4 class="blue">&copy; Blaze Project</h4>
+								<h4 class="blue">&copy; LiuLei Project</h4>
 							</div>
 
 							<div class="space-6"></div>
@@ -92,7 +94,7 @@
 
 											<div class="space-6"></div>
 
-											<form action="user/login" method="post" onsubmit="checkForm();">
+											<form action="user/login" method="post" onsubmit="return checkForm();">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
@@ -214,7 +216,7 @@
 											<div class="space-6"></div>
 											<p> Enter your details to begin: </p>
 											<!-- **********************************注册页面******************************** -->
-											<form action="user/userRegister" method="post" onsubmit="checkRegisterForm()">
+											<form action="user/userRegister" method="post" onsubmit="return checkRegisterForm();">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
@@ -237,16 +239,14 @@
 														</span>
 													</label>
 
-													<label class="block">
+													<!-- <label class="block">
 														<input type="checkbox" class="ace" />
 														<span class="lbl">
 															I accept the
 															<a href="#">User Agreement</a>
 														</span>
-													</label>
-
+													</label> -->
 													<div class="space-24"></div>
-
 													<div class="clearfix">
 														<button type="reset" class="width-30 pull-left btn btn-sm">
 															<i class="icon-refresh"></i>

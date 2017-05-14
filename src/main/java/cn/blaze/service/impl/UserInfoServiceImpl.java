@@ -52,7 +52,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 	@Override
 	public UserInfo queryByUserNameAndPasswordForLogin(Map<String, Object> map) {
-		return this.queryByUserNameAndPasswordForLogin(map );
+		return userInfoDao.selectByUserNameAndPasswordForLogin(map);
 	}
 	
 	@Override
