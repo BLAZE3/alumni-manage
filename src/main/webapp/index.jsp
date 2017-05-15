@@ -119,8 +119,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<h4>系统公告</h4>
 					</div>
 					<div class="col-md-4 bann-grid">
+						<a href="news.html">
 						<img src="images/i2.png" alt="">
 						<h4>校友新闻</h4>
+						</a>
 					</div>
 					<div class="col-md-4 bann-grid">
 						<img src="images/i3.png" alt="">
