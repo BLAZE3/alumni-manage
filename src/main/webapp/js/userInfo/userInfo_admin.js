@@ -13,17 +13,20 @@ function f_initGrid()
         { 
         	display: '账号', 
         	name: 'userName',
-            editor: { type: 'text' }
+            editor: { type: 'text' },
+            width: '20%'
         },
         { 
         	display: '密码', 
         	name: 'password',
-        	editor: { type: 'text' }
+        	editor: { type: 'text' },
+        	width: '25%'
         },
         { 
         	display: '是否删除', 
         	name: 'isvalid',
-            editor: { type: 'text' }, 
+            editor: { type: 'text' },
+            width: '25%',
         	render: function (rowdata)
         	{
 	           if(rowdata.isvalid=="Y"){
@@ -37,6 +40,7 @@ function f_initGrid()
         	display: '操作', 
         	isSort: false, 
         	width: 150,
+        	width: '30%',
         	render: function (rowdata, rowindex, value)
         	{
 	           var h = "";

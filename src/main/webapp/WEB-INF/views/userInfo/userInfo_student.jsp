@@ -38,35 +38,37 @@
 </head>
 
 <body style="padding:10px">
+<div style="margin:1rem 0 0 5rem">
 <table>
 	<tr>
-		<td>账号</td>
+		<td><span style="margin-left: 1rem">账号</span></td>
 		<td>
-			<input type="text" id="userName" name="userName" class="select"/>
+			<input type="text" id="userName" name="userName" class="select" style="margin-left: 1rem"/>
 		</td>
-		<td>姓名</td>
+		<td><span style="margin-left: 1rem">姓名</span></td>
 		<td>
-			<input type="text" id="studentName" name="studentName" class="select"/>
-		</td>
-		<td>
-			状态
+			<input type="text" id="studentName" name="studentName" class="select" style="margin-left: 1rem"/>
 		</td>
 		<td>
-			<select id="status" name="status" class="select">
+			<span style="margin-left: 1rem">状态</span>
+		</td>
+		<td>
+			<select id="status" name="status" class="select" style="margin-left: 1rem">
 				<option value="">--请选择--</option>
 				<option value="0">正常</option>
 				<option value="1">其他</option>
 			</select>
 		</td>
 		<td colspan="2">
-			<button id="submit_btn">查询</button>
+			<button id="submit_btn" style="margin-left: 1rem">查询</button>
 			&nbsp;&nbsp;
 			<button id="reset_btn">重置</button>
 			&nbsp;&nbsp;
 			<button id="export_btn">导出</button>
 		</td>
 	</tr>
-</table> 
+</table>
+</div>
 <div class="l-clear"></div>
    <div id="maingrid" style="margin-top:20px"></div><br/>
 </div>

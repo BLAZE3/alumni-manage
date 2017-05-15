@@ -128,6 +128,9 @@ public class UserController extends BaseController{
 	 */
 	@RequestMapping("forwardQueryUserInfo")
 	public String forwardQueryUserInfo(String type, HttpServletRequest request){
+		if(loginUserIsAdmin(request)){// 是管理员用户,添加可操作标记
+			request.setAttribute("operate_tag", "yes");
+		}
 		if("admin".equals(type)){
 			return "userInfo/userInfo_admin";
 		}else {
@@ -174,9 +177,6 @@ public class UserController extends BaseController{
 			int page = this.getNotNullValueToInt(request.getParameter("page"));
 			int size = this.getNotNullValueToInt(request.getParameter("pagesize"));
 			
-			if(loginUserIsAdmin(request)){// 是管理员用户,添加可操作标记
-				request.setAttribute("operate_tag", "yes");
-			}
 			CommonUtils.removeNullValue(map);
 			return studentInfoService.queryUserStudentInfoByParameterForLigerUI(map, sortName, sortOrder, page, size);
 		}

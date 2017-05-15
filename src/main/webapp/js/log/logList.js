@@ -138,7 +138,6 @@ function f_onCheckRow(checked, data)
 }
 function f_getChecked()
 {
-    alert(checkedRow.join(','));
     return checkedRow.join(',');
 }
 

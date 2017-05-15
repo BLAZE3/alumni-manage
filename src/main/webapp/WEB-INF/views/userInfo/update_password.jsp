@@ -38,36 +38,36 @@
 </script>
 <body>
 <div  style="margin: 5rem 20rem 0 30rem">
-	<h2 style="margin-top: 10rem">密码修改</h2>
+	<h2 style="margin-top: 10rem;margin-left:5rem">密码修改</h2>
 	<form id="update_password_form" action="">
 	<input type="hidden" name="id" value="${userInfo.id}">
 	<table>
 		<tr>
-			<td>账户名</td>
-			<td>${userInfo.userName}</td>
+			<td><span>账户名</span></td>
+			<td><span style="margin-left: 1rem;">${userInfo.userName}</span></td>
 		</tr>
 		<tr>
-			<td>旧密码</td>
+			<td><span>旧密码</span></td>
 			<td>
-				<input type="password" name="password">
+				<input type="password" name="password" style="margin-left: 1rem">
 			</td>
 		</tr>
 		<tr>
-			<td>新密码</td>
+			<td><span>新密码</span></td>
 			<td>
-				<input id="newPassword" type="password" name="newPassword" class="update_password">
+				<input id="newPassword" type="password" name="newPassword" class="update_password" style="margin-left: 1rem">
 			</td>
 		</tr>
 		<tr>
-			<td>确认密码</td>
+			<td><span>确认密码</span></td>
 			<td>
-				<input id="rePassword" type="password" name="rePassword" class="update_password">
+				<input id="rePassword" type="password" name="rePassword" class="update_password" style="margin-left: 1rem">
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2">
-				<button id="submit_btn" type="button">提交</button>
-				<button id="reset_btn" type="reset">重置</button>
+			<td align="center" colspan="2">
+				<button id="submit_btn" type="button" style="margin-top:1rem;">提交</button>
+				<button id="reset_btn" type="reset" style="margin-left: 5rem">重置</button>
 			</td>
 		</tr>
 	</table>

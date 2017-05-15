@@ -20,24 +20,29 @@
 	</script>
 </head>
 <body>
-		<form action="fileOperate/upload" method="post" enctype="multipart/form-data" onsubmit="return submitCheck();">
+<div style="margin: 5rem 0rem 0 15rem">
+<h2 style="margin-left: 18rem">资源上传</h2>
+	<form action="fileOperate/upload" method="post" enctype="multipart/form-data" onsubmit="return submitCheck();">
 		<table>
 			<tr>
+				<td><span style="font-size: 0.8rem;margin-right: 1rem">待上传资源</span></td>
 				<td>
 					<input type="file" name="file" id="file_upload"/><br>	
 				</td>
 			</tr>
 			<tr>
+				<td><span style="font-size: 0.8rem;margin-right: 1rem">资源描述(250个字以内)</span></td>
 				<td>
-					<textarea id="fileDesc" cols="60" rows="5" name="fileDesc" onchange="this.value=this.value.substring(0, 250)" onkeydown="this.value=this.value.substring(0, 250)" onkeyup="this.value=this.value.substring(0, 250)"></textarea><br>
+					<textarea style="font-size: 0.8rem;margin-top: 1rem" id="fileDesc" cols="60" rows="5" name="fileDesc" onchange="this.value=this.value.substring(0, 250)" onkeydown="this.value=this.value.substring(0, 250)" onkeyup="this.value=this.value.substring(0, 250)"></textarea><br>
 				</td>
 			</tr>
 			<tr>
-				<td>
-					<button type="submit" class="btn btn-success">上传</button>
+				<td colspan="2" style="text-align: right">
+					<button style="margin-top: 1rem" type="submit">上传</button>
 				</td>
 			</tr>
 		</table>
 		</form>
+</div>
 </body>
 </html>

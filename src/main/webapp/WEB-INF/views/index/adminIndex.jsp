@@ -374,7 +374,7 @@
 						<li>
 							<a href="user/forwardQueryUserInfo?type=student" target="frame-content">
 								<i class="icon-list"></i>
-								<span class="menu-text"> 查看学生信息(学历信息) </span>
+								<span class="menu-text"> 查看学生信息</span>
 							</a>
 						</li>
 

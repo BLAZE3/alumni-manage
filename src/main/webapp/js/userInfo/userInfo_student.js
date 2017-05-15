@@ -64,13 +64,13 @@ function f_initGrid()
         	name: 'type',
             render: function (rowdata)
         	{
-	           if(rowdata.status=="0"){
+	           if(rowdata.type=="0"){
 	        	   return "<p>管理员</p>";
-	           }else if(rowdata.status=="1"){
+	           }else if(rowdata.type=="1"){
 	        	   return "<p style='color:green'>学生</p>";
-	           }else if(rowdata.status=="2"){
+	           }else if(rowdata.type=="2"){
 	        	   return "<p style='color:yellow'>未认证</p>";
-	           }else if(rowdata.status=="3"){
+	           }else if(rowdata.type=="3"){
 	        	   return "<p style='color:blue'>认证中</p>";
 	           }else{
 	        	   return "<p style='color:red'>其他</p>";

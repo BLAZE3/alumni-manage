@@ -45,23 +45,25 @@
 	</script>
 </head>
 <body>
+<div style="margin:1rem 0 0 5rem">
 <table>
 	<tr>
-		<td>资源名</td>
+		<td><span style="margin-left: 1rem">资源名</span></td>
 		<td>
-			<input type="text" id="fileName" name="fileName" class="select"/>
+			<input type="text" id="fileName" name="fileName" class="select" style="margin-left: 1rem"/>
 		</td>
-		<td>发布者</td>
+		<td><span style="margin-left: 1rem">发布者</span></td>
 		<td>
-			<input type="text" id="publisherName" name="publisherName" class="select"/>
+			<input type="text" id="publisherName" name="publisherName" class="select" style="margin-left: 1rem"/>
 		</td>
 		<td colspan="2">
-			<button id="submit_btn">查询</button>
+			<button id="submit_btn" style="margin-left: 1rem">查询</button>
 			&nbsp;&nbsp;
 			<button id="reset_btn">重置</button>
 		</td>
 	</tr>
 </table> 
+</div>
 <div class="l-clear"></div>
 <div id="maingrid" style="margin-top:20px;height:90%"></div><br/>
 </div>

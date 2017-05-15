@@ -35,8 +35,9 @@
 	</script>
 </head>
 
-<body style="padding:10px">  
- <div class="l-clear"></div>
+<body style="padding:10px">
+<h2 align="center">管理员信息列表</h2>
+<div class="l-clear"></div>
     <div id="maingrid" style="margin-top:20px"></div><br/>
 </div>
 </body>
