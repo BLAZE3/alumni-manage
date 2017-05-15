@@ -6,8 +6,6 @@
 		<meta charset="utf-8" />
 		<title>admin</title>
 		<jsp:include page="/component/title.jsp"/>
-		<meta name="keywords" content="Bootstrap模版,Bootstrap模版下载,Bootstrap教程,Bootstrap中文" />
-		<meta name="description" content="站长素材提供Bootstrap模版,Bootstrap教程,Bootstrap中文翻译等相关Bootstrap插件下载" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<!-- basic styles -->
 		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -279,19 +277,19 @@
 								<img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
 								<span class="user-info">
 									<small>欢迎光临,</small>
-									Jason
+									${loginUser.userName}
 								</span>
 
 								<i class="icon-caret-down"></i>
 							</a>
 
 							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-								<li>
+								<!-- <li>
 									<a href="#">
 										<i class="icon-cog"></i>
-										设置
+										首页
 									</a>
-								</li>
+								</li> -->
 
 								<li>
 									<a href="#">
@@ -299,13 +297,18 @@
 										个人资料
 									</a>
 								</li>
-
+								<li>
+									<a href="user/forwardUpdatePassword" target="frame-content">
+										<i class="icon-edit"></i>
+										<span class="menu-text"> 修改密码 </span>
+									</a>
+								</li>
 								<li class="divider"></li>
 
 								<li>
-									<a href="#">
-										<i class="icon-off"></i>
-										退出
+									<a href="user/logout" >
+										<i class="icon-double-angle-right"></i>
+										<span class="menu-text"> 注销 </span>
 									</a>
 								</li>
 							</ul>
@@ -363,70 +366,68 @@
 					<ul class="nav nav-list">
 						<li class="active">
 							<a href="user/forwardUserApprove" target="frame-content">
-								<i class="icon-dashboard"></i>
+								<i class="icon-desktop"></i>
 								<span class="menu-text"> 认证审批 </span>
 							</a>
 						</li>
 
 						<li>
 							<a href="user/forwardQueryUserInfo?type=student" target="frame-content">
-								<i class="icon-text-width"></i>
+								<i class="icon-list"></i>
 								<span class="menu-text"> 查看学生信息(学历信息) </span>
 							</a>
 						</li>
 
 						<li>
 							<a href="user/forwardQueryUserInfo?type=admin" target="frame-content">
-								<i class="icon-text-width"></i>
+								<i class="icon-dashboard"></i>
 								<span class="menu-text"> 查看管理员信息 </span>
 							</a>
 						</li>
 
 						<li>
-							<a href="user/forwardUpdatePassword" target="frame-content">
-								<i class="icon-text-width"></i>
-								<span class="menu-text"> 查看组信息 </span>
-							</a>
-						</li>
-
-						<li>
 							<a href="log/forwardLogList" target="frame-content">
-								<i class="icon-text-width"></i>
+								<i class="icon-eye-open"></i>
 								<span class="menu-text"> 查看日志 </span>
 							</a>
 						</li>
 
 						<li>
 							<a href="fileOperate/forwardUpload" target="frame-content">
-								<i class="icon-text-width"></i>
+								<i class="icon-double-angle-right"></i>
 								<span class="menu-text"> 文件上传 </span>
 							</a>
 						</li>
 
 						<li>
 							<a href="fileOperate/forwardFileList" target="frame-content">
-								<i class="icon-text-width"></i>
+								<i class="icon-list-alt"></i>
 								<span class="menu-text"> 资源库 </span>
 							</a>
 						</li>
 
 						<li>
 							<a href="fileOperate/forwardImportExcel" target="frame-content">
-								<i class="icon-text-width"></i>
+								<i class="icon-tag"></i>
 								<span class="menu-text"> 信息导入 </span>
 							</a>
 						</li>
 
 						<li>
 							<a href="fileOperate/forwardFileList?type=recycle" target="frame-content">
-								<i class="icon-text-width"></i>
+								<i class="icon-file-alt"></i>
 								<span class="menu-text"> 资源回收站 </span>
 							</a>
 						</li>
-
+						<li>
+							<a href="user/forwardUpdatePassword" target="frame-content">
+								<i class="icon-edit"></i>
+								<span class="menu-text"> 修改密码 </span>
+							</a>
+						</li>
 						<li>
 							<a href="user/logout" >
-								<i class="icon-text-width"></i>
+								<i class="icon-double-angle-right"></i>
 								<span class="menu-text"> 注销 </span>
 							</a>
 						</li>
@@ -452,7 +453,7 @@
 								<i class="icon-home home-icon"></i>
 								<a href="#">首页</a>
 							</li>
-							<li class="active">控制台</li>
+							<li class="active">管理员平台</li>
 						</ul><!-- .breadcrumb -->
 
 						<div class="nav-search" id="nav-search">
@@ -529,7 +530,7 @@
 
 		<!--[if !IE]> -->
 
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
 
 		<!-- <![endif]-->
 
@@ -671,11 +672,6 @@
 				}
 				
 			 });
-			
-			
-			
-			
-			
 			
 				var d1 = [];
 				for (var i = 0; i < Math.PI * 2; i += 0.5) {

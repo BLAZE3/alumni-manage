@@ -37,6 +37,8 @@
 	});
 </script>
 <body>
+<div  style="margin: 5rem 20rem 0 30rem">
+	<h2 style="margin-top: 10rem">密码修改</h2>
 	<form id="update_password_form" action="">
 	<input type="hidden" name="id" value="${userInfo.id}">
 	<table>
@@ -70,5 +72,6 @@
 		</tr>
 	</table>
 	</form>
+</div>
 </body>
 </html>

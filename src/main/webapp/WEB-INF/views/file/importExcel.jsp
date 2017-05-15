@@ -33,17 +33,39 @@
 		}
 		
 		function submitCheck(){
-			return true;
+			var file = $("#file_upload").val();
+			if(file == ""){
+				alert("请先选择要导入xls文件!");
+				return false;
+			}else {
+				return true;
+			}
 		}
 	</script>
 </head>
 <body>
-	<a href="javascript:window.close();">关闭</a><br>
-	<a href="javascript:void(0);" onclick="downImportUserModel();">下载学生信息导入模板.xls</a>
-	<form action="user/importExcel" method="post" enctype="multipart/form-data" onsubmit="submitCheck();">
-		<input type="file" name="file"/><br>
-		<button type="submit">上传</button>
-	</form>
+<div style="margin: 5rem 20rem 0 30rem">
+<h2>用户信息批量导入</h2>
+<form action="user/importExcel" method="post" enctype="multipart/form-data" onsubmit="return submitCheck();">
+	<table style="margin-top: 10rm">
+		<tr>
+			<td>
+				<input id="file_upload" type="file" name="file"/><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<a href="javascript:void(0);" onclick="downImportUserModel();" ><p style="font-size:0.8rem">下载学生信息导入模板.xls</p></a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<button type="submit">导入</button>
+			</td>
+		</tr>
+	</table>
+</form>
+</div>
 	
 	<!-- 批量导入错误信息 -->
 	<div id="error_message">

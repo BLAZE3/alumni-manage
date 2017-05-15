@@ -19,7 +19,7 @@
 </script>
 <body>
 <h1>学历信息</h1>
-	<form id="add_education_form" action="educationInfo/addEducationInfo" method="post" onsubmit="submitCheck();">
+	<form id="add_education_form" action="educationInfo/addEducationInfo" method="post" onsubmit="return submitCheck();">
 		<input type="hidden" name="studentId" value="${studentId}"/>
 		<table>
 			<tr>
