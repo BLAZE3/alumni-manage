@@ -28,9 +28,12 @@
     <mvc:resources mapping="/css/**" location="/css/"/>
     <mvc:resources mapping="/js/**" location="/js/"/>
     <mvc:resources mapping="/images/**" location="/images/"/>
+    <mvc:resources mapping="/Images/**" location="/Image/"/>
     <mvc:resources mapping="/assets/**" location="/assets/"/>
     <mvc:resources mapping="/ligerUI1.3.3/**" location="/ligerUI1.3.3/"/>
     <mvc:resources mapping="/fonts/**" location="/fonts/"/>
+    <mvc:resources mapping="/font/**" location="/font/"/>
+    <mvc:resources mapping="/news.html" location="/"/>
 
 	<!-- 拦截器配置 -->
 	<mvc:interceptors>
