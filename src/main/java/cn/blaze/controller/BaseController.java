@@ -297,7 +297,7 @@ public class BaseController {
 			sb.append("</script>");
 			printWriter.write(sb.toString());
 			printWriter.flush();
-			printWriter.close();
+//			printWriter.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

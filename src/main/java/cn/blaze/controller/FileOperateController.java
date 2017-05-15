@@ -24,6 +24,7 @@ import cn.blaze.service.StudentInfoService;
 import cn.blaze.utils.BlazeConstants;
 import cn.blaze.utils.CommonUtils;
 import cn.blaze.utils.FileOperateUtils;
+import cn.blaze.vo.FileResourcesVo;
 
 /**
  * @ClassName FileOperateController
@@ -40,6 +41,7 @@ public class FileOperateController extends BaseController{
 	private FileResourcesService fileResourcesService;
 	@Autowired
 	private LogService logService;
+	
 	/**
 	 * @Title showFileResourceById
 	 * @Description：查看资源详情
@@ -53,7 +55,7 @@ public class FileOperateController extends BaseController{
 	public String showFileResourceById(HttpServletRequest request){
 		String id = this.getNotNullValue(request.getParameter("id"));
 		FileResources resource = fileResourcesService.queryFileResourcesById(id);
-		FileResources fileVo = new FileResources();
+		FileResourcesVo fileVo = new FileResourcesVo();
 		BeanUtils.copyProperties(resource, fileVo);
 		request.setAttribute("file", fileVo);
 		return "file/fileDetail";
@@ -169,42 +171,50 @@ public class FileOperateController extends BaseController{
      */
     @RequestMapping("upload")  
     public String upload(HttpServletRequest request, HttpServletResponse response) {
-    	try{
-    		UserInfo loginUser = this.getLoginUser(request);
-    		List<Map<String, Object>> result = FileOperateUtils.upload(request);
-    		String fileDesc = this.getNotNullValue(request.getParameter("fileDesc"));
-    		
-    		for (Map<String, Object> map : result) {
-    			FileResources resource = new FileResources();
-    			String realName = (String) map.get(FileOperateUtils.REALNAME);
-    			String filePath = (String) map.get(FileOperateUtils.STOREPATH);
-    			long fileSize = (long) map.get(FileOperateUtils.SIZE);
-    			String sizeView = String.valueOf(fileSize)+"B";
-    			resource.setFileSize(sizeView);
-    			resource.setDownCount(0);
-    			resource.setFileName(realName);// 上传文件名
-    			resource.setFileDesc(fileDesc);// 文件描述
-    			resource.setPublishTime(new Date());
-    			resource.setFilePath(filePath);// 文件存储物理地址
-    			resource.setIsvalid(BlazeConstants.ISVALID_YES);
-    			resource.setPublisherId(loginUser.getId());// 上传者id
-    			// 上传者姓名
-    			if(BlazeConstants.USER_TYPE_ADMIN.equals(loginUser.getType())){
-    				resource.setPublisherName("管理员");
-    			}else if(BlazeConstants.USER_TYPE_STUDENT.equals(loginUser.getType())){
-    				StudentInfo studentInfo = studentInfoService.queryStudentInfoById(loginUser.getStudentId());
-    				resource.setPublisherName(studentInfo.getStudentName());
+    	if(isRealUser(request)){
+    		try{
+    			UserInfo loginUser = this.getLoginUser(request);
+    			List<Map<String, Object>> result = FileOperateUtils.upload(request);
+    			String fileDesc = this.getNotNullValue(request.getParameter("fileDesc"));
+    			
+    			for (Map<String, Object> map : result) {
+    				FileResources resource = new FileResources();
+    				String realName = (String) map.get(FileOperateUtils.REALNAME);
+    				String filePath = (String) map.get(FileOperateUtils.STOREPATH);
+    				long fileSize = (long) map.get(FileOperateUtils.SIZE);
+    				String sizeView = String.valueOf(fileSize)+"B";
+    				resource.setFileSize(sizeView);
+    				resource.setDownCount(0);
+    				resource.setFileName(realName);// 上传文件名
+    				resource.setFileDesc(fileDesc);// 文件描述
+    				resource.setPublishTime(new Date());
+    				resource.setFilePath(filePath);// 文件存储物理地址
+    				resource.setIsvalid(BlazeConstants.ISVALID_YES);
+    				resource.setPublisherId(loginUser.getId());// 上传者id
+    				// 上传者姓名
+    				if(BlazeConstants.USER_TYPE_ADMIN.equals(loginUser.getType())){
+    					resource.setPublisherName("管理员");
+    				}else if(BlazeConstants.USER_TYPE_STUDENT.equals(loginUser.getType())){
+    					StudentInfo studentInfo = studentInfoService.queryStudentInfoById(loginUser.getStudentId());
+    					resource.setPublisherName(studentInfo.getStudentName());
+    				}
+    				fileResourcesService.saveFileResource(resource);
+    				// 添加日志
+    				logService.insertLog(loginUser.getId(), "用户"+loginUser.getUserName()+"上传了资源文件"+realName);
     			}
-    			fileResourcesService.saveFileResource(resource);
-    			// 添加日志
-    			logService.insertLog(loginUser.getId(), "用户"+loginUser.getUserName()+"上传了资源文件"+realName);
+    		}catch(Exception e){
+    			// 上传出错
+    			e.printStackTrace();
+    			printMessage(response, "上传出错!", false);
     		}
-    	}catch(Exception e){
-    		// 上传出错
-    		e.printStackTrace();
-    		printMessage(response, "上传出错!", false);
+    		printMessage(response, "上传成功!", false);
+    		return "file/fileUpload";
+    		 
+    	}else {
+    		printMessage(response, "对不起,未注册用户无权上传!", false);
+    		return "file/fileUpload";
     	}
-        return "redirect:fileOperate/forwardUpload";
+       
     }
   
     /**
@@ -234,10 +244,20 @@ public class FileOperateController extends BaseController{
     			printMessage(response, "对不起,该资源已失效!", false);
     		}
     	}else {// 未注册无权下载
-    		printMessage(response, "对不起,为注册用户无权下载!", false);
+    		printMessage(response, "对不起,未注册用户无权下载!", false);
     	}
     }
     
+    /**
+     * @Title downImportUserModel
+     * @Description：导入模板下载
+     * @param request
+     * @param response
+     * @throws Exception
+     * @user LiuLei 2017年5月15日
+     * @updater：
+     * @updateTime：
+     */
     @RequestMapping("downImportUserModel")  
     public void downImportUserModel(HttpServletRequest request, HttpServletResponse response) throws Exception {
     	if(this.isRealUser(request)){// 注册的用户有权下载
