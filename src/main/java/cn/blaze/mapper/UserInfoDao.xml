@@ -13,12 +13,30 @@
 		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
 		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
 	</resultMap>
+	
+	<resultMap id="UserInfoVoMap" type="UserInfoVo">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="student_id" jdbcType="VARCHAR" property="studentId" />
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="status" jdbcType="VARCHAR" property="status" />
+		<result column="type" jdbcType="VARCHAR" property="type" />
+		<result column="isvalid" jdbcType="CHAR" property="isvalid" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+	</resultMap>
 
 	<sql id="Base_Column_List">
 		id, student_id, user_name, password, status, type, isvalid, create_time,
 		update_time
 	</sql>
 
+	<sql id="Join_Column_List">
+		user.id, user.student_id, user.user_name, user.password, user.status, user.type, user.isvalid, user.create_time,
+		user.update_time
+	</sql>
+	
 	<insert id="insertUserInfo" parameterType="cn.blaze.domain.UserInfo">
 		insert into user_info (
 		id,
@@ -170,6 +188,13 @@
 		</set>
 		where student_id = #{studentId,jdbcType=VARCHAR}
 	</update>
+
+	<select id="queryUserInfoVoByUserName" parameterType="java.lang.String" resultMap="UserInfoVoMap">
+		select distinct s.email,
+		<include refid="Join_Column_List" />
+		from user_info user left join student_info s on user.student_id = s.id
+		where user.user_name = #{userName,jdbcType=VARCHAR} LIMIT 1
+	</select>
 	<!-- <delete id="deleteByPrimaryKey" parameterType="java.lang.String"> delete 
 		from user_info where id = #{id,jdbcType=VARCHAR} </delete> <insert id="insertSelective" 
 		parameterType="cn.blaze.domain.UserInfo"> insert into user_info <trim prefix="(" 

@@ -17,6 +17,7 @@ public class UserInfoVo {
     private String createTimeStr;
     private Date updateTime;// 更新时间
     private String updateTimeStr;
+    private String email;// 邮箱
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     
 	public String getId() {
@@ -90,5 +91,11 @@ public class UserInfoVo {
 	}
 	public void setUpdateTimeStr(String updateTimeStr) {
 		this.updateTimeStr = updateTimeStr;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

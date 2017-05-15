@@ -15,6 +15,7 @@ import cn.blaze.service.MailService;
 import cn.blaze.service.StudentInfoService;
 import cn.blaze.service.UserInfoService;
 import cn.blaze.utils.BlazeConstants;
+import cn.blaze.vo.UserInfoVo;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
@@ -93,7 +94,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Override
 	public int resetuserPasswordById(String id) {
 		UserInfo user = new UserInfo();
-		String password = RandomStringUtils.randomNumeric(6);;
+		String password = RandomStringUtils.randomNumeric(6);
 		user.setPassword(password);
 		user.setId(id);
 		int res = this.updateUserInfoById(user);
@@ -132,6 +133,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 		userInfoDao.insertUserInfo(user);
 		studentInfoService.insertStudent(student);
 		return 1;
+	}
+
+	@Override
+	public UserInfoVo queryUserInfoVoByUserName(String userName) {
+		return userInfoDao.queryUserInfoVoByUserName(userName);
 	}
 
 }

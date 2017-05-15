@@ -177,17 +177,22 @@
 												Enter your email and to receive instructions
 											</p>
 
-											<form>
+											<form id="send_form" action="" method="post" onsubmit="return checkGetPassword();">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="Email" />
+															<input type="text" class="form-control" name="userName" id="userName" placeholder="Username" />
 															<i class="icon-envelope"></i>
 														</span>
 													</label>
-
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="email" class="form-control" name="email" id="email" placeholder="Email" />
+															<i class="icon-envelope"></i>
+														</span>
+													</label>
 													<div class="clearfix">
-														<button type="button" class="width-35 pull-right btn btn-sm btn-danger">
+														<button id="send_btn" type="button" class="width-35 pull-right btn btn-sm btn-danger">
 															<i class="icon-lightbulb"></i>
 															Send Me!
 														</button>
@@ -195,7 +200,38 @@
 												</fieldset>
 											</form>
 										</div><!-- /widget-main -->
-
+										<script type="text/javascript">
+											$(function(){
+												$("#send_btn").click(function(){
+													var url="user/forgetPassword";
+													var data = $("#send_form").serialize();
+													if(checkGetPassword()){
+														$.post(url,data,function(data){
+															if(data.info=="success"){
+																alert("邮件已发送,请查收!");
+																$("#email").val("");
+																$("#userName").val("");
+															}else {
+																alert(data.data);
+															}
+														});
+													}
+												});
+											});
+										
+											function checkGetPassword(){
+												var userName = $.trim($("#userName").val());
+												var email = $.trim($("#email").val());
+												if(userName==""){
+													alert("用户名不能为空!");
+												}else if(email==""){
+													alert("邮箱不能为空!");
+												}else {
+													return true;
+												}
+												return false;
+											}
+										</script>
 										<div class="toolbar center">
 											<a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
 												Back to login

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import cn.blaze.domain.UserInfo;
+import cn.blaze.vo.UserInfoVo;
 
 public interface UserInfoDao {
 
@@ -84,5 +85,7 @@ public interface UserInfoDao {
 	 * @updateTime：
 	 */
 	void insertUserInfo(UserInfo user);
+
+	UserInfoVo queryUserInfoVoByUserName(@Param("userName")String userName);
 
 }

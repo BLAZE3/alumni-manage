@@ -18,6 +18,7 @@ import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -176,7 +177,7 @@ public class UserController extends BaseController{
 			if(loginUserIsAdmin(request)){// 是管理员用户,添加可操作标记
 				request.setAttribute("operate_tag", "yes");
 			}
-			
+			CommonUtils.removeNullValue(map);
 			return studentInfoService.queryUserStudentInfoByParameterForLigerUI(map, sortName, sortOrder, page, size);
 		}
 	}
@@ -553,5 +554,44 @@ public class UserController extends BaseController{
 			}
 		}
 		return readwb;
+	}
+	
+	/**
+	 * @Title forgetPassword
+	 * @Description：忘记密码
+	 * @param request
+	 * @param response
+	 * @user LiuLei 2017年5月15日
+	 * @updater：
+	 * @updateTime：
+	 */
+	@ResponseBody
+	@RequestMapping("forgetPassword")
+	public Map<String, Object> forgetPassword(HttpServletRequest request, HttpServletResponse response){
+		String userName = getRequestNotNullValue("userName", request);
+		String email = getRequestNotNullValue("email", request);
+		UserInfoVo userVo = userInfoService.queryUserInfoVoByUserName(userName);
+		
+		if(userVo == null){
+			return buildJsonMap("fail","用户不存在!");
+		}
+		
+		if(email.equals(userVo.getEmail())){
+			String password = RandomStringUtils.randomNumeric(6);
+			UserInfo user = new UserInfo();
+			user.setId(userVo.getId());
+			user.setPassword(password);
+			
+			// 发送邮件
+			String res = mailService.sendMail(email, "用户密码重置", "您在校友管理平台的密码已经被重置为"+password+".");
+			if("success".equals(res)){// 发送成功
+				userInfoService.updateUserInfoById(user);
+				return buildJsonMap("success","");
+			}else {// 发送失败
+				return buildJsonMap("fail","邮件发送错误,请尝试查看邮件.");
+			}
+		}else {
+			return buildJsonMap("fail","输入的邮箱不对,请重试!");
+		}
 	}
 }

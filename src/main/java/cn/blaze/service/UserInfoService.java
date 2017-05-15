@@ -5,6 +5,7 @@ import java.util.Map;
 
 import cn.blaze.domain.StudentInfo;
 import cn.blaze.domain.UserInfo;
+import cn.blaze.vo.UserInfoVo;
 
 
 public interface UserInfoService {
@@ -156,4 +157,14 @@ public interface UserInfoService {
 	 * @updateTime：
 	 */
 	int importExcelRegister(UserInfo user, StudentInfo student);
+
+	/**
+	 * @Title queryUserInfoVoByUserName
+	 * @Description：查询用户邮箱
+	 * @param userName
+	 * @user LiuLei 2017年5月14日
+	 * @updater：
+	 * @updateTime：
+	 */
+	UserInfoVo queryUserInfoVoByUserName(String userName);
 }
