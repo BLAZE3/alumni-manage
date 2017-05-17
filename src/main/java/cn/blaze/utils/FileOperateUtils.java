@@ -115,7 +115,7 @@ public class FileOperateUtils {
 
 			// 上传成为压缩文件
 			ZipOutputStream outputStream = new ZipOutputStream(
-					new BufferedOutputStream(new FileOutputStream(storePath)));
+					new BufferedOutputStream(new FileOutputStream(storePath.replace("\"",""))));
 			outputStream.putNextEntry(new ZipEntry(fileName));
 			outputStream.setEncoding("GBK");
 
