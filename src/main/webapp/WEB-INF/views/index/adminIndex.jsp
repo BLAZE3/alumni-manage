@@ -474,7 +474,7 @@
 					</div>
 
 					<div class="page-content">
-						<iframe id="frame-content" name="frame-content" height="850px" width="100%" src="user/forwardUserApprove"> </iframe>
+						<iframe id="frame-content" scrolling="no" name="frame-content" height="850px" width="100%" src="user/forwardUserApprove"> </iframe>
 					</div>
 
 				</div><!-- /.main-content -->
@@ -483,7 +483,6 @@
 					<div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
 						<i class="icon-cog bigger-150"></i>
 					</div>
-
 					<div class="ace-settings-box" id="ace-settings-box">
 						<div>
 							<div class="pull-left">

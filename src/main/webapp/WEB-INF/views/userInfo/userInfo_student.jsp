@@ -50,7 +50,7 @@
 			<input type="text" id="studentName" name="studentName" class="select" style="margin-left: 1rem"/>
 		</td>
 		<td>
-			<span style="margin-left: 1rem">状态</span>
+			<span style="margin-left: 1rem">类型</span>
 		</td>
 		<td>
 			<select id="status" name="status" class="select" style="margin-left: 1rem">

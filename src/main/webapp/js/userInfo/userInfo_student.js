@@ -2,20 +2,19 @@
 function f_initGrid()
 {
     g = manager = $("#maingrid").ligerGrid({
-    	url:"user/queryUserInfoJson?type=student",
+    	url:"user/queryUserInfoJson?jsonType=student",
 //    	dataType : 'json',
         columns: [
         { 
         	display: '学生ID', 
         	name: 'student_id',
-        	width: 50,
         	hide:true
-           
         },
         { 
         	display: '账号', 
         	name: 'user_name',
-            editor: { type: 'text'},
+        	align:'left',
+        	width: '8%',
             render:function(row){
             	return row.userName;
             }
@@ -23,33 +22,31 @@ function f_initGrid()
         { 
         	display: '密码', 
         	name: 'password',
-        	editor: { type: 'text' }
+        	align:'left',
+        	width: '7%',
+        	render: function(rowdata){
+        		return "<p title='"+rowdata.password+"'>"+rowdata.password+"</p>";
+        	}
         },
         { 
         	display: '性别', 
-        	width: 50, 
+        	width: '3%',
         	name: 'sex', 
-            /*editor: { type: 'select', data: sexData, valueField: 'Sex' },
-            render: function (item)
-            {
-                if (parseInt(item.Sex) == 1) return '男';
-                return '女';
-            }*/
         },
         { 
         	display: '创建时间', 
         	name: 'createTimeStr',
-        	width: 50
+        	width: '8%',
         },
         { 
         	display: '更新时间', 
         	name: 'updateTimeStr',
-        	width: 50
+        	width: '8%',
         },
         { 
         	display: '状态', 
         	name: 'status',
-            editor: { type: 'text' },
+        	width: '4%',
             render: function (rowdata)
         	{
 	           if(rowdata.status=="0"){
@@ -62,6 +59,7 @@ function f_initGrid()
         { 
         	display: '类型', 
         	name: 'type',
+        	width: '4%',
             render: function (rowdata)
         	{
 	           if(rowdata.type=="0"){
@@ -80,7 +78,7 @@ function f_initGrid()
         { 
         	display: '姓名', 
         	name: 'student_name',
-            editor: { type: 'text'},
+        	width: '5%',
             render:function(row){
             	return row.studentName;
             }
@@ -88,39 +86,56 @@ function f_initGrid()
         { 
         	display: '年龄', 
         	name: 'age', 
-        	type: 'int', 
-        	editor: { type: 'int'} 
+        	type: 'int',
+        	hide: true,
+        	width: '3%'
         },
         { 
         	display: '手机', 
         	name: 'telephone',
-            editor: { type: 'text' }
+        	width: '7%',
+        	align:'left',
+        	render: function(rowdata){
+        		return "<p title='"+rowdata.telephone+"'>"+rowdata.telephone+"</p>";
+        	}
         },
         { 
         	display: '地址', 
         	name: 'address',
-        	width: 150,
-            editor: { type: 'text' }
+        	align: 'left',
+        	width: '10%',
+        	render: function(rowdata){
+        		return "<p title='"+rowdata.address+"'>"+rowdata.address+"</p>";
+        	}
         },
         { 
         	display: '邮箱', 
         	name: 'email',
-            editor: { type: 'text' }
+        	width: '10%',
+        	render: function(rowdata){
+        		return "<p title='"+rowdata.email+"'>"+rowdata.email+"</p>";
+        	}
         },
         { 
         	display: '微信号', 
         	name: 'wechat',
-            editor: { type: 'text' }
+        	width: '10%',
+        	render: function(rowdata){
+        		return "<p title='"+rowdata.wechat+"'>"+rowdata.wechat+"</p>";
+        	}
         },
         { 
         	display: 'QQ', 
         	name: 'qq',
-        	editor: { type: 'text' }
+        	width: '8%',
+        	render: function(rowdata){
+        		return "<p title='"+rowdata.qq+"'>"+rowdata.qq+"</p>";
+        	}
         },
         { 
         	display: '操作', 
         	isSort: false, 
-        	width: 150,
+        	width: '8%',
         	render: function (rowdata, rowindex, value)
         	{
 	           var h = "";
@@ -164,13 +179,13 @@ function f_initGrid()
 		gridManager = $("#maingrid").ligerGetGridManager(); 
 		var userName = $("#userName").val().trim();
 		var studentName = $("#studentName").val().trim();
-		var status = $("#status").val().trim();
+//		var type = $("#type").val().trim();
 		gridManager.setOptions( 
 				{ 
 					parms: [
 							{ name: 'userName', value: userName},
-							{ name: 'studentName', value: studentName},
-							{ name: 'status', value: status}
+//							{ name: 'type', value: type},
+							{ name: 'studentName', value: studentName}
 						]
 				} 
 			); 
@@ -188,7 +203,7 @@ function f_initGrid()
 		var conditions = "";
 		var userName = $("#userName").val();
 		var studentName = $("#studentName").val();
-		var status = $("#status").val();
+//		var type = $("#type").val();
 		var isvalid = $("#isvalid").val();
 		if(userName!=null && userName!=""){
 			conditions+="&userName="+userName;
@@ -196,9 +211,9 @@ function f_initGrid()
 		if(studentName!=null && studentName!=""){
 			conditions+="&studentName="+studentName;
 		}
-		if(status!=null && status!=""){
-			conditions+="&status="+status;
-		}
+//		if(type!=null && type!=""){
+//			conditions+="&type="+type;
+//		}
 		if(isvalid!=null && isvalid!=""){
 			conditions+="&isvalid="+isvalid;
 		}

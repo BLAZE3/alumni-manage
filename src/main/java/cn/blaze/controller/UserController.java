@@ -148,7 +148,7 @@ public class UserController extends BaseController{
 	/**
 	 * @Title queryAllUserStudentInfo
 	 * @Description：查询所有用户学生信息
-	 * @param type 用户的类型 admin-管理员,student-学生
+	 * @param jsonType 用户的类型 admin-管理员,student-学生
 	 * @param request
 	 * @return
 	 * @user LiuLei 2017年4月26日
@@ -157,16 +157,19 @@ public class UserController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping("queryUserInfoJson")
-	public String queryUserInfoJson(String type, HttpServletRequest request){
+	public String queryUserInfoJson(String jsonType, HttpServletRequest request){
 		
 		if(!this.isRealUser(request)){// 不是认证用户,过滤数据
 			return CommonUtils.list2FlexigridJson("1", null, "0");
+			
 		}else {
 			Map<String, Object> map = new HashMap<String, Object>();
-			if("admin".equals(type) && loginUserIsAdmin(request)){// 管理员列表数据-管理员才能看
+			if("admin".equals(jsonType) && loginUserIsAdmin(request)){// 管理员列表数据-管理员才能看
 				map.put("type",BlazeConstants.USER_TYPE_ADMIN);
-			}else if("confirm".equals(type)){// 审批待认证
+				
+			}else if("confirm".equals(jsonType)){// 审批待认证
 				map.put("type",BlazeConstants.USER_TYPE_CONFIRM);
+				
 			}else {// 学生类表数据
 				map.put("type",BlazeConstants.USER_TYPE_STUDENT);
 			}
@@ -174,10 +177,13 @@ public class UserController extends BaseController{
 			String studentName = this.getNotNullValue(request.getParameter("studentName"));
 			String status = this.getNotNullValue(request.getParameter("status"));
 			String isvalid = this.getNotNullValue(request.getParameter("isvalid"));
+			String sex = this.getNotNullValue(request.getParameter("sex"));
+			
 			map.put("userName", userName);
 			map.put("studentName", studentName);
 			map.put("status", status);
 			map.put("isvalid", isvalid);
+			map.put("sex", sex);
 			
 			String sortName = this.getNotNullValue(request.getParameter("sortname"));
 			String sortOrder = this.getNotNullValue(request.getParameter("sortorder"));
