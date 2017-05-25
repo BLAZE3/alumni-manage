@@ -85,5 +85,13 @@ public class UserInfo {
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
-    
+
+	@Override
+	public String toString() {
+		return "UserInfo [id=" + id + ", studentId=" + studentId
+				+ ", userName=" + userName + ", password=" + password
+				+ ", status=" + status + ", type=" + type + ", isvalid="
+				+ isvalid + ", createTime=" + createTime + ", updateTime="
+				+ updateTime + "]";
+	}
 }

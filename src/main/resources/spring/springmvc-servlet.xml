@@ -50,9 +50,14 @@
             <bean class="cn.blaze.interceptor.LoginInterceptor"/>
         </mvc:interceptor> -->
         <!-- 配置Token拦截器，防止用户重复提交数据 -->
-        <mvc:interceptor>
+      <!--   <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <bean class="cn.blaze.interceptor.TokenInterceptor"/>
-        </mvc:interceptor>
+        </mvc:interceptor> -->
+        
+        <!-- <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="cn.blaze.interceptor.findBugInterceptor"/>
+        </mvc:interceptor> -->
 	</mvc:interceptors>
 </beans>

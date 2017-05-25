@@ -19,6 +19,7 @@ import jxl.Workbook;
 import jxl.read.biff.BiffException;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +46,7 @@ import cn.blaze.vo.UserInfoVo;
 @Controller
 @RequestMapping("/user")
 public class UserController extends BaseController{
+	private Logger _log = Logger.getLogger(UserController.class);
 	@Autowired
 	private UserInfoService userInfoService;
 	@Autowired 
@@ -66,6 +68,11 @@ public class UserController extends BaseController{
 	 */
 	@RequestMapping("forwardUserApprove")
 	public String forwardUserApprove(HttpServletRequest request, HttpServletResponse response){
+		if(request==null){
+			printMessage(response, "request为null!", false);
+		}else {
+			return "userInfo/userInfo_approve";
+		}
 		if(loginUserIsAdmin(request)){
 			return "userInfo/userInfo_approve";
 		}else {
@@ -299,10 +306,12 @@ public class UserController extends BaseController{
 			if(user != null){// 用户存在
 				if(BlazeConstants.USER_TYPE_ADMIN.equals(type)){// 管理员登录
 					this.saveLoginUser(request, user);// 保存用户信息到session
+					logService.insertLog(user.getId(), "管理员用户"+user.getUserName()+"登陆了系统");
 					return "index/adminIndex";
 				}else {// 学生或者普通用户登录
 					this.saveLoginUser(request, user);// 保存用户信息到session
 					request.setAttribute("user", user);
+					logService.insertLog(user.getId(), "用户"+user.getUserName()+"登陆了系统");
 					return "index/userIndex";
 				}
 			}

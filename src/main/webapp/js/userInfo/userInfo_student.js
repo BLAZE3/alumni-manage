@@ -186,10 +186,10 @@ function f_initGrid()
 	/***导出***/
 	$("#export_btn").click(function(){
 		var conditions = "";
-		var userName = $("#userName").val().trim();
-		var studentName = $("#studentName").val().trim();
-		var status = $("#status").val().trim();
-		var isvalid = $("#isvalid").val().trim();
+		var userName = $("#userName").val();
+		var studentName = $("#studentName").val();
+		var status = $("#status").val();
+		var isvalid = $("#isvalid").val();
 		if(userName!=null && userName!=""){
 			conditions+="&userName="+userName;
 		}

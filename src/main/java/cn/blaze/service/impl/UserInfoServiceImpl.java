@@ -102,7 +102,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		UserInfo db_user = this.queryUserInfoById(id);
 		if(BlazeConstants.USER_TYPE_STUDENT.equals(db_user.getType())){//是学生
 			StudentInfo student = studentInfoService.queryStudentInfoById(db_user.getStudentId());
-			mailService.sendMail(student.getEmail(), "校友管理系统密码重置--"+user.getUserName(), "您的密码已经重置为:"+password);
+			mailService.sendMail(student.getEmail(), "校友管理系统密码重置--"+db_user.getUserName(), "您的密码已经重置为:"+password);
 		}
 		return res;
 	}

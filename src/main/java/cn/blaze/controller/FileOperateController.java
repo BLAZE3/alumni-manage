@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -150,6 +151,10 @@ public class FileOperateController extends BaseController{
     @RequestMapping("forwardUpload")  
     public String forwardUpload(HttpServletRequest request, HttpServletResponse response) {
 		UserInfo loginUser = this.getLoginUser(request);
+		if(loginUser == null){
+			printMessage(response, "登录用户为空!", false);
+	        return null;
+		}
 		String type = loginUser.getType();
 		if(BlazeConstants.USER_TYPE_ADMIN.equals(type) || BlazeConstants.USER_TYPE_STUDENT.equals(type)){
 			return "file/fileUpload";
