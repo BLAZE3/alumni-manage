@@ -39,9 +39,8 @@
             $.ajax({
                     type: "get",
                     async: false,
-                    url: "http://chengshuo678.cn/alumni-manage/news/ajax/newsAllList",
+                    url: "http://www.chengshuo678.cn/alumni-manage/news/ajax/newsAllList",
                     dataType: "jsonp",
-                    jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
                     success: function (json) {
                         newsObj = json;
                         if (newsObj.code == 200) { //200代表成功进一步取数据
@@ -78,7 +77,7 @@
             $.ajax({
                 type: "get",
                 async: false,
-                url: "http://chengshuo678.cn/alumni-manage/news/ajax/delete?id="+id,
+                url: "http://www.chengshuo678.cn/alumni-manage/news/ajax/delete?id="+id,
                 dataType: "jsonp",
                 jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
                 success: function (json) {
@@ -110,7 +109,7 @@
                     "   <a class=\"green\" href=\"#\">" +
                     "   <i class=\"icon-pencil bigger-130\"></i>" +
                     "   </a>" +
-                    "   <a class=\"red\" href=\"http://chengshuo678.cn/alumni-manage/news/ajax/delete?id="+id+"\">" +
+                    "   <a class=\"red\" href=\"http://www.chengshuo678.cn/alumni-manage/news/ajax/delete?id="+id+"\">" +
                     "   <i class=\"icon-trash bigger-130\"></i>" +
                     "   </a>" +
                     "   </div>" +
@@ -125,7 +124,7 @@
                     "   </a>" +
                     "   </li>" +
                     "   <li>" +
-                    "   <a href=\"http://chengshuo678.cn/alumni-manage/news/ajax/delete?id="+id+"\" class=\"tooltip-error\" data-rel=\"tooltip\" title=\"Delete\">" +
+                    "   <a href=\"http://www.chengshuo678.cn/alumni-manage/news/ajax/delete?id="+id+"\" class=\"tooltip-error\" data-rel=\"tooltip\" title=\"Delete\">" +
                     "   <span class=\"red\">" +
                     "   <i class=\"icon-trash bigger-120\"></i>" +
                     "   </span>" +
