@@ -9,6 +9,31 @@
     <script type="text/javascript" charset="utf-8" src="ueditor/ueditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="ueditor/ueditor.all.min.js"> </script>
     <script type="text/javascript" charset="utf-8" src="ueditor/lang/zh-cn/zh-cn.js"></script>
+    <link type="text/css" href="jQuery-Timepicker-Addon/jquery-ui.css" rel="stylesheet" />
+    <link href="jQuery-Timepicker-Addon/jquery-ui-timepicker-addon.css" type="text/css" />
+    <link href="jQuery-Timepicker-Addon/demos.css" rel="stylesheet" type="text/css" />
+    <script src="js/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script src="jQuery-Timepicker-Addon/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+    <!--中文-->
+    <script src="js/jquery.ui.datepicker-zh-CN.js.js" type="text/javascript" charset="gb2312"></script>
+    <script src="js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        jQuery(function () {
+            // 时间设置
+            jQuery('#starttime').datetimepicker({
+                timeFormat: "HH:mm:ss",
+                dateFormat: "yy-mm-dd"
+            });
+
+            jQuery('#endtime').datetimepicker({
+                timeFormat: "HH:mm:ss",
+                dateFormat: "yy-mm-dd"
+            });
+
+        });
+    </script>
+
     <title>新闻编辑</title>
     <script type="text/javascript">
 

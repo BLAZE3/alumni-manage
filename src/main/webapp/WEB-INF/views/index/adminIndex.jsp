@@ -474,7 +474,7 @@
 					</div>
 
 					<div class="page-content">
-						<iframe id="frame-content" scrolling="no" name="frame-content" height="850px" width="100%" src="user/forwardUserApprove"> </iframe>
+						<iframe id="frame-content" scrolling="no" name="frame-content" height="950px" width="100%" src="user/forwardUserApprove"> </iframe>
 					</div>
 
 				</div><!-- /.main-content -->
