@@ -146,14 +146,12 @@ function f_initGrid()
         checkbox:true,
         isScroll: true, 
         showTableToggleBtn:true,
-        sortName: "id",
+        sortName: "createTime",
         sortOrder : "DESC",
         showTitle: true,
         pageSize : 50,
         pageSizeOptions: [15,30,50],
         resizable :true,
-        enabledEdit: true,
-        clickToEdit:false,
         width: '99%',
         height : "100%"
     });

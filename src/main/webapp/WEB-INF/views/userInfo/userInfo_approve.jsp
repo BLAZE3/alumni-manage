@@ -50,7 +50,7 @@
 			<input type="text" id="studentName" name="studentName" class="select" style="margin-left: 1rem"/>
 		</td>
 		<td>
-			<select id="sex" name="sex" style="text-align: center;margin-left: 1rem">
+			<select id="sex" name="sex" class="select" style="text-align: center;margin-left: 1rem">
 				<option value="">--请选择--</option>
 				<option value="男">男</option>
 				<option value="女">女</option>

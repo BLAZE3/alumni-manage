@@ -164,9 +164,7 @@ function f_initGrid()
         pageSize : 50,
         pageSizeOptions: [15,30,50],
         resizable :true,
-        enabledEdit: true,
-        clickToEdit:false,
-        width: '100%',
+        width: '99%',
         height : "100%",
         onSelectRow: function (rowdata, rowindex)
         {
@@ -179,17 +177,18 @@ function f_initGrid()
 		gridManager = $("#maingrid").ligerGetGridManager(); 
 		var userName = $("#userName").val().trim();
 		var studentName = $("#studentName").val().trim();
-//		var type = $("#type").val().trim();
-		gridManager.setOptions( 
-				{ 
-					parms: [
-							{ name: 'userName', value: userName},
-//							{ name: 'type', value: type},
-							{ name: 'studentName', value: studentName}
-						]
-				} 
-			); 
-			gridManager.loadData(); 
+		var status = $("#status").val().trim();
+		var sex = $("#sex").val().trim();
+		
+		gridManager.setOptions({ 
+			parms: [
+					{ name: 'userName', value: userName},
+					{ name: 'studentName', value: studentName},
+					{ name: 'sex', value: sex},
+					{ name: 'status', value: status}
+				]
+		}); 
+		gridManager.loadData(); 
 	});
 	
 	/***重置***/
@@ -203,19 +202,24 @@ function f_initGrid()
 		var conditions = "";
 		var userName = $("#userName").val();
 		var studentName = $("#studentName").val();
-//		var type = $("#type").val();
+		var status = $("#status").val();
 		var isvalid = $("#isvalid").val();
+		var sex = $("#sex").val();
+		
 		if(userName!=null && userName!=""){
 			conditions+="&userName="+userName;
 		}
 		if(studentName!=null && studentName!=""){
 			conditions+="&studentName="+studentName;
 		}
-//		if(type!=null && type!=""){
-//			conditions+="&type="+type;
-//		}
+		if(status!=null && status!=""){
+			conditions+="&status="+status;
+		}
 		if(isvalid!=null && isvalid!=""){
 			conditions+="&isvalid="+isvalid;
+		}
+		if(sex!=null && sex!=""){
+			conditions+="&sex="+sex;
 		}
 		window.open("studentInfo/exportStudentInfo?abc=abc"+conditions);// 弹出下载框
 		$("#submit_btn").click();// 刷新数据

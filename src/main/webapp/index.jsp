@@ -27,6 +27,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 			});
 		});
+		function supportClick(){
+			alert("谢谢您的支持,我们会不断完善!");
+		}
 	</script>
 <!-- //end-smoth-scrolling -->
 <script src="js/menu_jquery.js"></script>
@@ -126,7 +129,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="col-md-4 bann-grid">
 						<img src="images/i3.png" alt="">
-						<h4>为我点赞</h4>
+						<a href="javascript:void(0);" onclick="supportClick();">
+							<h4>点赞</h4>
+						</a>
 					</div>
 					<div class="clearfix"></div>
 				</div>
