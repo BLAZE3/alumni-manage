@@ -53,7 +53,7 @@
 			<span style="margin-left: 1rem">性别</span>
 		</td>
 		<td>
-			<select id="sex" name="sex" class="select" style="margin-left: 1rem">
+			<select id="sex" name="sex" class="select" style="margin-left: 1rem;text-align: center">
 				<option value="">--请选择--</option>
 				<option value="男">男</option>
 				<option value="女">女</option>
@@ -63,7 +63,7 @@
 			<span style="margin-left: 1rem">类型</span>
 		</td>
 		<td>
-			<select id="status" name="status" class="select" style="margin-left: 1rem">
+			<select id="status" name="status" class="select" style="margin-left: 1rem;text-align: center">
 				<option value="">--请选择--</option>
 				<option value="0">正常</option>
 				<option value="1">其他</option>

@@ -221,6 +221,7 @@ function f_initGrid()
 		if(sex!=null && sex!=""){
 			conditions+="&sex="+sex;
 		}
+		alert(conditions);
 		window.open("studentInfo/exportStudentInfo?abc=abc"+conditions);// 弹出下载框
 		$("#submit_btn").click();// 刷新数据
 	});
