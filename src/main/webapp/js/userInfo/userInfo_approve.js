@@ -2,20 +2,20 @@
 function f_initGrid()
 {
     g = manager = $("#maingrid").ligerGrid({
-    	url:"user/queryUserInfoJson?type=confirm",
+    	url:"user/queryUserInfoJson?jsonType=confirm",
 //    	dataType : 'json',
         columns: [
         { 
         	display: '学生ID', 
         	name: 'student_id',
-        	width: 50,
         	hide:true
            
         },
         { 
         	display: '账号', 
         	name: 'user_name',
-            editor: { type: 'text'},
+        	width: '10%',
+        	align:'left',
             render:function(row){
             	return row.userName;
             }
@@ -23,26 +23,27 @@ function f_initGrid()
         { 
         	display: '密码', 
         	name: 'password',
-        	editor: { type: 'text' }
+        	hide:true
         },
         { 
         	display: '性别', 
-        	width: 50, 
-        	name: 'sex', 
+        	width: '5%',
+        	name: 'sex' 
         },
         { 
         	display: '创建时间', 
         	name: 'createTimeStr',
-        	width: 50
+        	width: '10%'
         },
         { 
         	display: '更新时间', 
         	name: 'updateTimeStr',
-        	width: 50
+        	width: '10%'
         },
         { 
         	display: '状态', 
         	name: 'status',
+        	width: '5%',
             render: function (rowdata)
         	{
 	           if(rowdata.status=="0"){
@@ -55,15 +56,16 @@ function f_initGrid()
         { 
         	display: '类型', 
         	name: 'type',
+        	width: '5%',
             render: function (rowdata)
         	{
-	           if(rowdata.status=="0"){
+	           if(rowdata.type=="0"){
 	        	   return "<p>管理员</p>";
-	           }else if(rowdata.status=="1"){
+	           }else if(rowdata.type=="1"){
 	        	   return "<p style='color:green'>学生</p>";
-	           }else if(rowdata.status=="2"){
+	           }else if(rowdata.type=="2"){
 	        	   return "<p style='color:yellow'>未认证</p>";
-	           }else if(rowdata.status=="3"){
+	           }else if(rowdata.type=="3"){
 	        	   return "<p style='color:blue'>认证中</p>";
 	           }else{
 	        	   return "<p style='color:red'>其他</p>";
@@ -73,7 +75,7 @@ function f_initGrid()
         { 
         	display: '姓名', 
         	name: 'student_name',
-            editor: { type: 'text'},
+        	width: '5%',
             render:function(row){
             	return row.studentName;
             }
@@ -81,39 +83,55 @@ function f_initGrid()
         { 
         	display: '年龄', 
         	name: 'age', 
-        	type: 'int', 
-        	editor: { type: 'int'} 
+        	width: '3%'
         },
         { 
         	display: '手机', 
         	name: 'telephone',
-            editor: { type: 'text' }
+        	width: '10%',
+        	align:'left',
+        	render: function(rowdata){
+        		return "<p title='"+rowdata.telephone+"'>"+rowdata.telephone+"</p>";
+        	}
         },
         { 
         	display: '地址', 
         	name: 'address',
-        	width: 150,
-            editor: { type: 'text' }
+        	width: '10%',
+        	align:'left',
+        	render: function(rowdata){
+        		return "<p title='"+rowdata.address+"'>"+rowdata.address+"</p>";
+        	}
         },
         { 
         	display: '邮箱', 
         	name: 'email',
-            editor: { type: 'text' }
+        	width: '9%',
+        	align:'left',
+        	render: function(rowdata){
+        		return "<p title='"+rowdata.email+"'>"+rowdata.email+"</p>";
+        	}
         },
         { 
         	display: '微信号', 
         	name: 'wechat',
-            editor: { type: 'text' }
+        	width: '5%',
+        	render: function(rowdata){
+        		return "<p title='"+rowdata.wechat+"'>"+rowdata.wechat+"</p>";
+        	}
         },
         { 
         	display: 'QQ', 
         	name: 'qq',
-        	editor: { type: 'text' }
+        	width: '5%',
+        	render: function(rowdata){
+        		return "<p title='"+rowdata.qq+"'>"+rowdata.qq+"</p>";
+        	}
         },
         { 
         	display: '操作', 
         	isSort: false, 
-        	width: 150,
+        	width: '8%',
         	render: function (rowdata, rowindex, value)
         	{
 	           var h = "";
@@ -136,13 +154,33 @@ function f_initGrid()
         resizable :true,
         enabledEdit: true,
         clickToEdit:false,
-        width: '100%',
-        height : "100%",
-        onSelectRow: function (rowdata, rowindex)
-        {
-            $("#txtrowindex").val(rowindex);
-        }
+        width: '99%',
+        height : "100%"
     });
+    
+    /***提交***/
+	$("#submit_btn").click(function(){
+		gridManager = $("#maingrid").ligerGetGridManager(); 
+		var userName = $("#userName").val().trim();
+		var studentName = $("#studentName").val().trim();
+		var sex = $("#sex").val().trim();
+		gridManager.setOptions( 
+				{ 
+					parms: [
+							{ name: 'userName', value: userName},
+							{ name: 'sex', value: sex},
+							{ name: 'studentName', value: studentName}
+						]
+				} 
+			); 
+			gridManager.loadData(); 
+	});
+	
+	/***重置***/
+	$("#reset_btn").click(function(){
+		$(".select").val("");
+		reloadGrid();
+	});
 }
 
 /**
@@ -213,13 +251,6 @@ function resetPassword(id){
 				}
 		);
 	}
-}
-
-/***重置表格***/
-function resetGrid(){
-	$(".select").val("");
-	gridManager.setOptions( {parms: []} );
-	gridManager.loadData();
 }
 
 /***重新载入表格***/
