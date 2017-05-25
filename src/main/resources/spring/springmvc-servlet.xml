@@ -41,6 +41,8 @@
     <mvc:resources mapping="/fonts/**" location="/fonts/"/>
     <mvc:resources mapping="/font/**" location="/font/"/>
     <mvc:resources mapping="/news.html" location="/"/>
+    <mvc:resources mapping="/newsEditor.html" location="/"/>
+    <mvc:resources mapping="/ueditor" location="/"/>
 
 	<!-- 拦截器配置 -->
 	<mvc:interceptors>
@@ -56,6 +58,9 @@
             <mvc:exclude-mapping path="/ligerUI1.3.3/**"/>
             <mvc:exclude-mapping path="/fonts/**"/>
             <mvc:exclude-mapping path="/font/**"/>
+            <mvc:exclude-mapping path="/news/**"/>
+            <mvc:exclude-mapping path="/*.html"/>
+            <mvc:exclude-mapping path="/ueditor/*"/>
             <bean class="cn.blaze.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
         <!-- 配置Token拦截器，防止用户重复提交数据 -->
