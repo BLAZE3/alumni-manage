@@ -18,37 +18,39 @@
 	var operate = "${operate}";
 </script>
 <body>
-<h1>学历信息</h1>
+<h1 align="center" style="margin-top: 2rem">学历信息</h1>
+<div style="margin-top: 2rem">
 	<form id="add_education_form" action="educationInfo/addEducationInfo" method="post" onsubmit="return submitCheck();">
 		<input type="hidden" name="studentId" value="${studentId}"/>
 		<table>
 			<tr>
 				<td>
+					&nbsp;
 					<select id="country" onchange="fillProvince(this.options[this.options.selectedIndex].value);">
 						<option value="">--请选择国家--</option>
 					</select>
-					&nbsp;&nbsp;
+					&nbsp;
 				</td>
 				<td>
 					<select id="province" onchange="fillCity(this.options[this.options.selectedIndex].value);">
 						<option value="">--请选择省份--</option>
 					</select>
-					&nbsp;&nbsp;
+					&nbsp;
 				</td>
 				<td>
 					<select id="city" onchange="fillSchoolName(this.options[this.options.selectedIndex].value);">
 						<option value="">--请选择城市--</option>
 					</select>
-					&nbsp;&nbsp;
+					&nbsp;
 				</td>
 				<td>
 					<select id="schoolName" name="schoolName" title="请选择学校" class="submit_check">
 						<option value="">--请选择学校--</option>
 					</select>
-					&nbsp;&nbsp;
+					&nbsp;
 				</td>
 				<td>
-					<input type="text" name="institute" placeholder="请输入所在院" title="请输入所在院" class="submit_check">&nbsp;&nbsp;
+					<input type="text" name="institute" placeholder="请输入所在院" title="请输入所在院" class="submit_check">&nbsp;
 					<!-- <select name="institute" title="请选择学院">
 						<option>--所在学院--</option>
 						<option value="软件学院">软件学院</option>
@@ -56,7 +58,7 @@
 					</select> -->
 				</td>
 				<td>
-					<input type="text" name="major" placeholder="请输入专业" title="请输入专业" class="submit_check">&nbsp;&nbsp;
+					<input type="text" name="major" placeholder="请输入专业" title="请输入专业" class="submit_check">&nbsp;
 					<!-- <select name="major" title="请选择专业">
 						<option>--所在专业--</option>
 						<option value="软件系统设计">软件系统设计</option>
@@ -73,7 +75,7 @@
 						<option value="硕士">硕士</option>
 						<option value="博士">博士</option>
 					</select>
-					&nbsp;&nbsp;
+					&nbsp;
 				</td>
 				<td>
 					<input type="text" name="entranceTimeStr" placeholder="入学年份" id="entranceTimeStr" class="submit_time" title="请选择入学时间">
@@ -85,22 +87,24 @@
 					<input type="text" name="graduationTimeStr" placeholder="毕业年份" id="graduationTimeStr" class="submit_time" title="请选择毕业时间">
 				</td>
 				<td>
+					&nbsp;
 					<button id="add_btn" type="button">添加</button>
-					&nbsp;&nbsp;
+					&nbsp;
 					<button type="reset">重置</button>
 				</td>
 			</tr>
 		</table>
 	</form>
-	
+</div>
+<div style="margin-top: 1rem">
 	<table style='border:1px solid #ff00ff;'>
 		<c:if test="${educationInfoList.size()>0}">
 			<c:forEach items="${educationInfoList}" var="education" varStatus="status">
 				<tr>
-					<td>
+					<td style="padding-left: 1rem;color: blue;">
 						${status.count}
 					</td>
-					<td>
+					<td style="padding-left: 1rem">
 						${education.schoolName}
 						<!-- <select name="school_name">
 							<option>--请选择学校--</option>
@@ -108,34 +112,35 @@
 							<option value="中国科学院大学">中国科学院大学</option>
 						</select> -->
 					</td>
-					<td>
+					<td style="padding-left: 1rem">
 						${education.institute}
 						<!-- <input type="text" name="institute"> -->
 					</td>
-					<td>
+					<td style="padding-left: 1rem">
 						${education.major}
 						<!-- <input type="text" name="major"> -->
 					</td>
-					<td>
+					<td style="padding-left: 1rem">
 						${education.education}
 						<!-- <input type="text" name="education"> -->
 					</td>
-					<td>
+					<td style="padding-left: 1rem">
 						${education.entranceTimeStr}
 						<!-- <input type="text" name="userName" placeholder="请输入入学年份"> -->
 					</td>
-					<td>
+					<td style="padding-left: 1rem">
 						${education.graduationTimeStr}
 						<!-- <input type="text" name="userName" placeholder="请输入毕业年份"> -->
 					</td>
-					<td>
+					<td style="padding-left: 1rem">
 						<!-- <button id="update_btn" type="button" onclick="updateEducation()">修改</button>
-						&nbsp;&nbsp; -->
+						&nbsp; -->
 						<button class="del_btn" type="button" onclick="delEducationById('${education.id}')">删除</button>
 					</td>
 				</tr>
 			</c:forEach>
 		</c:if>
 	</table>
+</div>
 </body>
 </html>

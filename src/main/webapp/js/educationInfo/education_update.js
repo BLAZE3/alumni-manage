@@ -31,6 +31,9 @@ function fillCountry(){
 	var url = "school/queryAllCountry";
 	$.post(url,{},
 		function(data){
+			$("#country").html("");
+			$("#country").append("<option value=''>--请选择国家--</option>");
+			
 			for(var o in data){  
 		       var country = data[o];
 		       var option = "<option value='"+country+"'>"+country+"</option>";
@@ -44,6 +47,8 @@ function fillProvince(country){
 	var url = "school/queryProvinceByCountry";
 	$.post(url,{country:country},
 		function(data){
+			$("#province").html("");
+			$("#province").append("<option value=''>--请选择省份--</option>");
 			for(var o in data){  
 				var province = data[o];
 				var option = "<option value='"+province+"'>"+province+"</option>";
@@ -57,6 +62,8 @@ function fillCity(province){
 	var url = "school/queryCityByProvince";
 	$.post(url,{province:province},
 		function(data){
+			$("#city").html("");
+			$("#city").append("<option value=''>--请选择城市--</option>");
 			for(var o in data){  
 				var city = data[o];
 				var option = "<option value='"+city+"'>"+city+"</option>";
@@ -70,6 +77,8 @@ function fillSchoolName(city){
 	var url = "school/querySchoolNameByCity";
 	$.post(url,{city:city},
 		function(data){
+			$("#schoolName").html("");
+			$("#schoolName").append("<option value=''>--请选择学校--</option>");
 			for(var o in data){  
 				var schoolName = data[o];
 				var option = "<option value='"+schoolName+"'>"+schoolName+"</option>";

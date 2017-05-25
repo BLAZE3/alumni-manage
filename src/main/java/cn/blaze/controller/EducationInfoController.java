@@ -41,8 +41,10 @@ public class EducationInfoController extends BaseController{
 	 */
 	@RequestMapping("forwardEducationInfoPage")
 	public String forwardEducationInfoPage(HttpServletRequest request, HttpServletResponse response){
-		if(isRealUser(request)){
-			UserInfo loginUser = getLoginUser(request);
+		UserInfo loginUser = getLoginUser(request);
+		
+		if(isRealUser(request)){// 注册的用户才可看其他学生的学历信息
+			
 			String studentId = this.getNotNullValue(request.getParameter("studentId"));
 			List<EducationInfo> educationInfoList = educationInfoService.findEducationInfoByStudentId(studentId);
 			List<EducationInfoVo> educationInfoVoList = new LinkedList<EducationInfoVo>();
@@ -60,6 +62,8 @@ public class EducationInfoController extends BaseController{
 		}else {
 			printMessage(response, "对不起,您无权查看!", false);
 		}
+		printMessage(response, "对不起,您无权查看!", false);
+		
 		return "educationInfo/education_update";
 	}
 	
