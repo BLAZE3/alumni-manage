@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="css/newsEditor.css">
+    <link rel="stylesheet" type="text/css" href="css/fontStyle.css">
+    <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="ueditor/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="ueditor/lang/zh-cn/zh-cn.js"></script>
+    <title>新闻编辑</title>
+    <script type="text/javascript">
+
+        //实例化编辑器
+        //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+        var ue = UE.getEditor('editor');
+
+        $(function (){
+
+            var newsObj; //全局有效 是否可以随时读取？
+
+            $('#saveAll').on('click',function(){
+                $.ajax({
+                    type: "post",
+                    async: false,
+                    url: "http://www.chengshuo678.cn/alumni-manage/news/ajax/addNews",
+                    dataType: "json",
+                    jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
+                    data: {
+                        starttime: $('#starttime').val(),
+                        endtime: $('#endtime').val(),
+                        title: $('#news_title').val(),
+                        content: getContent(),
+                        publisher: $('#publisher').val(),
+                        author: $('#author').val(),
+                        position: $('#position').val()
+                    },
+                    success: function (json){
+                        alert('返回json对象' + json);
+                        newsObj = json;
+                        if(newsObj.code == 200){ //200代表成功进一步取数据
+                            var newslist = newsObj.content.newsList; //获取到list
+                            for(var i=0;i<newslist.length;i++){ //此处遍历list，是否可以向div里放数据？？我看行
+                                alert(newslist[i].id)
+                            }
+                        }
+                    },
+                    error: function(){
+                        alert('fail');
+                    }
+                });
+            });
+        });
+        function getContent() {
+            var arr = [];
+            arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+            arr.push("内容为：");
+            arr.push(UE.getEditor('editor').getContent());
+            return arr.join("\n");
+        }
+
+    </script>
+</head>
+<body class="news">
+<header>
+    <section class="pcTop">
+        <div class="top_nav">
+            <div class="top_nav_menu">
+                <span>
+                    <i class="icon-circle2"></i>&thinsp;网络课堂
+                </span>
+                <span>
+                    <i class="icon-circle2"></i>&thinsp;报考科大
+                </span>
+                <span>
+                    <i class="icon-circle2"></i>&thinsp;科大校友
+                </span>
+                <span>
+                    <i class="icon-circle2"></i>&thinsp;在校师生
+                </span>
+            </div>
+            <div class="top_nav_searchBar">
+                <span class="searchBar_input">
+                    <input type="text">
+                </span>
+                <span class="searchBar_icon">
+                    <i class="icon-search"></i>
+                </span>
+                <span  class="searchBar_font">
+                    English Version
+                </span>
+            </div>
+        </div>
+    </section>
+</header>
+<main>
+    <div class="newsEditor">
+        <div class="title">
+            <span class="title_name">新闻详情编辑</span>
+            <span class="title_back">
+                <i class="icon-back"></i>&thinsp;返回
+            </span>
+        </div>
+        <div class="content">
+            <div class="row content_title class1">
+                <span>新闻标题：</span>
+                <span><input type="text" id="news_title"></span>
+                <span>*必填</span>
+            </div>
+            <div class="row content_sort class1">
+                <span>新闻分类：</span>
+                <span><input type="text"></span>
+                <span>（可选择新闻类别）</span>
+            </div>
+            <div class="row content_time class2">
+                <div>
+                    <span>生效时间：</span>
+                    <span><input type="text" id="starttime"></span>
+                    <span><img src="../Image/canlendar.png"></span>
+                </div>
+                <div>
+                    <span>结束时间：</span>
+                    <span><input type="text" id="endtime"></span>
+                    <span><img src="../Image/canlendar.png"></span>
+                </div>
+            </div>
+            <div class="row content_author class2">
+                <div>
+                    <span>发布者：</span>
+                    <span><input type="text" id="publisher"></span>
+                </div>
+                <div>
+                    <span>作者姓名：</span>
+                    <span><input type="text" id="author"></span>
+                </div>
+            </div>
+            <div class="row content_location class1">
+                <span>位置信息：</span>
+                <span><input type="text" id="position"></span>
+                <span>*必填</span>
+            </div>
+            <div class="row content_body">
+                <span>正文内容：</span>
+                <span>
+                    <script id="editor" type="text/plain" style="width:770px;height:376px;"></script>
+                </span>
+            </div>
+        </div>
+        <div class="footer">
+            <span id="saveAll"><i class="icon-save"></i>&nbsp;保存</span>
+            <span><i class="icon-cancel"></i>&nbsp;取消</span>
+        </div>
+    </div>
+</main>
+</body>
+</html>

@@ -419,6 +419,14 @@
 								<span class="menu-text"> 资源回收站 </span>
 							</a>
 						</li>
+
+						<li>
+							<a href="newsEditor.html" target="frame-content">
+								<i class="icon-file-alt"></i>
+								<span class="menu-text"> 发布新闻 </span>
+							</a>
+						</li>
+
 						<li>
 							<a href="user/forwardUpdatePassword" target="frame-content">
 								<i class="icon-edit"></i>
