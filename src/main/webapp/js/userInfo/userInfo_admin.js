@@ -2,7 +2,7 @@
 function f_initGrid()
 {
     g = manager = $("#maingrid").ligerGrid({
-    	url:"user/queryUserInfoJson?type=admin",
+    	url:"user/queryUserInfoJson?jsonType=admin",
 //    	dataType : 'json',
         columns: [
 		{ 
@@ -13,20 +13,17 @@ function f_initGrid()
         { 
         	display: '账号', 
         	name: 'userName',
-            editor: { type: 'text' },
-            width: '20%'
+        	width: '30%'
         },
         { 
         	display: '密码', 
         	name: 'password',
-        	editor: { type: 'text' },
-        	width: '25%'
+        	width: '20%'
         },
         { 
         	display: '是否删除', 
         	name: 'isvalid',
-            editor: { type: 'text' },
-            width: '25%',
+        	width: '20%',
         	render: function (rowdata)
         	{
 	           if(rowdata.isvalid=="Y"){
@@ -39,7 +36,6 @@ function f_initGrid()
         { 
         	display: '操作', 
         	isSort: false, 
-        	width: 150,
         	width: '30%',
         	render: function (rowdata, rowindex, value)
         	{
@@ -68,11 +64,7 @@ function f_initGrid()
         enabledEdit: true,
         clickToEdit:false,
         width: '100%',
-        height : "100%",
-        onSelectRow: function (rowdata, rowindex)
-        {
-            $("#txtrowindex").val(rowindex);
-        }
+        height : "100%"
     }); 
     
 }
