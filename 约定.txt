@@ -1,14 +1,3 @@
-cn.blaze.controller		--存放接受用户请求，类名以Controller结尾。例如：LoginController.java
-cn.blaze.dao			--存放访问持久层的接口，类名以Dao结尾。例如BaseDao.java
-cn.blaze.domain			--存放实体类，与数据库对应。例如User.java
-mybatis.mapper			--存放xml文件，名称与cn.blaze.service.impl中的文件名保持一致，例如LoginServiceImpl.xml
-cn.blaze.service		--存放业务接口，以Service结尾，例如LoginService.java
-cn.blaze.service.impl	--存放业务接口实现，以ServiceImpl结尾，例如LoginServiceImpl.java.注意其中方法以find，get，query，select开头为查询语句，忽略事务管理
-cn.blaze.utils			--存放工具类
-cn.blaze.vo				--存放实体类，与页面显示对应，以Vo结尾，例如UserVo.java
-
-/alumni-manage/src/main/webapp/component	--存放页面组件，例如header.jsp
-/alumni-manage/src/main/webapp/css			--存放样式文件
-/alumni-manage/src/main/webapp/images		--存放图片
-/alumni-manage/src/main/webapp/js			--存放js文件
-/alumni-manage/src/main/webapp/view			--存放jsp文件
+tomcat setting for encoding URL
+<Connector connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443" URIEncoding="UTF-8" />
+<Connector port="8009" protocol="AJP/1.3" redirectPort="8443" URIEncoding="UTF-8" />

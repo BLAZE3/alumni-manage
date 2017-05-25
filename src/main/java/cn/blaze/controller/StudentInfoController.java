@@ -1,5 +1,6 @@
 package cn.blaze.controller;
 
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -164,12 +165,14 @@ public class StudentInfoController extends BaseController{
 			String studentName = this.getNotNullValue(request.getParameter("studentName"));
 			String status = this.getNotNullValue(request.getParameter("status"));
 			String isvalid = this.getNotNullValue(request.getParameter("isvalid"));
+			String sex = this.getNotNullValue(request.getParameter("sex"));
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("userName", userName);
 			map.put("studentName", studentName);
 			map.put("status", status);
 			map.put("isvalid", isvalid);
+			map.put("sex", sex);
 			map.put("type", BlazeConstants.USER_TYPE_STUDENT);
 			
 			List<Map<String, Object>> mapList = studentInfoService.queryUserStudentInfoMapByPara(map);
@@ -214,6 +217,6 @@ public class StudentInfoController extends BaseController{
 				}
 			}
 		}
-		return "studentInfo/studentInfo_update";
+   		return "studentInfo/studentInfo_update";
 	}
 }
