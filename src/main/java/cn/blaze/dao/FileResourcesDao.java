@@ -3,6 +3,8 @@ package cn.blaze.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import cn.blaze.domain.FileResources;
 import cn.blaze.vo.FileResourcesVo;
 
@@ -63,4 +65,5 @@ public interface FileResourcesDao {
 	 */
 	List<FileResourcesVo> selectFileResourcesVoByParam(Map<String, Object> map);
 
+	int deleteByIds(@Param("ids")String ids);
 }

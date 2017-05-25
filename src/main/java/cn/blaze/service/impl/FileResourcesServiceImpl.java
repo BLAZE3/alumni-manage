@@ -92,5 +92,12 @@ public class FileResourcesServiceImpl implements FileResourcesService {
 		dbfile.setDownCount(downCount);
 		this.updateFileResourceById(dbfile);
 	}
+
+	@Override
+	public int delFileByIds(String ids) {
+		Map<String, Object> map = new HashMap<String, Object>(2);
+		map.put("ids", ids);
+		return fileResourcesDao.deleteByIds(ids);
+	}
 	
 }

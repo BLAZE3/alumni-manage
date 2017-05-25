@@ -9,7 +9,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -211,15 +210,16 @@ public class FileOperateController extends BaseController{
     			// 上传出错
     			e.printStackTrace();
     			printMessage(response, "上传出错!", false);
+    			return "file/fileUpload";
     		}
+    		
     		printMessage(response, "上传成功!", false);
-    		return "file/fileUpload";
     		 
     	}else {
     		printMessage(response, "对不起,未注册用户无权上传!", false);
-    		return "file/fileUpload";
     	}
-       
+    	
+    	return "file/fileUpload";
     }
   
     /**
@@ -335,5 +335,45 @@ public class FileOperateController extends BaseController{
     		printMessage(response, "未登录或权限不足!", false);
     		return "fail";
     	}
+    }
+    
+    /**
+     * @Title delFileByIds
+     * @Description：删除资源信息
+     * @param request
+     * @param response
+     * @return
+     * @user LiuLei 2017年5月25日
+     * @updater：
+     * @updateTime：
+     */
+    @ResponseBody
+    @RequestMapping("delFileByIds")
+    public String delFileByIds(HttpServletRequest request, HttpServletResponse response){
+    	if(loginUserIsAdmin(request)){
+    		String idsStr = null;
+    		int res = 0;
+    		try{
+    			idsStr = getRequestNotNullValue("ids", request);
+    			String inIds = CommonUtils.stringForWhereIn(idsStr); // 转换成'1','2','3'
+    			res = fileResourcesService.delFileByIds(inIds);
+    		}catch (Exception e){
+    			e.printStackTrace();
+    			return "删除出错,ids="+idsStr;
+    		}
+    		
+    		try{
+    			if(res>0){
+    				// 添加日志
+    				UserInfo loginUser = getLoginUser(request);
+    				logService.insertLog(loginUser.getId(), "用户"+loginUser.getUserName()+"删除了资源"+res+"条");
+    			}else {
+    				return "删除失败,可能资源已被删除";
+    			} 
+    		}catch(Exception e){
+    			e.printStackTrace();
+    		}
+    	}
+    	return "success";
     }
 }

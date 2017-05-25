@@ -8,7 +8,14 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	<!-- 开启注解支持 -->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven>  
+        <mvc:message-converters register-defaults="true">  
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">  
+                <property name="supportedMediaTypes" value = "text/html;charset=UTF-8" />  
+            </bean>  
+        </mvc:message-converters>  
+    </mvc:annotation-driven>  
+    
 	<!-- 开启注解扫描 -->
 	<context:component-scan base-package="cn.blaze.controller"></context:component-scan>
 	<!-- 视图解析器 -->
@@ -62,4 +69,5 @@
             <bean class="cn.blaze.interceptor.findBugInterceptor"/>
         </mvc:interceptor> -->
 	</mvc:interceptors>
+	
 </beans>
