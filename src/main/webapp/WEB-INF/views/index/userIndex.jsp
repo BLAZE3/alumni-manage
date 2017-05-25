@@ -218,16 +218,16 @@
 							<a href="#">
 								<img src="assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
 								<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												不知道写啥 ...
-											</span>
+									<span class="msg-title">
+										<span class="blue">Alex:</span>
+										不知道写啥 ...
+									</span>
 
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>1分钟以前</span>
-											</span>
-										</span>
+									<span class="msg-time">
+										<i class="icon-time"></i>
+										<span>1分钟以前</span>
+									</span>
+								</span>
 							</a>
 						</li>
 
@@ -394,8 +394,8 @@
 				</c:choose>
 				<li >
 					<a href="user/forwardQueryUserInfo?type=student" target="frame-content">
-						<i class="icon-desktop"></i>
-						<span class="menu-text"> 查看学生信息(学历信息) </span>
+						<i class="icon-eye-open"></i>
+						<span class="menu-text"> 查看学生信息</span>
 					</a>
 				</li>
 
@@ -406,19 +406,18 @@
 					</a>
 				</li>
 
-				<li>
+				<!-- <li>
 					<a href="fileOperate/forwardUpload" target="frame-content">
 						<i class="icon-dashboard"></i>
 						<span class="menu-text"> 文件上传 </span>
 					</a>
-				</li>
-
-				<li>
+				</li> -->
+				<!-- <li>
 					<a href="log/forwardLogList" target="frame-content">
 						<i class="icon-eye-open"></i>
 						<span class="menu-text"> 查看日志 </span>
 					</a>
-				</li>
+				</li> -->
 
 				<li>
 					<a href="fileOperate/forwardUpload" target="frame-content">
@@ -461,7 +460,7 @@
 						<i class="icon-home home-icon"></i>
 						<a href="#">首页</a>
 					</li>
-					<li class="active">管理员平台</li>
+					<li class="active">用户平台</li>
 				</ul><!-- .breadcrumb -->
 
 				<div class="nav-search" id="nav-search">
@@ -475,7 +474,7 @@
 			</div>
 
 			<div class="page-content">
-				<iframe id="frame-content" name="frame-content" height="850px" width="100%" src="user/forwardUserApprove"> </iframe>
+				<iframe id="frame-content" name="frame-content" height="850px" width="100%" src="fileOperate/forwardFileList"> </iframe>
 			</div>
 
 		</div><!-- /.main-content -->

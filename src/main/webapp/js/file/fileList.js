@@ -73,15 +73,63 @@ function f_initGrid()
         pageSize : 50,
         pageSizeOptions: [15,30,50],
         resizable :true,
-        enabledEdit: true,
-        clickToEdit:false,
         width: '100%',
         height: '100%',
-        onSelectRow: function (rowdata, rowindex)
-        {
-            $("#txtrowindex").val(rowindex);
-        }
+        isChecked: f_isChecked, 
+        onCheckRow: f_onCheckRow, 
+        onCheckAllRow: f_onCheckAllRow
     });
+    
+    function f_onCheckAllRow(checked)
+    {
+        for (var rowid in this.records){
+            if(checked){
+            	addCheckedRow(this.records[rowid]['id']);
+            }else {
+            	removeCheckedRow(this.records[rowid]['id']);
+            }
+        }
+    }
+
+    /*
+	    该例子实现 表单分页多选
+	    即利用onCheckRow将选中的行记忆下来，并利用isChecked将记忆下来的行初始化选中
+    */
+    var checkedRow = [];
+    function findCheckedRow(id)
+    {
+        for(var i =0;i<checkedRow.length;i++)
+        {
+            if(checkedRow[i] == id) return i;
+        }
+        return -1;
+    }
+    function addCheckedRow(id)
+    {
+        if(findCheckedRow(id) == -1)
+            checkedRow.push(id);
+    }
+    function removeCheckedRow(id)
+    {
+        var i = findCheckedRow(id);
+        if(i==-1) return;
+        checkedRow.splice(i,1);
+    }
+    function f_isChecked(rowdata)
+    {
+        if (findCheckedRow(rowdata.id) == -1)
+            return false;
+        return true;
+    }
+    function f_onCheckRow(checked, data)
+    {
+        if (checked) addCheckedRow(data.id);
+        else removeCheckedRow(data.id);
+    }
+    function f_getChecked()
+    {
+        return checkedRow.join(',');
+    }
     
     /***提交***/
 	$("#submit_btn").click(function(){
@@ -103,6 +151,21 @@ function f_initGrid()
 	$("#reset_btn").click(function(){
 		$(".select").val("");
 		reloadGrid();
+	});
+	
+	/***删除***/
+	$("#del_btn").click(function(){
+		var ids = f_getChecked();
+		var url = "fileOperate/delFileByIds";
+		$.post(url,{ids:ids},
+			function(data){
+				if(data=="success"){
+					g.reload();
+				}else {
+					alert(data);
+				}
+			}
+		);
 	});
     
 }
