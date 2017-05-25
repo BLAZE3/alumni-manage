@@ -427,6 +427,13 @@
 						</li>
 
 						<li>
+							<a href="newsTables.html" target="frame-content">
+								<i class="icon-file-alt"></i>
+								<span class="menu-text"> 新闻列表 </span>
+							</a>
+						</li>
+
+						<li>
 							<a href="user/forwardUpdatePassword" target="frame-content">
 								<i class="icon-edit"></i>
 								<span class="menu-text"> 修改密码 </span>

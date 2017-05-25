@@ -62,4 +62,9 @@ public class NewsServiceImpl implements NewsService {
     public News queryNew(String id) {
         return newsDao.selectByPrimaryKey(id);
     }
+
+    @Override
+    public List<News> queryAllNewsList() {
+        return newsDao.selectAllNewsList();
+    }
 }

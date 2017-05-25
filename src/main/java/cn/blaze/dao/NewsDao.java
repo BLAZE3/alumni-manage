@@ -24,4 +24,6 @@ public interface NewsDao {
     List<News> selectByTimeSize(@Param("size") int size, @Param("date") Date date);
 
     int updateValid(String id);
+
+    List<News> selectAllNewsList();
 }

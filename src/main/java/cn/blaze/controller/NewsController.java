@@ -61,6 +61,24 @@ public class NewsController extends BaseController {
     }
 
     /**
+     * 获取所有新闻列表
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping("ajax/newsAllList")
+    public void newsAllList(HttpServletRequest request,
+                         HttpServletResponse response
+    ) throws IOException {
+        Map<String, Object> result = new HashedMap();
+        List<News> newsList = newsService.queryAllNewsList();
+        result.put("newsList",newsList);
+        writeJsonP(request, response,
+                initAjaxResult(RetCode.SUCCESS.code, result));
+        return;
+    }
+
+    /**
      * 获取新闻详情
      * @param request
      * @param response

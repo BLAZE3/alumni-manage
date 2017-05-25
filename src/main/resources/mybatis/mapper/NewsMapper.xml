@@ -48,6 +48,14 @@
     ]]>
   </select>
 
+  <select id="selectAllNewsList" resultMap="BaseResultMapAll">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from TB_NEWS
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
     select
     <include refid="Base_Column_List" />

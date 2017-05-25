@@ -18,4 +18,7 @@ public interface NewsService {
     boolean updateNews(News news);
 
     News queryNew(String id);
+
+    List<News> queryAllNewsList();
+
 }
