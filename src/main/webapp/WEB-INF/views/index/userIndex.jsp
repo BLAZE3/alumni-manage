@@ -474,7 +474,7 @@
 			</div>
 
 			<div class="page-content">
-				<iframe id="frame-content" name="frame-content" height="850px" width="100%" src="fileOperate/forwardFileList"> </iframe>
+				<iframe id="frame-content" name="frame-content" height="850px" width="100%" src="welcome.jsp"> </iframe>
 			</div>
 
 		</div><!-- /.main-content -->

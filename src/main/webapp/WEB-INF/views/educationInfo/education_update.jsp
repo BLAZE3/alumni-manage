@@ -19,7 +19,7 @@
 </script>
 <body>
 <h1 align="center" style="margin-top: 2rem">学历信息</h1>
-<div style="margin-top: 2rem">
+<div style="margin-top: 2rem" align="center">
 	<form id="add_education_form" action="educationInfo/addEducationInfo" method="post" onsubmit="return submitCheck();">
 		<input type="hidden" name="studentId" value="${studentId}"/>
 		<table>
@@ -96,7 +96,8 @@
 		</table>
 	</form>
 </div>
-<div style="margin-top: 1rem">
+
+<div style="margin-top: 1rem" align="center">
 	<table style='border:1px solid #ff00ff;'>
 		<c:if test="${educationInfoList.size()>0}">
 			<c:forEach items="${educationInfoList}" var="education" varStatus="status">

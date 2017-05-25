@@ -14,7 +14,18 @@
 		$("#submit_btn").click(function(){
 			if(submitCheck()){
 				if(confirm("确认提交?")){
-					$("#student_register_form").submit();
+					var url = "studentInfo/studentRegister";
+					$.post(url,
+						$("#student_register_form").serialize(),
+						function(info){
+							if(info == "success") {
+								alert("认证信息提交成功!");
+								window.location.reload();//刷新
+							}else {
+								alert(info);
+							}
+						}
+					);
 				}
 			}
 		});
@@ -39,7 +50,7 @@
 	}
 </script>
 <body>
-	<form id="student_register_form" action="studentInfo/studentRegister" method="post">
+	<form id="student_register_form" action="" method="post">
 		<input type="hidden" name="id" value="${loginUser.id}">
 		<table>
 			<thead></thead>

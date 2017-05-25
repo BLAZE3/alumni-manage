@@ -119,7 +119,7 @@ function f_initGrid()
         { 
         	display: '微信号', 
         	name: 'wechat',
-        	width: '10%',
+        	width: '8%',
         	render: function(rowdata){
         		return "<p title='"+rowdata.wechat+"'>"+rowdata.wechat+"</p>";
         	}
@@ -127,7 +127,7 @@ function f_initGrid()
         { 
         	display: 'QQ', 
         	name: 'qq',
-        	width: '8%',
+        	width: '5%',
         	render: function(rowdata){
         		return "<p title='"+rowdata.qq+"'>"+rowdata.qq+"</p>";
         	}
@@ -135,7 +135,7 @@ function f_initGrid()
         { 
         	display: '操作', 
         	isSort: false, 
-        	width: '8%',
+        	width: '13%',
         	render: function (rowdata, rowindex, value)
         	{
 	           var h = "";
@@ -221,7 +221,6 @@ function f_initGrid()
 		if(sex!=null && sex!=""){
 			conditions+="&sex="+sex;
 		}
-		alert(conditions);
 		window.open("studentInfo/exportStudentInfo?abc=abc"+conditions);// 弹出下载框
 		$("#submit_btn").click();// 刷新数据
 	});

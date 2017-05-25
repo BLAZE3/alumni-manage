@@ -304,7 +304,7 @@ public class UserController extends BaseController{
 			if(BlazeConstants.USER_TYPE_ADMIN.equals(type)){
 				map.put("type", "'0'");// 管理员类型是0
 			}else {
-				map.put("type", "'1','2'");// 非管理员用户
+				map.put("type", "'1','2','3'");// 非管理员用户
 			}
 			CommonUtils.removeNullValue(map);
 			UserInfo user = userInfoService.queryByUserNameAndPasswordForLogin(map);
@@ -430,6 +430,7 @@ public class UserController extends BaseController{
 			// 添加日志
 			logService.insertLog(db_user.getId(), "用户"+db_user.getUserName()+"完成了用户注册");
 		}
+		printMessage(response, "注册成功,请登录!", false);
 		return "index/login";
 	}
 	

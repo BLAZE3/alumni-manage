@@ -114,15 +114,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<!--script-->
 			<div class="bann-bottom">
-				<h1>Alumni management platform</h1>
-				<p>This platform is for USTC students.</p>
+				<h1>Alumni Management Platform</h1>
+				<p>The platform is developed for USTC students.</p>
 				<div class="bann-main">
 					<div class="col-md-4 bann-grid">
 						<img src="images/i1.png" alt="">
 						<h4>系统公告</h4>
 					</div>
 					<div class="col-md-4 bann-grid">
-						<a href="news.html">
+						<a href="news.html" target="_blank">
 						<img src="images/i2.png" alt="">
 						<h4>校友新闻</h4>
 						</a>

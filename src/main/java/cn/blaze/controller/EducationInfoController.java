@@ -62,7 +62,6 @@ public class EducationInfoController extends BaseController{
 		}else {
 			printMessage(response, "对不起,您无权查看!", false);
 		}
-		printMessage(response, "对不起,您无权查看!", false);
 		
 		return "educationInfo/education_update";
 	}

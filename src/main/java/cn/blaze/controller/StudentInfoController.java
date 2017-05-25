@@ -116,8 +116,9 @@ public class StudentInfoController extends BaseController{
 	 * @updater：
 	 * @updateTime：
 	 */
+	@ResponseBody
 	@RequestMapping("studentRegister")
-	public String studentRegister(StudentRegisterVo registerVo, HttpServletRequest request){
+	public String studentRegister(StudentRegisterVo registerVo, HttpServletRequest request, HttpServletResponse response){
 		// TODO 对传入的参数校验?
 		registerVo.setCreateTime(new Date());
 		studentInfoService.studentRegister(registerVo);
@@ -126,7 +127,7 @@ public class StudentInfoController extends BaseController{
 		// 添加日志
 		logService.insertLog(user.getId(), "用户"+user.getUserName()+"完成用户信息认证");
 		request.setAttribute("user", user);
-		return "index/userIndex";
+		return "success";
 	}
 	
 	/**

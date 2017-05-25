@@ -166,6 +166,7 @@
 										<a href="#">返回首页</a>
 									</div>
 								</div><!-- /login-box -->
+								<!-- 忘记密码 -->
 								<div id="forgot-box" class="forgot-box widget-box no-border">
 									<div class="widget-body">
 										<div class="widget-main">

@@ -28,6 +28,8 @@
 	
 </script>
 <body>
+	<div align="center" style="padding-top: 2rem">
+	<h2>用户信息管理</h2>
 	<%-- <c:if test="${studentInfo!=null}"> --%>
 	<form id="student_update_form" action="studentInfo/updateStudentInfo" method="post">
 		<input type="hidden" name="id" value="${studentInfo.id}">
@@ -35,19 +37,19 @@
 			<thead></thead>
 			<tbody>
 				<tr>
-					<td style="padding-left: 1rem">用户账号</td>
-					<td style="padding-left: 1rem"><input type="text" name="userName" value="${userInfo.userName}" disabled="disabled"></td>
+					<td style="padding-left: 1rem;text-align: right;">用户账号</td>
+					<td style="padding-left: 1rem">${userInfo.userName}</td>
 				</tr>
 				<tr>
-					<td style="padding-left: 1rem">姓名</td>
+					<td style="padding-left: 1rem;text-align: right;">姓名</td>
 					<td style="padding-left: 1rem"><input type="text" name="studentName" value="${studentInfo.studentName}"></td>
 				</tr>
 				<tr>
-					<td style="padding-left: 1rem">年龄</td>
+					<td style="padding-left: 1rem;text-align: right;">年龄</td>
 					<td style="padding-left: 1rem"><input type="text" name="age" value="${studentInfo.age}"></td>
 				</tr>
 				<tr>
-					<td style="padding-left: 1rem">性别</td>
+					<td style="padding-left: 1rem;text-align: right;">性别</td>
 					<td style="padding-left: 1rem">
 						<input id="sex_male" type="radio" name="sex" value="男" class="sex_radio"><label for="sex_male">男</label>
 						&nbsp;&nbsp;&nbsp;&nbsp;
@@ -55,23 +57,23 @@
 					</td>
 				</tr>
 				<tr>
-					<td style="padding-left: 1rem">手机号</td>
+					<td style="padding-left: 1rem;text-align: right;">手机号</td>
 					<td style="padding-left: 1rem"><input type="text" name="telephone" value="${studentInfo.telephone}"></td>
 				</tr>
 				<tr>
-					<td style="padding-left: 1rem">联系地址</td>
+					<td style="padding-left: 1rem;text-align: right;">联系地址</td>
 					<td style="padding-left: 1rem"><input type="text" name="address" value="${studentInfo.address}"></td>
 				</tr>
 				<tr>
-					<td style="padding-left: 1rem">邮箱</td>
+					<td style="padding-left: 1rem;text-align: right;">邮箱</td>
 					<td style="padding-left: 1rem"><input type="text" name="email" value="${studentInfo.email}"></td>
 				</tr>
 				<tr>
-					<td style="padding-left: 1rem">QQ</td>
+					<td style="padding-left: 1rem;text-align: right;">QQ</td>
 					<td style="padding-left: 1rem"><input type="text" name="wechat" value="${studentInfo.wechat}"></td>
 				</tr>
 				<tr>
-					<td style="padding-left: 1rem">微信</td>
+					<td style="padding-left: 1rem;text-align: right;">微信</td>
 					<td style="padding-left: 1rem"><input type="text" name="qq" value="${studentInfo.qq}"></td>
 				</tr>
 				<tr>
@@ -91,5 +93,6 @@
 		</table>
 	</form>
 	<%-- </c:if> --%>
+	</div>
 </body>
 </html>

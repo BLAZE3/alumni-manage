@@ -17,7 +17,7 @@ import cn.blaze.utils.BlazeConstants;
  * @date 2017年5月6日 下午5:45:22
  */
 public class LoginInterceptor implements HandlerInterceptor {
-	private String[] excludeURLs=new String[]{"/user/login","/user/admin"}; //排除拦截的URL
+	private String[] excludeURLs=new String[]{"/user/login","/user/admin","user/userRegister","user/forgetPassword"}; //排除拦截的URL
 	
 	/*
 	 * Handler执行之前调用这个方法
