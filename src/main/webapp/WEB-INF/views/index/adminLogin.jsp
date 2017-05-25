@@ -109,6 +109,9 @@
 											</form>
 										</div><!-- /widget-main -->
 									</div><!-- /widget-body -->
+									<div align="right">
+										<a href="#">返回首页</a>
+									</div>
 								</div><!-- /login-box -->
 							</div><!-- /position-relative -->
 						</div>
