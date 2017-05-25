@@ -22,11 +22,10 @@
 
             $('#saveAll').on('click',function(){
                 $.ajax({
-                    type: "post",
+                    type: "get",
                     async: false,
                     url: "http://www.chengshuo678.cn/alumni-manage/news/ajax/addNews",
-                    dataType: "json",
-                    jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
+                    dataType: "jsonp",
                     data: {
                         starttime: $('#starttime').val(),
                         endtime: $('#endtime').val(),
@@ -37,27 +36,18 @@
                         position: $('#position').val()
                     },
                     success: function (json){
-                        alert('返回json对象' + json);
-                        newsObj = json;
-                        if(newsObj.code == 200){ //200代表成功进一步取数据
-                            var newslist = newsObj.content.newsList; //获取到list
-                            for(var i=0;i<newslist.length;i++){ //此处遍历list，是否可以向div里放数据？？我看行
-                                alert(newslist[i].id)
-                            }
+                        if ( 200 == json.code){
+                            alert("发布新闻成功！")
                         }
                     },
                     error: function(){
-                        alert('fail');
+                        alert("发布新闻失败！");
                     }
                 });
             });
         });
         function getContent() {
-            var arr = [];
-            arr.push("使用editor.getContent()方法可以获得编辑器的内容");
-            arr.push("内容为：");
-            arr.push(UE.getEditor('editor').getContent());
-            return arr.join("\n");
+            return UE.getEditor('editor').getContent();
         }
 
     </script>
@@ -86,12 +76,12 @@
                 <div>
                     <span>生效时间：</span>
                     <span><input type="text" id="starttime"></span>
-                    <span><img src="../Image/canlendar.png"></span>
+                    <span><img src="Image/canlendar.png"></span>
                 </div>
                 <div>
                     <span>结束时间：</span>
                     <span><input type="text" id="endtime"></span>
-                    <span><img src="../Image/canlendar.png"></span>
+                    <span><img src="Image/canlendar.png"></span>
                 </div>
             </div>
             <div class="row content_author class2">
