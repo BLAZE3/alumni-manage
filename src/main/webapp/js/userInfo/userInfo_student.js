@@ -139,7 +139,7 @@ function f_initGrid()
         	render: function (rowdata, rowindex, value)
         	{
 	           var h = "";
-	           h += "<a href='javascript:studentInfoDetail(\""+rowdata.id+"\")'>查看</a> ";
+	           h += "<a href='educationInfo/forwardEducationInfoPage?studentId="+rowdata.studentId+"' target='_blank'>学历</a> ";
 	           if(operate == "yes"){// 管理员可以操作
 	        	   h += "<a href='javascript:editRow(\""+rowdata.id+"\")'>修改</a> ";
 	        	   if(rowdata.isvalid=="Y"){

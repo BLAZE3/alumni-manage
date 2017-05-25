@@ -78,7 +78,7 @@
 									<span class="red">Alumni Manage</span>
 									<span class="white">Application</span>
 								</h1>
-								<h4 class="blue">&copy; LiuLei Project</h4>
+								<h4 class="blue">&copy; Blaze Project</h4>
 							</div>
 
 							<div class="space-6"></div>
@@ -117,7 +117,7 @@
 															<input type="checkbox" class="ace" />
 															<span class="lbl"> Remember Me</span>
 														</label>
-
+														
 														<button id="login_btn" type="submit" class="width-35 pull-right btn btn-sm btn-primary">
 															<i class="icon-key"></i>
 															Login
@@ -162,8 +162,10 @@
 											</div>
 										</div>
 									</div><!-- /widget-body -->
+									<div align="right">
+										<a href="#">返回首页</a>
+									</div>
 								</div><!-- /login-box -->
-
 								<div id="forgot-box" class="forgot-box widget-box no-border">
 									<div class="widget-body">
 										<div class="widget-main">
