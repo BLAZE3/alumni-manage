@@ -291,12 +291,12 @@
 									</a>
 								</li> -->
 
-								<li>
+								<!-- <li>
 									<a href="#">
 										<i class="icon-user"></i>
 										个人资料
 									</a>
-								</li>
+								</li> -->
 								<li>
 									<a href="user/forwardUpdatePassword" target="frame-content">
 										<i class="icon-edit"></i>
@@ -304,7 +304,6 @@
 									</a>
 								</li>
 								<li class="divider"></li>
-
 								<li>
 									<a href="user/logout" >
 										<i class="icon-double-angle-right"></i>

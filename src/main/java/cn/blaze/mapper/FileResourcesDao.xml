@@ -244,4 +244,8 @@
   WHERE id = #{id,jdbcType=VARCHAR}
 </update>
 
+<delete id="deleteByIds" parameterType="java.lang.String">
+	delete from file_resources
+	where id in (${ids})
+</delete>
 </mapper>

@@ -168,7 +168,8 @@
 		insert into student_info (
 			id, 
 			student_name, 
-			age, 
+			age,
+			sex,
 	    	telephone, 
 	    	address, 
 	    	email, 
@@ -182,6 +183,7 @@
 	    	#{id,jdbcType=VARCHAR}, 
 	    	#{studentName,jdbcType=VARCHAR}, 
 	    	#{age,jdbcType=INTEGER}, 
+	    	#{sex,jdbcType=VARCHAR}, 
 	      	#{telephone,jdbcType=VARCHAR}, 
 	      	#{address,jdbcType=VARCHAR}, 
 	      	#{email,jdbcType=VARCHAR}, 

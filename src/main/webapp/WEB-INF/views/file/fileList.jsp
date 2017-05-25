@@ -38,6 +38,7 @@
 		var dataUrl = "";
 		if(is_recycle == "yes"){
 			dataUrl = "fileOperate/queryFileResourcesJson?type=recycle";// 是回收站
+			$("#del_btn").hide();
 		}else {
 			dataUrl = "fileOperate/queryFileResourcesJson";// 不是回收站
 		}
@@ -60,6 +61,8 @@
 			<button id="submit_btn" style="margin-left: 1rem">查询</button>
 			&nbsp;&nbsp;
 			<button id="reset_btn">重置</button>
+			&nbsp;&nbsp;
+			<button id="del_btn">删除</button>
 		</td>
 	</tr>
 </table> 

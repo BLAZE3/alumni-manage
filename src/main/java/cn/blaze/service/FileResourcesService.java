@@ -122,4 +122,6 @@ s	 * @Title cancelFileResourceById
 	 */
 	void updateFileResourceDownCount(FileResources dbfile);
 
+	int delFileByIds(String inIds);
+
 }
