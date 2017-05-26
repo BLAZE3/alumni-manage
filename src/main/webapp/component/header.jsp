@@ -15,9 +15,11 @@
 					<ul>
 						<li><a href="index.jsp">Home</a></li>
 						<li><a href="about.jsp">About </a></li>
-						<li><a href="typo.jsp">Short Codes</a></li>
+						<!-- <li><a href="typo.jsp">Short Codes</a></li> -->
 						<li><a href="galley.jsp">Gallery</a></li>
 						<li><a href="contact.jsp">Contact </a></li>
+						<li><a href="user/userLogin" target="_top">Login</a></li>
+						<li><a href="user/admin" target="_top">Admin</a></li>
 					</ul>
 					<!--script-->
 					<script>
