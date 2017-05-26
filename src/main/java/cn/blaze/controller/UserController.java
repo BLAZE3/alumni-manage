@@ -599,8 +599,7 @@ public class UserController extends BaseController{
 			user.setPassword(password);
 			
 			// 发送邮件
-//			String res = mailService.sendMail(email, "用户密码重置", "您在校友管理平台的密码已经被重置为"+password+".");
-			String res = "success";
+			String res = mailService.sendMail(email, "用户密码重置", "您在校友管理平台的密码已经被重置为"+password+".");
 			if("success".equals(res)){// 发送成功
 				userInfoService.updateUserInfoById(user);
 				return buildJsonMap("success","");
