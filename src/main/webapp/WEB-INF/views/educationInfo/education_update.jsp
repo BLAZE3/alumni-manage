@@ -92,9 +92,9 @@
 				</td>
 				<td>
 					&nbsp;
-					<button id="add_btn" type="button">添加</button>
+					<button id="add_btn" type="button" class="btn btn-sm btn-success">添加</button>
 					&nbsp;
-					<button type="reset">重置</button>
+					<button type="reset" class="btn btn-sm btn-primary">重置</button>
 				</td>
 			</tr>
 		</table>
