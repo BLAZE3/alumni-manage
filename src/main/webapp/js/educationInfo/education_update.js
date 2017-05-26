@@ -36,7 +36,7 @@ function fillCountry(){
 			$("#country").html("");
 			$("#country").append("<option value=''>--请选择国家--</option>");
 			
-			for(var o in data){  
+			for(var o in data){
 		       var country = data[o];
 		       var option = "<option value='"+country+"'>"+country+"</option>";
 		       $("#country").append(option);

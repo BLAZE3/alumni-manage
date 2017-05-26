@@ -50,6 +50,8 @@
 	}
 </script>
 <body>
+<div align="center" style="padding-top: 2rem">
+	<h2>用户信息认证</h2>
 	<form id="student_register_form" action="" method="post">
 		<input type="hidden" name="id" value="${loginUser.id}">
 		<table>
@@ -109,5 +111,6 @@
 			</tfoot>
 		</table>
 	</form>
+</div>
 </body>
 </html>

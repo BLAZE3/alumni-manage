@@ -30,6 +30,7 @@ public class StudentInfoServiceImpl implements StudentInfoService {
 		studentInfo.setId(CommonUtils.buildUniqueId());
 		studentInfo.setAddress(registerVo.getAddress());
 		studentInfo.setAge(registerVo.getAge());
+		studentInfo.setSex(registerVo.getSex());
 		studentInfo.setEmail(registerVo.getEmail());
 		studentInfo.setImagePath(registerVo.getImagePath());
 		studentInfo.setQq(registerVo.getQq());

@@ -15,13 +15,11 @@
     
 	<!-- 新 Bootstrap 核心 CSS 文件 -->
 	<link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-	<!-- 可选的Bootstrap主题文件（一般不使用） -->
-	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
 	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<!-- <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script> -->
 	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
+	<!-- <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+	
 	<script type="text/javascript" src="js/educationInfo/education_update.js"></script>
 	<style type="text/css">
 		.table th, .table td { 
@@ -29,10 +27,11 @@
 			vertical-align: middle!important;
 		}
 	</style>
+	<script type="text/javascript">
+		var operate = "${operate}";
+	</script>
 </head>
-<script type="text/javascript">
-	var operate = "${operate}";
-</script>
+
 <body>
 <h1 align="center" style="margin-top: 2rem">学历信息</h1>
 <div style="margin-top: 2rem" align="center">
@@ -48,19 +47,19 @@
 					&nbsp;
 				</td>
 				<td>
-					<select id="province" style="text-align: center;" onchange="fillCity(this.options[this.options.selectedIndex].value);">
+					<select id="province" style="text-align: center;margin-left: 1rem;" onchange="fillCity(this.options[this.options.selectedIndex].value);">
 						<option value="">--请选择省份--</option>
 					</select>
 					&nbsp;
 				</td>
 				<td>
-					<select id="city" style="text-align: center;" onchange="fillSchoolName(this.options[this.options.selectedIndex].value);">
+					<select id="city" style="text-align: center;margin-left: 1rem;" onchange="fillSchoolName(this.options[this.options.selectedIndex].value);">
 						<option value="">--请选择城市--</option>
 					</select>
 					&nbsp;
 				</td>
 				<td>
-					<select id="schoolName" name="schoolName" title="请选择学校" style="width: 10rem;text-align: center;" class="submit_check">
+					<select id="schoolName" name="schoolName" title="请选择学校" style="text-align: center;margin-left: 1rem;" class="submit_check">
 						<option value="">--请选择学校--</option>
 					</select>
 					&nbsp;
