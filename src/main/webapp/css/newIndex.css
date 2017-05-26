@@ -1,0 +1,104 @@
+body{margin: 0;padding: 0;font-family: '微软雅黑';background-color: #fff;}
+
+
+.index_headerImage{position: relative;margin-top: 151px;height: auto;width: 100%;}
+.wrap_img{position: relative;width: 100%;}
+.wrap_img .list{padding: 0;margin: 0;list-style: none;overflow: hidden;width: 100%;}
+.wrap_img li{position: absolute;left: 0;top: 0;width: 100%;z-index: 0;opacity: 0;}
+.wrap_img li:first-of-type{opacity: 1;}
+.index_headerImage img{height: auto;width: 100%;}
+
+
+/*图片切换布局*/
+.toggle_page{position: absolute;left: 0;width: 100%;height: 60px;display: -webkit-box;-webkit-box-orient: horizontal;
+    -webkit-box-pack: justify;
+    display: flex;flex-direction: row;justify-content: space-between;}
+.toggle_page span{display: block;width: 40px;height: 60px;text-align: center;line-height: 60px;color: rgba(255,255,255,0.7);
+    font-size: 28px;background-color: rgba(0,0,0,0.3);
+    /*font-weight: 600;*/
+}
+.toggle_a{position: absolute;bottom: 23px;left: 46%;width: 8%;height: 26px;background-color: rgba(255,255,255,0.4);border-radius: 13px;
+    display: flex;flex-direction: row;justify-content: space-around;align-items: center;
+    /*display: -webkit-box;-webkit-box-orient: horizontal;-webkit-box-align: center;*/
+    /*-webkit-box-pack: justify;*/
+}
+.toggle_a a{display: block;width: 17px;height: 17px;border-radius: 50%;background-color: rgba(255,255,255,0.9);}
+.toggle_a a.active{background-color: rgba(255,68,0,0.8)}
+
+
+
+.company_introduction{width: 1200px;height: auto;margin: 74px auto 0;padding-bottom: 62px;border-bottom: 1px solid #797979;
+    display: -webkit-box;-webkit-box-orient: horizontal;
+    display: flex;flex-direction: row;
+}
+.company_introduction .company_introduction_title{width: 610px;height: 304px;}
+.company_introduction .company_img{width: 486px;height: auto;margin-left: 88px;}
+.company_introduction .company_img img{width: 486px;height: auto;}
+
+.company_introduction .company_introduction_title .title_word{font-size: 26px;color: #404040;
+}
+.company_introduction .company_introduction_title .title_English{font-size: 18px;color: #404040;line-height: 38px;
+}
+.company_introduction .company_introduction_title .introduction_content{margin-top: 9px;
+    font-size: 14px;color: #797979;line-height: 18px;
+}
+
+.company_introduction .company_introduction_title .about_more{margin-top: 22px;margin-left: 7px;width: 145px;height: 45px;background-color: #ff4400;color: #fff;font-weight: 600;
+    font-size: 14px;text-align: center;line-height: 45px;}
+
+.news_aboutAs{width: 1200px;height: auto;margin: 66px auto 0;display: -webkit-box;-webkit-box-orient: horizontal;padding-bottom: 23px;border-bottom: 1px dotted #eee;
+    display: flex;flex-direction: row;}
+.news_aboutAs .news{width: 595px;height: auto;}
+
+.news_aboutAs .contact_us{width: 357px;height: auto;margin-left: 222px;}
+
+.news .news_title_wrap{display: -webkit-box;-webkit-box-orient: horizontal;-webkit-box-pack: justify;
+    display: flex;flex-direction: row;justify-content: space-between;}
+.news .news_title_wrap div span{display: block;}
+.news .news_title_wrap .news_title span:nth-of-type(1){font-size: 26px;color: #404040;
+}
+.news .news_title_wrap .news_title span:nth-of-type(2){font-size: 18px;color: #404040;line-height: 38px;
+}
+.news .news_title_wrap .more_news{font-size: 18px;color: #313131;
+}
+.news .news_content_wrap{display: -webkit-box;-webkit-box-orient: horizontal;
+    display: flex;flex-direction: row;margin-bottom: 45px;margin-top: 18px;}
+.news .news_content_wrap .content_time{width: 60px;}
+.news .news_content_wrap .content_img{width: 195px;}
+.news .news_content_wrap .content_body{width: 345px;}
+
+.news .news_content_wrap .content_time span{display: block;}
+.news .news_content_wrap .content_time span:nth-of-type(1){font-size: 38px;color: #ff4400;
+}
+.news .news_content_wrap .content_time span:nth-of-type(2){font-size: 12px;color: #303030;
+}
+.news .news_content_wrap .content_img img{width: 185px;height: auto;}
+.news .news_content_wrap .content_body span{display: block;
+}
+.news .news_content_wrap .content_body span:nth-of-type(1){font-size: 21px;color: #2b2b2b;border-bottom: 1px solid #000000;
+    padding-bottom: 13px;}
+.news .news_content_wrap .content_body span:nth-of-type(2){font-size: 14px;color: #2b2b2b;line-height: 20px;text-indent: 28px;margin-top: 10px;
+    height: 80px;overflow: hidden;}
+.news .news_content_wrap .content_body span:nth-of-type(2) em{color: #ff4400;font-style: normal;border-bottom: 1px solid #ff4400;}
+
+.news_aboutAs .contact_us .contact_us_title_word{font-size: 26px;color: #404040;  }
+.news_aboutAs .contact_us .contact_us_title_english{font-size: 18px;color: #404040;line-height: 38px; }
+
+.news_aboutAs .contact_us .contact_us_content{width: 322px;height: 370px;background-color: #0d5673;padding: 16px;}
+.news_aboutAs .contact_us .contact_us_content .contact_us_content_img{width: 322px;}
+.news_aboutAs .contact_us .contact_us_content .contact_us_content_img img{width: 322px;height: auto;}
+
+.news_aboutAs .contact_us .contact_us_content .contact_us_content_p{margin-top: 25px;width: 262px;}
+.news_aboutAs .contact_us .contact_us_content .contact_us_content_p span{display: block;height: 34px;border-bottom: 1px solid #bbbbbb;color: #fff;position: relative;}
+.news_aboutAs .contact_us .contact_us_content .contact_us_content_p span:last-of-type{border-bottom: none;}
+.news_aboutAs .contact_us .contact_us_content .contact_us_content_p span em{font-style: normal;margin-left: 56px;display: block;
+    font-size: 14px;line-height: 34px;}
+
+.news_aboutAs .contact_us .contact_us_content .contact_us_content_p span i{display: inline-block;width: 47px;left: 8px;position: absolute;top: 5px;}
+.news_aboutAs .contact_us .contact_us_content .contact_us_content_p span i img{width: 29px;height: auto}
+
+.news_aboutAs .contact_us .contact_us_content .contact_us_content_l{line-height: 55px;margin-left: 11px;font-size: 17px;color: #fff;}
+
+.footer{width: 100%;margin-top: 29px;text-align: center;margin-bottom: 60px;}
+.footer span{display: block;margin: 0 auto;font-size: 14px;color: #363636;}
+.footer span:nth-of-type(2){margin-top: 17px;}
