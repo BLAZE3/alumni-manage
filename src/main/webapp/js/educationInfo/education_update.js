@@ -26,8 +26,10 @@ $(function() {
 	});
 });
 
+/************************下拉框联动-start************************/
 // 填国家
 function fillCountry(){
+	resetProvince();
 	var url = "school/queryAllCountry";
 	$.post(url,{},
 		function(data){
@@ -44,6 +46,7 @@ function fillCountry(){
 }
 // 填省份
 function fillProvince(country){
+	resetCity();// 初始化城市
 	var url = "school/queryProvinceByCountry";
 	$.post(url,{country:country},
 		function(data){
@@ -59,6 +62,7 @@ function fillProvince(country){
 }
 // 填城市
 function fillCity(province){
+	resetSchoolName();// 初始化学校
 	var url = "school/queryCityByProvince";
 	$.post(url,{province:province},
 		function(data){
@@ -87,6 +91,27 @@ function fillSchoolName(city){
 		}
 	);
 }
+
+//初始化省份
+function resetProvince(){
+	$("#province").html("");
+	$("#province").append("<option value=''>--请选择省份--</option>");
+	resetCity();// 初始化城市
+}
+
+//初始化城市
+function resetCity(){
+	$("#city").html("");
+	$("#city").append("<option value=''>--请选择城市--</option>");
+	resetSchoolName();// 初始化学校
+}
+
+//初始化学校
+function resetSchoolName(){
+	$("#schoolName").html("");
+	$("#schoolName").append("<option value=''>--请选择学校--</option>");
+}
+/************************下拉框联动-end************************/
 
 function delEducationById(id) {
 	var url = "educationInfo/delEducationById";

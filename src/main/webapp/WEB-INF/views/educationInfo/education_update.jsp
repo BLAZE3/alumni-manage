@@ -26,25 +26,25 @@
 			<tr>
 				<td>
 					&nbsp;
-					<select id="country" onchange="fillProvince(this.options[this.options.selectedIndex].value);">
+					<select id="country" style="text-align: center;" onchange="fillProvince(this.options[this.options.selectedIndex].value);">
 						<option value="">--请选择国家--</option>
 					</select>
 					&nbsp;
 				</td>
 				<td>
-					<select id="province" onchange="fillCity(this.options[this.options.selectedIndex].value);">
+					<select id="province" style="text-align: center;" onchange="fillCity(this.options[this.options.selectedIndex].value);">
 						<option value="">--请选择省份--</option>
 					</select>
 					&nbsp;
 				</td>
 				<td>
-					<select id="city" onchange="fillSchoolName(this.options[this.options.selectedIndex].value);">
+					<select id="city" style="text-align: center;" onchange="fillSchoolName(this.options[this.options.selectedIndex].value);">
 						<option value="">--请选择城市--</option>
 					</select>
 					&nbsp;
 				</td>
 				<td>
-					<select id="schoolName" name="schoolName" title="请选择学校" class="submit_check">
+					<select id="schoolName" name="schoolName" title="请选择学校" style="width: 10rem;text-align: center;" class="submit_check">
 						<option value="">--请选择学校--</option>
 					</select>
 					&nbsp;
