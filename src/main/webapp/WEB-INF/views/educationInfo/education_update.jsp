@@ -12,7 +12,23 @@
 	<link href="ligerUI1.3.3/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" /> 
     <script src="ligerUI1.3.3/lib/ligerUI/js/core/base.js" type="text/javascript"></script>
     <script src="ligerUI1.3.3/lib/ligerUI/js/plugins/ligerDateEditor.js" type="text/javascript"></script>
+    
+	<!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<!-- 可选的Bootstrap主题文件（一般不使用） -->
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
 	<script type="text/javascript" src="js/educationInfo/education_update.js"></script>
+	<style type="text/css">
+		.table th, .table td { 
+			text-align: center;
+			vertical-align: middle!important;
+		}
+	</style>
 </head>
 <script type="text/javascript">
 	var operate = "${operate}";
@@ -51,21 +67,9 @@
 				</td>
 				<td>
 					<input type="text" name="institute" placeholder="请输入所在院" title="请输入所在院" class="submit_check">&nbsp;
-					<!-- <select name="institute" title="请选择学院">
-						<option>--所在学院--</option>
-						<option value="软件学院">软件学院</option>
-						<option value="计算机学院">计算机学院</option>
-					</select> -->
 				</td>
 				<td>
 					<input type="text" name="major" placeholder="请输入专业" title="请输入专业" class="submit_check">&nbsp;
-					<!-- <select name="major" title="请选择专业">
-						<option>--所在专业--</option>
-						<option value="软件系统设计">软件系统设计</option>
-						<option value="嵌入式软件设计">嵌入式系统</option>
-						<option value="移动软件设计">移动软件设计</option>
-						<option value="网络信息安全">网络信息安全</option>
-					</select> -->
 				</td>
 				<td>
 					<!-- <input type="text" name="education" placeholder="请输入学历"> -->
@@ -97,51 +101,68 @@
 	</form>
 </div>
 
-<div style="margin-top: 1rem" align="center">
-	<table style='border:1px solid #ff00ff;'>
-		<c:if test="${educationInfoList.size()>0}">
-			<c:forEach items="${educationInfoList}" var="education" varStatus="status">
-				<tr>
-					<td style="padding-left: 1rem;color: blue;">
-						${status.count}
-					</td>
-					<td style="padding-left: 1rem">
-						${education.schoolName}
-						<!-- <select name="school_name">
-							<option>--请选择学校--</option>
-							<option value="中国科学技术大学">中国科学技术大学</option>
-							<option value="中国科学院大学">中国科学院大学</option>
-						</select> -->
-					</td>
-					<td style="padding-left: 1rem">
-						${education.institute}
-						<!-- <input type="text" name="institute"> -->
-					</td>
-					<td style="padding-left: 1rem">
-						${education.major}
-						<!-- <input type="text" name="major"> -->
-					</td>
-					<td style="padding-left: 1rem">
-						${education.education}
-						<!-- <input type="text" name="education"> -->
-					</td>
-					<td style="padding-left: 1rem">
-						${education.entranceTimeStr}
-						<!-- <input type="text" name="userName" placeholder="请输入入学年份"> -->
-					</td>
-					<td style="padding-left: 1rem">
-						${education.graduationTimeStr}
-						<!-- <input type="text" name="userName" placeholder="请输入毕业年份"> -->
-					</td>
-					<td style="padding-left: 1rem">
-						<!-- <button id="update_btn" type="button" onclick="updateEducation()">修改</button>
-						&nbsp; -->
-						<button class="del_btn" type="button" onclick="delEducationById('${education.id}')">删除</button>
-					</td>
-				</tr>
-			</c:forEach>
-		</c:if>
+<div class="table-responsive" style="margin-top: 2rem">
+	<table class="table table-hover table-striped">
+	    <thead>
+	    <tr>
+	        <th style="text-align: center;">
+	       		 序号
+	        </th>
+	        <th style="text-align: center;">
+	        	学校
+	        </th>
+	        <th style="text-align: center;">
+	        	学院
+	        </th>
+	        <th style="text-align: center;">
+	          	专业
+	        </th>
+	        <th style="text-align: center;">
+	        	学位
+	        </th>
+	        <th style="text-align: center;">
+	        	入学时间
+	        </th>
+	        <th style="text-align: center;">
+	        	毕业时间
+	        </th>
+	    </tr>
+	    </thead>
+	
+	    <tbody role="alert" aria-live="polite" aria-relevant="all" id="tBodyId">
+			<c:if test="${educationInfoList.size()>0}">
+				<c:forEach items="${educationInfoList}" var="education" varStatus="status">
+					<tr>
+						<td style="padding-left: 1rem;color: blue;text-align: center;">
+							${status.count}
+						</td>
+						<td style="padding-left: 1rem;text-align: center;">
+							${education.schoolName}
+						</td>
+						<td style="padding-left: 1rem;text-align: center;">
+							${education.institute}
+						</td>
+						<td style="padding-left: 1rem;text-align: center;">
+							${education.major}
+						</td>
+						<td style="padding-left: 1rem;text-align: center;">
+							${education.education}
+						</td>
+						<td style="padding-left: 1rem;text-align: center;">
+							${education.entranceTimeStr}
+						</td>
+						<td style="padding-left: 1rem;text-align: center;">
+							${education.graduationTimeStr}
+						</td>
+						<td style="padding-left: 1rem;text-align: center;">
+							<button class="del_btn btn btn-warning btn-sm" type="button" onclick="delEducationById('${education.id}')">删除</button>
+						</td>
+					</tr>
+				</c:forEach>
+			</c:if>
+	    </tbody>
 	</table>
 </div>
+
 </body>
 </html>
