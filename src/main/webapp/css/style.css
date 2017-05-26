@@ -903,6 +903,14 @@ h3.typo1 {
   	height: 340px;
   	border: none;
 }
+.map_mine {
+  	margin: 2em 0;
+}
+.map_mine iframe {
+  	width: 100%;
+  	height: 850px;
+  	border: none;
+}
 .contact-infom p {
   	color: #858d94;
   	margin: 0 0 1.5em 0;

@@ -17,7 +17,7 @@
 
     <!-- Demo page code -->
     
-    <style type="text/css">
+<!--     <style type="text/css">
         #line-chart {
             height:300px;
             width:800px;
@@ -33,7 +33,7 @@
             color: #fff;
             font-weight: bold;
         }
-    </style>
+    </style> -->
   </head>
   <body> 
 <div class="container-fluid" align="center">
@@ -42,7 +42,7 @@
 	        <h1>Alumni Management Platform!</h1>
 	        <p class="info">The platform is developed for USTC students.</p>
 	        <div align="center">
-		        <img alt="Image/ustclogo.png" src="Image/ustclogo.png" width="601px" height="101px"/>
+		        <img alt="Image/ustclogo.png" src="Image/ustclogo.png" width="40%" height="20%"/>
 	        </div>
 	    </div>
 	</div>

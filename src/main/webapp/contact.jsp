@@ -38,10 +38,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<h2>Contact Us</h2>
 			<p>您还可以访问<a href="http://www.ustc.edu.cn/" target="_blank">中国科学技术大学官网</a>或<a href="http://sse.ustc.edu.cn/pages/index.php" target="_blank">软件学院官网</a>更加详细的了解我们.</p>
 		</div>
-		<div class="map">
+		<div class="map_mine">
 			<h1>GET IN TOUCH</h1>
+			<iframe id="frame" src="http://www.ustc.edu.cn/lxwm/" height="850px!important" width="100%"> </iframe>
 		</div>
-			<iframe id="frame" src="http://www.ustc.edu.cn/lxwm/" height="850px" width="100%"> </iframe>
 		<!-- <div class="contact-infom">
 			<h4>CONTACT INFO</h4>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sheets containing Lorem Ipsum passages, 
