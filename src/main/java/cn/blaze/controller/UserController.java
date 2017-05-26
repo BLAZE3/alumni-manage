@@ -599,12 +599,13 @@ public class UserController extends BaseController{
 			user.setPassword(password);
 			
 			// 发送邮件
-			String res = mailService.sendMail(email, "用户密码重置", "您在校友管理平台的密码已经被重置为"+password+".");
+//			String res = mailService.sendMail(email, "用户密码重置", "您在校友管理平台的密码已经被重置为"+password+".");
+			String res = "success";
 			if("success".equals(res)){// 发送成功
 				userInfoService.updateUserInfoById(user);
 				return buildJsonMap("success","");
 			}else {// 发送失败
-				return buildJsonMap("fail","邮件发送错误,请尝试查看邮件.");
+				return buildJsonMap("fail","邮件发送出现问题,请尝试查看是否收到邮件.");
 			}
 		}else {
 			return buildJsonMap("fail","输入的邮箱不对,请重试!");

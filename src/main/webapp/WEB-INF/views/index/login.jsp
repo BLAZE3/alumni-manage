@@ -206,6 +206,7 @@
 										<script type="text/javascript">
 											$(function(){
 												$("#send_btn").click(function(){
+													$("#send_btn").attr("disabled","disabled");
 													var url="user/forgetPassword";
 													var data = $("#send_form").serialize();
 													if(checkGetPassword()){
@@ -217,6 +218,7 @@
 															}else {
 																alert(data.data);
 															}
+															$("#send_btn").removeAttr("disabled");
 														});
 													}
 												});
